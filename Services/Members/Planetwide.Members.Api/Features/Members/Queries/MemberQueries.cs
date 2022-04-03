@@ -1,6 +1,8 @@
 namespace Planetwide.Members.Api.Features.Members.Queries;
 
+using HotChocolate.Resolvers;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 [ExtendObjectType(typeof(QueryRoot))]
 public class MemberQueries
@@ -13,8 +15,12 @@ public class MemberQueries
         => context.Members;
 
     [UseSingleOrDefault]
-    public IQueryable<Member> GetMember(MemberContext context, int memberId)
+    public async Task<Member> GetMember(IResolverContext context, MemberContext memberContext, int memberId)
     {
-        return context.Members.Where(x => x.Id == memberId);
+        return await context.BatchDataLoader<int, Member>(async (keys, ct) =>
+        {
+            return await memberContext.Members.Where(a => keys.Contains(a.Id))
+                .ToDictionaryAsync(x => x.Id, cancellationToken: ct);
+        }).LoadAsync(memberId);
     }
 }

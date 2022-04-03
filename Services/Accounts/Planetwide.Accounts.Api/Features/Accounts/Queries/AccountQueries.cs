@@ -1,6 +1,8 @@
 namespace Planetwide.Accounts.Api.Features.Accounts.Queries;
 
+using HotChocolate.Resolvers;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 [ExtendObjectType(typeof(QueryRoot))]
 public class AccountQueries
@@ -13,14 +15,23 @@ public class AccountQueries
         => accountContext.Account;
 
     [UseSingleOrDefault]
-    public IQueryable<Account> GetAccount(AccountContext accountContext, int accountId)
+    public async Task<Account> GetAccount(IResolverContext context, AccountContext accountContext, int accountId)
     {
-        return accountContext.Account.Where(x => x.Id == accountId);
+        return await context.BatchDataLoader<int, Account>(async (keys, ct) =>
+        {
+            return await accountContext.Account.Where(a => keys.Contains(a.Id))
+                .ToDictionaryAsync(x => x.Id, cancellationToken: ct);
+        }).LoadAsync(accountId);
     }
 
-    [UseProjection]
-    public IQueryable<Account> GetMemberAccounts(AccountContext accountContext, int memberId)
+    public async Task<Account[]> GetMemberAccounts(IResolverContext context, AccountContext accountContext, int memberId)
     {
-        return accountContext.Account.Where(x => x.MemberId == memberId);
+        return await context.GroupDataLoader<int, Account>( async (keys, ct) =>
+        {
+            var accounts = await accountContext.Account.Where(x => keys.Contains(x.Id))
+                .ToListAsync(cancellationToken: ct);
+
+            return accounts.ToLookup(x => x.MemberId);
+        }).LoadAsync(memberId);
     }
 }
