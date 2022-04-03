@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start Planetwide Graph" type="CompoundRunConfigurationType">
+    <toRun name="Planetwide.Accounts.Api" type="LaunchSettings" />
+    <toRun name="Planetwide.Gateway: Gateway" type="LaunchSettings" />
+    <toRun name="Planetwide.Members.Api" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>
