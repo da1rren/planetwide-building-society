@@ -3,7 +3,7 @@
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public static partial class PlanetwideApiServiceCollectionExtensions
     {
         public static global::StrawberryShake.IClientBuilder<global::Planetwide.Blazor.Ui.Data.Api.State.PlanetwideApiStoreAccessor> AddPlanetwideApi(this global::Microsoft.Extensions.DependencyInjection.IServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)
@@ -88,7 +88,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
 namespace Planetwide.Blazor.Ui.Data.Api
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembersResult : global::System.IEquatable<ListMembersResult>, IListMembersResult
     {
         public ListMembersResult(global::Planetwide.Blazor.Ui.Data.Api.IListMembers_Members? members)
@@ -156,7 +156,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// <summary>
     /// A connection to a list of items.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembers_Members_MembersConnection : global::System.IEquatable<ListMembers_Members_MembersConnection>, IListMembers_Members_MembersConnection
     {
         public ListMembers_Members_MembersConnection(global::System.Collections.Generic.IReadOnlyList<global::Planetwide.Blazor.Ui.Data.Api.IListMembers_Members_Nodes>? nodes)
@@ -227,7 +227,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembers_Members_Nodes_Member : global::System.IEquatable<ListMembers_Members_Nodes_Member>, IListMembers_Members_Nodes_Member
     {
         public ListMembers_Members_Nodes_Member(global::System.Int32 id, global::System.String? firstname, global::System.String? surname, global::System.Collections.Generic.IReadOnlyList<global::Planetwide.Blazor.Ui.Data.Api.IListMembers_Members_Nodes_Accounts?>? accounts)
@@ -318,7 +318,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembers_Members_Nodes_Accounts_Account : global::System.IEquatable<ListMembers_Members_Nodes_Accounts_Account>, IListMembers_Members_Nodes_Accounts_Account
     {
         public ListMembers_Members_Nodes_Accounts_Account(global::System.Int32 id, global::System.String iban, global::System.Decimal balance)
@@ -387,7 +387,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembersResult
     {
         public global::Planetwide.Blazor.Ui.Data.Api.IListMembers_Members? Members { get; }
@@ -396,7 +396,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// <summary>
     /// A connection to a list of items.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembers_Members
     {
         /// <summary>
@@ -408,12 +408,12 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// <summary>
     /// A connection to a list of items.
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembers_Members_MembersConnection : IListMembers_Members
     {
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembers_Members_Nodes
     {
         public global::System.Int32 Id { get; }
@@ -425,12 +425,12 @@ namespace Planetwide.Blazor.Ui.Data.Api
         public global::System.Collections.Generic.IReadOnlyList<global::Planetwide.Blazor.Ui.Data.Api.IListMembers_Members_Nodes_Accounts?>? Accounts { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembers_Members_Nodes_Member : IListMembers_Members_Nodes
     {
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembers_Members_Nodes_Accounts
     {
         public global::System.Int32 Id { get; }
@@ -440,7 +440,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
         public global::System.Decimal Balance { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembers_Members_Nodes_Accounts_Account : IListMembers_Members_Nodes_Accounts
     {
     }
@@ -473,7 +473,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembersQueryDocument : global::StrawberryShake.IDocument
     {
         private ListMembersQueryDocument()
@@ -522,7 +522,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembersQuery : global::Planetwide.Blazor.Ui.Data.Api.IListMembersQuery
     {
         private readonly global::StrawberryShake.IOperationExecutor<IListMembersResult> _operationExecutor;
@@ -588,7 +588,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IListMembersQuery : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IListMembersResult>> ExecuteAsync(global::System.Threading.CancellationToken cancellationToken = default);
@@ -598,7 +598,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// <summary>
     /// Represents the PlanetwideApi GraphQL client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class PlanetwideApi : global::Planetwide.Blazor.Ui.Data.Api.IPlanetwideApi
     {
         private readonly global::Planetwide.Blazor.Ui.Data.Api.IListMembersQuery _listMembers;
@@ -614,7 +614,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
     /// <summary>
     /// Represents the PlanetwideApi GraphQL client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial interface IPlanetwideApi
     {
         global::Planetwide.Blazor.Ui.Data.Api.IListMembersQuery ListMembers { get; }
@@ -623,7 +623,7 @@ namespace Planetwide.Blazor.Ui.Data.Api
 
 namespace Planetwide.Blazor.Ui.Data.Api.State
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class MemberEntity
     {
         public MemberEntity(global::System.Int32 id = default !, global::System.String? firstname = default !, global::System.String? surname = default !, global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? accounts = default !)
@@ -643,7 +643,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId?>? Accounts { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class AccountEntity
     {
         public AccountEntity(global::System.Int32 id = default !, global::System.String iban = default !, global::System.Decimal balance = default !)
@@ -660,7 +660,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         public global::System.Decimal Balance { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembersResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::Planetwide.Blazor.Ui.Data.Api.ListMembersResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -772,7 +772,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembersResultInfo : global::StrawberryShake.IOperationResultDataInfo
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
@@ -794,7 +794,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembers_Members_Nodes_MemberFromMemberEntityMapper : global::StrawberryShake.IEntityMapper<global::Planetwide.Blazor.Ui.Data.Api.State.MemberEntity, ListMembers_Members_Nodes_Member>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -847,7 +847,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembers_Members_Nodes_Accounts_AccountFromAccountEntityMapper : global::StrawberryShake.IEntityMapper<global::Planetwide.Blazor.Ui.Data.Api.State.AccountEntity, ListMembers_Members_Nodes_Accounts_Account>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -867,7 +867,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class ListMembersBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::Planetwide.Blazor.Ui.Data.Api.IListMembersResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -1083,7 +1083,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
     }
 
     ///<summary>A connection to a list of items.</summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class MembersConnectionData
     {
         public MembersConnectionData(global::System.String __typename, global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? nodes = default !)
@@ -1098,7 +1098,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         public global::System.Collections.Generic.IReadOnlyList<global::StrawberryShake.EntityId>? Nodes { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class PlanetwideApiEntityIdFactory : global::StrawberryShake.IEntityIdSerializer
     {
         private static readonly global::System.Text.Json.JsonWriterOptions _options = new global::System.Text.Json.JsonWriterOptions()
@@ -1157,7 +1157,7 @@ namespace Planetwide.Blazor.Ui.Data.Api.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "12.9.0.0")]
     public partial class PlanetwideApiStoreAccessor : global::StrawberryShake.StoreAccessor
     {
         public PlanetwideApiStoreAccessor(global::StrawberryShake.IOperationStore operationStore, global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer entityIdSerializer, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory> requestFactories, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory> resultDataFactories) : base(operationStore, entityStore, entityIdSerializer, requestFactories, resultDataFactories)
