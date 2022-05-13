@@ -15,14 +15,11 @@ One account has one member
 * Currently none
 
 ## To run
-* Start:
-  * Planetwide.Members.Api
-  * Planetwide.Accounts.Api
-  * Planetwide.Gateway
+* Run `docker compose up` in the src folder
 
 Some data will be randomly generated and stored in memory.
 
-Go to https://localhost:7228/graphql/ you may need to refresh your schema as this uses stitching rather than federation for simplicity and this can take a few seconds for all the services to converge.
+Go to http://localhost:9001/graphql/ for the schema explorer or http://localhost:8080/ for a basic ui
 
 ## Sample Queries
 

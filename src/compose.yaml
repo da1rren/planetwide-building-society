@@ -2,7 +2,7 @@ services:
   ui:
     build:
       dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
-      context: 'src/'
+      context: '.'
     environment:
       - Graphql:Gateway=http://localhost:9001/
     ports:
@@ -14,16 +14,16 @@ services:
       - Graphql:Endpoint:Members=http://members.api/graphql/
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
-      context: 'src/'
+      context: '.'
     ports:
       - "9001:80"
 
   accounts.api:
     build:
       dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
-      context: 'src/'
+      context: '.'
 
   members.api:
     build:
       dockerfile: 'Planetwide.Members.Api/Dockerfile'
-      context: 'src/'
+      context: '.'
