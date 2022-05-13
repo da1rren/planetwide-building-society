@@ -1,0 +1,14 @@
+query listMembers {
+    members{
+        nodes {
+            id
+            firstname
+            surname
+            accounts {
+                id
+                iban
+                balance
+            }
+        }
+    }
+}

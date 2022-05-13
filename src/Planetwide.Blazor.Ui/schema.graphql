@@ -1,0 +1,182 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  version: String!
+  accounts("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: AccountFilterInput order: [AccountSortInput!]): AccountsConnection
+  account(accountId: Int!): Account
+  memberAccounts(memberId: Int!): [Account!]!
+  members_version: String!
+  members("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: MemberFilterInput order: [MemberSortInput!]): MembersConnection
+  member(memberId: Int!): Member
+}
+
+type Mutation {
+  version: String!
+  members_version: String!
+}
+
+type Account {
+  id: Int!
+  memberId: Int!
+  number: String!
+  sortCode: String!
+  iban: String!
+  balance: Decimal!
+  member: Member!
+}
+
+"A connection to a list of items."
+type AccountsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [AccountsEdge!]
+  "A flattened list of the nodes."
+  nodes: [Account!]
+}
+
+"An edge in a connection."
+type AccountsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Account!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+input AccountFilterInput {
+  and: [AccountFilterInput!]
+  or: [AccountFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  memberId: ComparableInt32OperationFilterInput
+  number: StringOperationFilterInput
+  sortCode: StringOperationFilterInput
+  iban: StringOperationFilterInput
+  balance: ComparableDecimalOperationFilterInput
+}
+
+input AccountSortInput {
+  id: SortEnumType
+  memberId: SortEnumType
+  number: SortEnumType
+  sortCode: SortEnumType
+  iban: SortEnumType
+  balance: SortEnumType
+}
+
+input ComparableDecimalOperationFilterInput {
+  eq: Decimal
+  neq: Decimal
+  in: [Decimal!]
+  nin: [Decimal!]
+  gt: Decimal
+  ngt: Decimal
+  gte: Decimal
+  ngte: Decimal
+  lt: Decimal
+  nlt: Decimal
+  lte: Decimal
+  nlte: Decimal
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+type Member {
+  id: Int!
+  firstname: String
+  surname: String
+  accounts: [Account]
+}
+
+"A connection to a list of items."
+type MembersConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [MembersEdge!]
+  "A flattened list of the nodes."
+  nodes: [Member!]
+}
+
+"An edge in a connection."
+type MembersEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Member!
+}
+
+input MemberFilterInput {
+  and: [MemberFilterInput!]
+  or: [MemberFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  firstname: StringOperationFilterInput
+  surname: StringOperationFilterInput
+}
+
+input MemberSortInput {
+  id: SortEnumType
+  firstname: SortEnumType
+  surname: SortEnumType
+}
+
+"The name scalar represents a valid GraphQL name as specified in the spec and can be used to refer to fields or types."
+scalar Name
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
+
+"Delegates a resolver to a remote schema."
+directive @delegate("The path to the field on the remote schema." path: String "The name of the schema to which this field shall be delegated to." schema: Name!) on FIELD_DEFINITION
+
+directive @computed("Specifies the fields on which a computed field is dependent on." dependantOn: [Name!]) on FIELD_DEFINITION
+
+"Annotates the original name of a type."
+directive @source("The original name of the annotated type." name: Name! "The name of the schema to which this type belongs to." schema: Name!) repeatable on ENUM | OBJECT | INTERFACE | UNION | INPUT_OBJECT | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE

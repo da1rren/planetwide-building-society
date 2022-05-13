@@ -1,0 +1,33 @@
+@implements IDisposable
+@inject PlanetwideApi _planetwideApi
+
+<h3>List Members</h3>
+
+<table>
+    <thead></thead>
+    <tbody>
+    <tr></tr>
+    </tbody>
+</table>
+
+@code {
+    private IDisposable? _obserable;
+    
+    protected override Task OnInitializedAsync()
+    {
+        _obserable = _planetwideApi.ListMembers
+            .Watch(StrawberryShake.ExecutionStrategy.CacheAndNetwork)
+            .Where(t => !t.Errors.Any())
+            .Subscribe(result =>
+            {
+                StateHasChanged();
+            });
+            
+        return base.OnInitializedAsync();
+    }
+    
+    public void Dispose()
+    {
+        _obserable?.Dispose();
+    }
+}
