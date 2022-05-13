@@ -1,10 +1,11 @@
 #  Simple Building Society 
 
-This project currently contains 3 microservices:
+This project currently contains 4 microservices:
 
-* The gateway
-* Accounts
-* Members
+* Blazorwasm Web Ui
+* Gateway Api
+* Accounts Api
+* Members Api
 
 One member can have many accounts
 
