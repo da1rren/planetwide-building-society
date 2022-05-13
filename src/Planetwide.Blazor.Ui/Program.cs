@@ -13,8 +13,11 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+var gateway = builder.Configuration["Graphql:Gateway"];
+ArgumentNullException.ThrowIfNull(gateway, "gateway");
+
 builder.Services
     .AddPlanetwideApi(ExecutionStrategy.CacheAndNetwork)
-    .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://localhost:7228/graphql/"));    
+    .ConfigureHttpClient(client => client.BaseAddress = new Uri(gateway));    
 
 await builder.Build().RunAsync();

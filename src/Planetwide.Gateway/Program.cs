@@ -18,7 +18,16 @@ builder.Services
     .AddRemoteSchema(WellKnown.Schemas.Members)
     .AddTypeExtensionsFromFile("./Stitching.graphql");
 
+// Don't use this in prod.
+builder.Services.AddCors(options => 
+    options.AddDefaultPolicy(policy => 
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()));
+
 var app = builder.Build();
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 

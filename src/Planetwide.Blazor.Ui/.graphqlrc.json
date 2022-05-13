@@ -5,7 +5,7 @@
     "strawberryShake": {
       "name": "PlanetwideApi",
       "namespace": "Planetwide.Blazor.Ui.Data.Api",
-      "url": "https://localhost:7228/graphql/",
+      "url": "http://localhost:9001/graphql/",
       "dependencyInjection": true,
       "strictSchemaValidation": true,
       "hashAlgorithm": "md5",
