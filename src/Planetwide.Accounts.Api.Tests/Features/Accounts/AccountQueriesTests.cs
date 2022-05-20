@@ -21,6 +21,14 @@ public class AccountQueriesTests : IClassFixture<AccountApiApplicationFactory>
         var response = await client.PostAsJsonAsync("/graphql", new
         {
             query = @"
+{
+  accounts {
+    nodes{
+      id
+      number
+    }
+  }
+}
 "
         });
 

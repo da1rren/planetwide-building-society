@@ -39,7 +39,7 @@ public class SeedDataBackgroundJob : IHostedService
                 .Next(10000000, 99999999)
                 .ToString("D8");
 
-            var sortCode = "070093";
+            const string sortCode = "070093";
 
             await context.Account.AddAsync(new Account()
             {

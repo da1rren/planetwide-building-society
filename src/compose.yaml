@@ -3,72 +3,23 @@ services:
     build:
       dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
       context: '.'
-    environment:
-      - Graphql:Gateway=http://localhost:9001/
-    ports:
-      - "8080:80"
 
   gateway:
-    networks:
-      - gateway
-    environment:
-      - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
-      - Graphql:Endpoint:Members=http://members.api/graphql/
-      - Graphql:Endpoint:Transactions=http://members.api/graphql/
-      - DOTNET_ENVIRONMENT=Development
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
       context: '.'
-    ports:
-      - "9001:80"
 
   accounts.api:
     build:
       dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
       context: '.'
-    environment:
-      - DOTNET_ENVIRONMENT=Development
-    networks:
-      - gateway
-      - microservices
 
   members.api:
     build:
       dockerfile: 'Planetwide.Members.Api/Dockerfile'
       context: '.'
-    environment:
-      - DOTNET_ENVIRONMENT=Development
-    networks:
-      - gateway
-      - microservices
 
   transactions.api:
     build:
       dockerfile: 'Planetwide.Transactions.Api/Dockerfile'
       context: '.'
-    environment:
-      - DOTNET_ENVIRONMENT=Development
-    networks:
-      - gateway
-      - microservices
-
-  redis:
-    image: redis
-    restart: always
-    networks:
-      - gateway
-
-  mongo:
-    image: mongo
-    restart: always
-    networks:
-      - microservices
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-networks:
-  gateway:
-    name: gatewate-to-microservices
-  microservices:
-    name: microservices-to-databases

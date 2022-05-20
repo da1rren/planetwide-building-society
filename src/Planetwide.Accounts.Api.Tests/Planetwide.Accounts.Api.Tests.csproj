@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Planetwide.Accounts.Api\Planetwide.Accounts.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Accounts\__snapshots__" />
+  </ItemGroup>
+
 </Project>

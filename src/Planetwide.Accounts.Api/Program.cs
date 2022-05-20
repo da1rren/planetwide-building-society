@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Planetwide.Accounts.Api.Daemons;
 using Planetwide.Accounts.Api.Features;
 using Planetwide.Accounts.Api.Infrastructure.Data;
 using Planetwide.Graphql.Shared.Extensions;
@@ -18,10 +19,11 @@ builder.Services.AddPooledDbContextFactory<AccountContext>(
     options => options.UseSqlite(keepAliveConnection));
 
 builder.Services.AddHostedService<SeedDataBackgroundJob>();
+builder.Services.AddHostedService<MigrationBackgroundJob>();
 
 builder.Services.AddAuthorization();
 
-var graphqlService = builder.Services
+builder.Services
     .AddGraphQLServer()
     .AddFiltering()
     .AddProjections()
@@ -33,14 +35,6 @@ var graphqlService = builder.Services
     .RegisterObjectExtensions(typeof(Program).Assembly);
 
 var app = builder.Build();
-
-// Normally migrations would be run in a background thread, allowing us to maintain availability
-// However as I am creating the database each time this is required
-// While our database scheme is altered.
-// See MigrationBackgroundJob.cs to see how it can be backgrounded.
-var contextFactory = app.Services.GetRequiredService<IDbContextFactory<AccountContext>>();
-await using var context = await contextFactory.CreateDbContextAsync();
-await context.Database.MigrateAsync();
 
 app.UseHttpsRedirection();
 
