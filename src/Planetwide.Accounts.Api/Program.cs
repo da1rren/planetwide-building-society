@@ -4,6 +4,7 @@ using Planetwide.Accounts.Api.Features;
 using Planetwide.Accounts.Api.Infrastructure.Data;
 using Planetwide.Members.Api.Daemons;
 using Planetwide.Shared;
+using Planetwide.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

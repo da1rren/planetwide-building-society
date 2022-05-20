@@ -1,7 +1,7 @@
-namespace Planetwide.Shared;
-
-using HotChocolate.Types;
 using System.Reflection;
+using HotChocolate.Types;
+
+namespace Planetwide.Shared.Extensions;
 
 public static class TypeExtensions
 {
@@ -9,6 +9,6 @@ public static class TypeExtensions
     {
         return assembly.GetTypes()
             .Where(x => x.CustomAttributes
-                .Any(x => x.AttributeType == typeof(ExtendObjectTypeAttribute)));
+                .Any(y => y.AttributeType == typeof(ExtendObjectTypeAttribute)));
     }
 }

@@ -21,8 +21,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Planetwide.Shared\Planetwide.Shared.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Accounts\Mutations" />
-  </ItemGroup>
 </Project>
