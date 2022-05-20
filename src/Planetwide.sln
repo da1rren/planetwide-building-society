@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planetwide.Transactions.Api
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planetwide.Transactions.Api.Tests", "Planetwide.Transactions.Api.Tests\Planetwide.Transactions.Api.Tests.csproj", "{05626686-9D21-4D43-881E-8FBA8EF5930E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planetwide.Graphql.Shared", "Planetwide.Graphql.Shared\Planetwide.Graphql.Shared.csproj", "{6DBC0FAF-0FC3-4C8F-86F2-A8CC289235D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +78,10 @@ Global
 		{05626686-9D21-4D43-881E-8FBA8EF5930E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05626686-9D21-4D43-881E-8FBA8EF5930E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05626686-9D21-4D43-881E-8FBA8EF5930E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DBC0FAF-0FC3-4C8F-86F2-A8CC289235D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DBC0FAF-0FC3-4C8F-86F2-A8CC289235D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DBC0FAF-0FC3-4C8F-86F2-A8CC289235D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DBC0FAF-0FC3-4C8F-86F2-A8CC289235D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7DA13A9C-5669-4B39-B4A8-4D359A79140D} = {96C835B1-DF80-4EFB-9208-052FB40154D9}

@@ -4,19 +4,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddHttpClient(WellKnown.Schemas.Accounts,
-    c => c.BaseAddress = 
-        new Uri(builder.Configuration["Graphql:Endpoint:Accounts"]));
+foreach (var schema in WellKnown.Schemas.All)
+{
+    builder.Services.AddHttpClient(schema, c =>
+    {
+        var uri = builder.Configuration[$"Graphql:Endpoint:{schema}"];
+        ArgumentNullException.ThrowIfNull(uri, "GraphqlEndpoint");
+        c.BaseAddress = new Uri(uri);
+    });
+}
 
-builder.Services.AddHttpClient(WellKnown.Schemas.Members,
-    c => c.BaseAddress = 
-        new Uri(builder.Configuration["Graphql:Endpoint:Members"]));
-
-builder.Services
+var graphqlConfiguration = builder.Services
     .AddGraphQLServer()
-    .AddRemoteSchema(WellKnown.Schemas.Accounts)
-    .AddRemoteSchema(WellKnown.Schemas.Members)
     .AddTypeExtensionsFromFile("./Stitching.graphql");
+
+foreach (var schemas in WellKnown.Schemas.All)
+{
+    graphqlConfiguration.AddRemoteSchema(schemas);
+}
 
 // Don't use this in prod.
 builder.Services.AddCors(options => 

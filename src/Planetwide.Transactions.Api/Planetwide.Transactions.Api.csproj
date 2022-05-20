@@ -8,17 +8,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="HotChocolate.AspNetCore" Version="12.7.0" />
-        <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.7.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.3">
+        <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.Data.MongoDb" Version="12.9.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Planetwide.Graphql.Shared\Planetwide.Graphql.Shared.csproj" />
         <ProjectReference Include="..\Planetwide.Shared\Planetwide.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Planetwide.Transactions.Api.Tests" />
+    </ItemGroup>
 </Project>

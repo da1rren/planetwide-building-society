@@ -4,7 +4,15 @@ public static class WellKnown
 {
     public static class Schemas
     {
-        public const string Accounts = "accounts";
-        public const string Members = "members";
+        public static IReadOnlyList<string> All = new List<string>
+        {
+            Accounts,
+            Members,
+            Transactions
+        };
+        
+        public const string Accounts = "Accounts";
+        public const string Members = "Members";
+        public const string Transactions = "Transactions";
     }
 }

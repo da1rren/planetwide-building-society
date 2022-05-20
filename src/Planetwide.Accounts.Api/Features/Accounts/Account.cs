@@ -16,11 +16,6 @@ public class Account
     public string Iban { get; init; }
 
     public decimal Balance { get; set; }
-
-    public Account()
-    {
-
-    }
 }
 
 public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>

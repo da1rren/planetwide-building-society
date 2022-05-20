@@ -2,15 +2,16 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Planetwide.Accounts.Api.Features;
 using Planetwide.Accounts.Api.Infrastructure.Data;
+using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Members.Api.Daemons;
-using Planetwide.Shared;
-using Planetwide.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // We manage the connection as we are using the in memory mode.  
 // The memory is automatically released when we close the last connection
-var keepAliveConnection = new SqliteConnection("DataSource=Planetwide;mode=memory;cache=shared");
+var connectionString = builder.Configuration["Database:SqliteConnectionString"];
+ArgumentNullException.ThrowIfNull(connectionString);
+var keepAliveConnection = new SqliteConnection(connectionString);
 keepAliveConnection.Open();
 
 builder.Services.AddPooledDbContextFactory<AccountContext>(
@@ -28,16 +29,8 @@ var graphqlService = builder.Services
     .AddQueryableCursorPagingProvider()
     .RegisterDbContext<AccountContext>(DbContextKind.Pooled)
     .AddQueryType<QueryRoot>()
-    .AddMutationType<MutationRoot>();
-
-// Using a little reflection we then pull all our type extensions together
-// Which lets us break the application into feature folders 
-var typeExtensions = typeof(Program).Assembly.DiscoverObjectExtensions();
-
-foreach (var typeExtension in typeExtensions)
-{
-    graphqlService.AddTypeExtension(typeExtension);
-}
+    .AddMutationType<MutationRoot>()
+    .RegisterObjectExtensions(typeof(Program).Assembly);
 
 var app = builder.Build();
 

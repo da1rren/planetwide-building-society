@@ -15,6 +15,7 @@ services:
       - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
       - Graphql:Endpoint:Members=http://members.api/graphql/
       - Graphql:Endpoint:Transactions=http://members.api/graphql/
+      - DOTNET_ENVIRONMENT=Development
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
       context: '.'
@@ -25,6 +26,8 @@ services:
     build:
       dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
       context: '.'
+    environment:
+      - DOTNET_ENVIRONMENT=Development
     networks:
       - gateway
       - microservices
@@ -33,6 +36,8 @@ services:
     build:
       dockerfile: 'Planetwide.Members.Api/Dockerfile'
       context: '.'
+    environment:
+      - DOTNET_ENVIRONMENT=Development
     networks:
       - gateway
       - microservices
@@ -41,6 +46,8 @@ services:
     build:
       dockerfile: 'Planetwide.Transactions.Api/Dockerfile'
       context: '.'
+    environment:
+      - DOTNET_ENVIRONMENT=Development
     networks:
       - gateway
       - microservices
