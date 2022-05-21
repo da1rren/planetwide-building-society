@@ -17,7 +17,6 @@ keepAliveConnection.Open();
 builder.Services.AddPooledDbContextFactory<MemberContext>(
     options => options.UseSqlite(keepAliveConnection));
 
-builder.Services.AddHostedService<SeedDataBackgroundJob>();
 builder.Services.AddHostedService<MigrationBackgroundJob>();
 builder.Services.AddAuthorization();
 
@@ -33,8 +32,6 @@ builder.Services
     .RegisterObjectExtensions(typeof(Program).Assembly);
 
 var app = builder.Build();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

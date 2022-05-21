@@ -18,10 +18,11 @@ keepAliveConnection.Open();
 builder.Services.AddPooledDbContextFactory<AccountContext>(
     options => options.UseSqlite(keepAliveConnection));
 
-builder.Services.AddHostedService<SeedDataBackgroundJob>();
-builder.Services.AddHostedService<MigrationBackgroundJob>();
+builder.Services
+    .AddHostedService<MigrationBackgroundJob>()
+    .AddAuthorization();
 
-builder.Services.AddAuthorization();
+builder.Services.AddHealthChecks();
 
 builder.Services
     .AddGraphQLServer()
@@ -36,10 +37,12 @@ builder.Services
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-app.MapGraphQL();
-
+app.UseEndpoints(config =>
+{
+    config.MapGraphQL();
+    config.MapHealthChecks("/health");
+});
+    
 app.Run();

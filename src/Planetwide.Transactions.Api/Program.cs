@@ -4,8 +4,6 @@ using Planetwide.Transactions.Api.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services
     .AddSingleton(sp =>
     {
@@ -27,8 +25,6 @@ builder.Services
     .RegisterObjectExtensions(typeof(Program).Assembly);
 
 var app = builder.Build();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

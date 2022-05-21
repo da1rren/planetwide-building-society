@@ -1,11 +1,21 @@
 services:
   ui:
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    command: dotnet watch run --project Planetwide.Blazor.Ui
+    working_dir: /app
+    volumes:
+      - .:/app
     environment:
       - Graphql:Gateway=http://localhost:9001/
     ports:
       - "8080:80"
 
   gateway:
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    command: dotnet watch run --project Planetwide.Gateway
+    working_dir: /app
+    volumes:
+      - .:/app
     networks:
       - gateway
     environment:
@@ -17,6 +27,11 @@ services:
       - "9001:80"
 
   accounts.api:
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    command: dotnet watch run --project Planetwide.Members.Api
+    working_dir: /app
+    volumes:
+      - .:/app
     environment:
       - DOTNET_ENVIRONMENT=Development
     networks:
@@ -24,6 +39,11 @@ services:
       - microservices
 
   members.api:
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    command: dotnet watch run --project Planetwide.Members.Api
+    working_dir: /app
+    volumes:
+      - .:/app
     environment:
       - DOTNET_ENVIRONMENT=Development
     networks:
@@ -31,6 +51,11 @@ services:
       - microservices
 
   transactions.api:
+    image: mcr.microsoft.com/dotnet/sdk:6.0
+    command: dotnet watch run --project Planetwide.Transactions.Api
+    working_dir: /app
+    volumes:
+      - .:/app
     environment:
       - DOTNET_ENVIRONMENT=Development
     networks:

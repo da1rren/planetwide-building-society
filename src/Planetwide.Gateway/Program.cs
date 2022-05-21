@@ -24,8 +24,8 @@ foreach (var schemas in WellKnown.Schemas.All)
 }
 
 // Don't use this in prod.
-builder.Services.AddCors(options => 
-    options.AddDefaultPolicy(policy => 
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(policy =>
         policy.AllowAnyHeader()
             .AllowAnyMethod()
             .AllowAnyOrigin()));
@@ -33,8 +33,6 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors();
-
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
