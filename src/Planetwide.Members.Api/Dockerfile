@@ -5,6 +5,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 COPY ["Planetwide.Members.Api/Planetwide.Members.Api.csproj", "Planetwide.Members.Api/"]
+COPY ["Planetwide.Graphql.Shared/Planetwide.Graphql.Shared.csproj", "Planetwide.Graphql.Shared/"]
 COPY ["Planetwide.Shared/Planetwide.Shared.csproj", "Planetwide.Shared/"]
 RUN dotnet restore "Planetwide.Members.Api/Planetwide.Members.Api.csproj"
 COPY . .

@@ -1,8 +1,8 @@
 services:
-  ui:
-    build:
-      dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
-      context: '.'
+  # ui:
+  #   build:
+  #     dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
+  #     context: '.'
 
   gateway:
     build:

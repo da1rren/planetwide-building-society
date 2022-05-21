@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.Network" Version="6.0.3" />
+    <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.4" />
+    <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
     <PackageReference Include="Faker.Net" Version="2.0.154" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
@@ -25,6 +31,10 @@
     <Content Include="Stitching.graphql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Planetwide.Shared\Planetwide.Shared.csproj" />
   </ItemGroup>
 
 </Project>

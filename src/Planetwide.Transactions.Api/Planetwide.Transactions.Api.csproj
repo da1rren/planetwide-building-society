@@ -8,6 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="6.0.2" />
+        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
+        <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.4" />
         <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Data.MongoDb" Version="12.9.0" />

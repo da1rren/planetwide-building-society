@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using Planetwide.Graphql.Shared.Extensions;
+using Planetwide.Shared.Extensions;
 using Planetwide.Transactions.Api.Features;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,11 @@ builder.Services
 builder.Services.AddAuthorization();
 
 builder.Services
+    .AddHealthChecks()
+    .AddRedis(builder.Configuration["Database:Redis"])
+    .AddMongoDb(builder.Configuration["Database:MongoConnectionString"]);
+
+builder.Services
     .AddGraphQLServer()
     .AddMongoDbFiltering()
     .AddMongoDbProjections()
@@ -26,6 +32,13 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseRouting();
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+    endpoints.MapDetailedHealthChecks();
+});
 
 app.Run();

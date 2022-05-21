@@ -4,11 +4,13 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
 COPY ["Planetwide.Accounts.Api/Planetwide.Accounts.Api.csproj", "Planetwide.Accounts.Api/"]
+COPY ["Planetwide.Graphql.Shared/Planetwide.Graphql.Shared.csproj", "Planetwide.Graphql.Shared/"]
 COPY ["Planetwide.Shared/Planetwide.Shared.csproj", "Planetwide.Shared/"]
 RUN dotnet restore "Planetwide.Accounts.Api/Planetwide.Accounts.Api.csproj"
 COPY . .
-WORKDIR "/Planetwide.Accounts.Api"
+WORKDIR "/src/Planetwide.Accounts.Api"
 RUN dotnet build "Planetwide.Accounts.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish

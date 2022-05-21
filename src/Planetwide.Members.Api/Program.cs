@@ -4,6 +4,7 @@ using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Members.Api.Daemons;
 using Planetwide.Members.Api.Features;
 using Planetwide.Members.Api.Infrastructure.Data;
+using Planetwide.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,9 @@ keepAliveConnection.Open();
 
 builder.Services.AddPooledDbContextFactory<MemberContext>(
     options => options.UseSqlite(keepAliveConnection));
+
+builder.Services.AddHealthChecks()
+    .AddRedis(builder.Configuration["Database:Redis"]);
 
 builder.Services.AddHostedService<MigrationBackgroundJob>();
 builder.Services.AddAuthorization();
@@ -33,8 +37,13 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseRouting();
 app.UseAuthorization();
 
-app.MapGraphQL();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+    endpoints.MapDetailedHealthChecks();
+});
 
 app.Run();

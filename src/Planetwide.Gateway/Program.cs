@@ -1,16 +1,38 @@
 using Planetwide.Gateway;
+using Planetwide.Gateway.Extensions;
+using Planetwide.Shared.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthorization();
 
-foreach (var schema in WellKnown.Schemas.All)
-{
-    builder.Services.AddHttpClient(schema, c =>
+var endpoints = WellKnown.Schemas.All.Select(schema =>
+    new Uri(builder.Configuration[$"Graphql:Endpoint:{schema}"]))
+    .ToArray();
+
+builder.Services.AddHealthChecks()
+    .AddEndpointDnsChecks(endpoints)
+    // .AddEndpointHttpChecks(endpoints)
+    .AddRedis(builder.Configuration["Database:Redis"]);
+
+builder.Services
+    .AddHealthChecksUI(opt =>
     {
-        var uri = builder.Configuration[$"Graphql:Endpoint:{schema}"];
-        ArgumentNullException.ThrowIfNull(uri, "GraphqlEndpoint");
-        c.BaseAddress = new Uri(uri);
+        opt.AddHealthCheckEndpoint("gateway", "/health");
+
+        foreach (var downstreamEndpoint in endpoints.Select(endpoint => new Uri(endpoint, "/health")))
+        {
+            opt.AddHealthCheckEndpoint(downstreamEndpoint.Host, "/health");
+        }
+    })
+    .AddInMemoryStorage();
+
+foreach (var endpoint in endpoints)
+{
+    builder.Services.AddHttpClient(endpoint.Host, c =>
+    {
+        ArgumentNullException.ThrowIfNull(endpoint, "GraphqlEndpoint");
+        c.BaseAddress = endpoint;
     });
 }
 
@@ -32,10 +54,15 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseRouting();
 app.UseCors();
-
 app.UseAuthorization();
 
-app.MapGraphQL();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL();
+    endpoints.MapHealthChecksUI();
+    endpoints.MapDetailedHealthChecks();
+});
 
 app.Run();
