@@ -1,4 +1,4 @@
-namespace Planetwide.Gateway;
+namespace Planetwide.Shared;
 
 public static class WellKnown
 {
@@ -11,6 +11,7 @@ public static class WellKnown
             Transactions
         };
         
+        public const string SchemaKey = "planetwide";
         public const string Accounts = "Accounts";
         public const string Members = "Members";
         public const string Transactions = "Transactions";

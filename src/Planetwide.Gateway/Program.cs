@@ -1,18 +1,21 @@
-using Planetwide.Gateway;
 using Planetwide.Gateway.Extensions;
+using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddAuthorization();
 
 var endpoints = WellKnown.Schemas.All.ToDictionary(
     schema => schema, 
     schema => new Uri(builder.Configuration[$"Graphql:Endpoint:{schema}"]));
 
+builder.Services
+    .AddAuthorization()
+    .RegisterRedis()
+    .RegisterSchemaHttpClients(endpoints);
+
 builder.Services.AddHealthChecks()
     .AddEndpointDnsChecks(endpoints)
-    // .AddEndpointHttpChecks(endpoints)
     .AddRedis(builder.Configuration["Database:Redis"]);
 
 builder.Services
@@ -20,27 +23,18 @@ builder.Services
     {
         opt.AddHealthCheckEndpoint("gateway", "/health");
 
-        foreach (var downstreamEndpoint in endpoints.Select(endpoint => new Uri(endpoint, "/health")))
-        {
-            var name = $@"{downstreamEndpoint.Host}{(downstreamEndpoint.IsDefaultPort ? 
-                string.Empty : ":" + downstreamEndpoint.Port)}";
-            
-            opt.AddHealthCheckEndpoint( name, downstreamEndpoint.ToString());
+        foreach (var schemas in endpoints)
+        {   
+            opt.AddHealthCheckEndpoint(schemas.Key, new Uri(schemas.Value, "/health").ToString());
         }
     })
     .AddInMemoryStorage();
 
-foreach (var endpoint in endpoints)
-{
-    builder.Services.AddHttpClient(endpoint.Host, c =>
-    {
-        ArgumentNullException.ThrowIfNull(endpoint, "GraphqlEndpoint");
-        c.BaseAddress = endpoint;
-    });
-}
 
 var graphqlConfiguration = builder.Services
     .AddGraphQLServer()
+    .AddRemoteSchemasFromRedis(WellKnown.Schemas.SchemaKey, sp => 
+        sp.GetRequiredService<ConnectionMultiplexer>())
     .AddTypeExtensionsFromFile("./Stitching.graphql");
 
 foreach (var schemas in WellKnown.Schemas.All)

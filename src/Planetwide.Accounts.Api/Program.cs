@@ -5,7 +5,9 @@ using Planetwide.Accounts.Api.Features;
 using Planetwide.Accounts.Api.Infrastructure.Data;
 using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Members.Api.Daemons;
+using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +23,19 @@ builder.Services.AddPooledDbContextFactory<AccountContext>(
 
 builder.Services
     .AddHostedService<MigrationBackgroundJob>()
-    .AddAuthorization();
+    .AddAuthorization()
+    .RegisterRedis();
 
 builder.Services.AddHealthChecks()
     .AddRedis(builder.Configuration["Database:Redis"]);
 
 builder.Services
     .AddGraphQLServer()
+    .InitializeOnStartup()
+    .PublishSchemaDefinition(opt => opt
+        .SetName(WellKnown.Schemas.SchemaKey)
+        .PublishToRedis(WellKnown.Schemas.Accounts, sp => sp
+            .GetRequiredService<ConnectionMultiplexer>()))
     .AddFiltering()
     .AddProjections()
     .AddSorting()

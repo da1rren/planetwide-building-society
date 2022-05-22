@@ -8,15 +8,12 @@ public static class HealthCheckExtensions
     //     return builder.AddUrlGroup(healthEndpoints);
     // }
 
-    public static IHealthChecksBuilder AddEndpointDnsChecks(this IHealthChecksBuilder builder, IEnumerable<Uri> uris)
+    public static IHealthChecksBuilder AddEndpointDnsChecks(this IHealthChecksBuilder builder, IDictionary<string, Uri> schemas)
     {
-        var hosts = uris.Select(x => x.DnsSafeHost)
-            .ToHashSet(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var host in hosts)
+        foreach (var schema in schemas)
         {
             builder.AddDnsResolveHealthCheck(opt => 
-                opt.ResolveHost(host), $"dns-{host}");
+                opt.ResolveHost(schema.Value.DnsSafeHost), $"dns-{schema.Key}");
         }
 
         return builder;
