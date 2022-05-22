@@ -1,21 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Docker Compose" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+  <configuration default="false" name="Run Planetewide Compose" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="buildKitEnabledForCompose" value="true" />
-        <option name="envFilePath" value="$PROJECT_DIR$/.env" />
-        <option name="services">
-          <list>
-            <option value="gateway" />
-            <option value="accounts.api" />
-            <option value="members.api" />
-            <option value="transactions.api" />
-            <option value="redis" />
-            <option value="mongo" />
-          </list>
-        </option>
+        <option name="envFilePath" value="" />
         <option name="sourceFilePath" value="compose.yaml" />
-        <option name="upDetach" value="false" />
       </settings>
     </deployment>
     <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isPublishEnabled="true" />

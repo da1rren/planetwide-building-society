@@ -1,12 +1,12 @@
 services:
-  ui:
-    build:
-      dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
-      context: '.'
-    environment:
-      - Graphql:Gateway=http://localhost:9001/graphql
-    env_file:
-      - .env
+  # ui:
+  #   build:
+  #     dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
+  #     context: '.'
+  #   environment:
+  #     - Graphql:Gateway=http://localhost:9001/graphql
+  #   env_file:
+  #     - .env
 
   gateway:
     container_name: Planetwide-gateway

@@ -6,9 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAuthorization();
 
-var endpoints = WellKnown.Schemas.All.Select(schema =>
-    new Uri(builder.Configuration[$"Graphql:Endpoint:{schema}"]))
-    .ToArray();
+var endpoints = WellKnown.Schemas.All.ToDictionary(
+    schema => schema, 
+    schema => new Uri(builder.Configuration[$"Graphql:Endpoint:{schema}"]));
 
 builder.Services.AddHealthChecks()
     .AddEndpointDnsChecks(endpoints)
@@ -22,7 +22,10 @@ builder.Services
 
         foreach (var downstreamEndpoint in endpoints.Select(endpoint => new Uri(endpoint, "/health")))
         {
-            opt.AddHealthCheckEndpoint(downstreamEndpoint.Host, "/health");
+            var name = $@"{downstreamEndpoint.Host}{(downstreamEndpoint.IsDefaultPort ? 
+                string.Empty : ":" + downstreamEndpoint.Port)}";
+            
+            opt.AddHealthCheckEndpoint( name, downstreamEndpoint.ToString());
         }
     })
     .AddInMemoryStorage();
@@ -61,7 +64,8 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapGraphQL();
-    endpoints.MapHealthChecksUI();
+    endpoints.MapHealthChecksUI(opt => opt
+        .AddCustomStylesheet("wwwroot/healthcheck-ui.css"));
     endpoints.MapDetailedHealthChecks();
 });
 

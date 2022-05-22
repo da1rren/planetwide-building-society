@@ -12,7 +12,7 @@
     "Planetwide.Transactions.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "graphql",
       "applicationUrl": "http://localhost:5100",
       "environmentVariables": {

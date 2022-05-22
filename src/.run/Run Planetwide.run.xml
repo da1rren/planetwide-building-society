@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run Planetwide" type="CompoundRunConfigurationType">
+    <toRun name="Planetwide Accounts Api" type="LaunchSettings" />
+    <toRun name="Planetwide Gateway" type="LaunchSettings" />
+    <toRun name="Planetwide Members Api" type="LaunchSettings" />
+    <toRun name="Planetwide Transactions Api" type="LaunchSettings" />
+    <toRun name="Run Mongo" type="docker-deploy" />
+    <toRun name="Run Redis" type="docker-deploy" />
+    <method v="2" />
+  </configuration>
+</component>
