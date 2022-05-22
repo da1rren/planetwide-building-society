@@ -1,0 +1,43 @@
+services:
+  ui:
+    build:
+      dockerfile: dev.Dockerfile
+    volumes:
+      - .:/app
+    working_dir: /app/Planetwide.Blazor.Ui
+
+  gateway:
+    build:
+      dockerfile: dev.Dockerfile
+    env_file:
+      - watch.env
+    working_dir: /app/Planetwide.Gateway
+    volumes:
+      - .:/app
+
+  accounts.api:
+    build:
+      dockerfile: dev.Dockerfile
+    env_file:
+      - watch.env
+    working_dir: /app/Planetwide.Members.Api
+    volumes:
+      - .:/app
+
+  members.api:
+    build:
+      dockerfile: dev.Dockerfile
+    env_file:
+      - watch.env
+    working_dir: /app/Planetwide.Members.Api
+    volumes:
+      - .:/app
+
+  transactions.api:
+    build:
+      dockerfile: dev.Dockerfile
+    env_file:
+      - watch.env
+    working_dir: /app/Planetwide.Transactions.Api
+    volumes:
+      - .:/app

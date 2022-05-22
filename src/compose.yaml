@@ -1,25 +1,79 @@
 services:
-  # ui:
-  #   build:
-  #     dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
-  #     context: '.'
+  ui:
+    build:
+      dockerfile: 'Planetwide.Blazor.Ui/Dockerfile'
+      context: '.'
+    environment:
+      - Graphql:Gateway=http://localhost:9001/graphql
+    env_file:
+      - .env
 
   gateway:
+    container_name: Planetwide-gateway
+    environment:
+      - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
+      - Graphql:Endpoint:Members=http://members.api/graphql/
+      - Graphql:Endpoint:Transactions=http://transactions.api/graphql/
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
       context: '.'
+    networks:
+      - gateway
+    ports:
+      - "9001:80"
+    env_file:
+      - .env
 
   accounts.api:
+    container_name: accounts-api
     build:
       dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
       context: '.'
+    networks:
+      - gateway
+      - microservices
+    env_file:
+      - .env
 
   members.api:
+    container_name: members-api
     build:
       dockerfile: 'Planetwide.Members.Api/Dockerfile'
       context: '.'
+    networks:
+      - gateway
+      - microservices
+    env_file:
+      - .env
 
   transactions.api:
+    container_name: transactions-api
     build:
       dockerfile: 'Planetwide.Transactions.Api/Dockerfile'
       context: '.'
+    networks:
+      - gateway
+      - microservices
+    env_file:
+      - .env
+
+  redis:
+    image: redis
+    restart: always
+    networks:
+      - gateway
+
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - microservices
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+networks:
+  gateway:
+    name: gatewate-to-microservices
+  microservices:
+    name: microservices-to-databases
