@@ -4,7 +4,7 @@ See the graphql docs https://graphql.org/learn/queries/
 
 ## Query a member details
 
-![Why Graphql](docs/images/burger.png "Why Graphql")
+![Why Graphql](images/burger.png "Why Graphql")
 
 * Basic Details
 * Marketing Preferences
