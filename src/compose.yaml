@@ -11,6 +11,7 @@ services:
   gateway:
     container_name: Planetwide-gateway
     environment:
+      - Graphql:Endpoint:GatewayHealth=http://gateway/Health/
       - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
       - Graphql:Endpoint:Members=http://members.api/graphql/
       - Graphql:Endpoint:Transactions=http://transactions.api/graphql/

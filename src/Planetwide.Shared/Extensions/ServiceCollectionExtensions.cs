@@ -28,7 +28,6 @@ public static class ServiceCollectionExtensions
         return services.AddOpenTelemetryTracing(b =>
         {
             b
-                .AddConsoleExporter()
                 .AddZipkinExporter(opt =>
                 {
                     opt.Endpoint = new Uri(zipkinEndpoint);

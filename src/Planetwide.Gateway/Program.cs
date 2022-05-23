@@ -23,7 +23,8 @@ builder.Services.AddHealthChecks()
 builder.Services
     .AddHealthChecksUI(opt =>
     {
-        opt.AddHealthCheckEndpoint("gateway", "/health");
+        var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/health";
+        opt.AddHealthCheckEndpoint("Gateway", gatewayUri);
 
         foreach (var schemas in endpoints)
         {   
@@ -63,12 +64,13 @@ app.UseCors();
 app.UseAuthorization();
 app.UseWebSockets();
 
-app.UseEndpoints(endpoints =>
+app.UseEndpoints(route =>
 {
-    endpoints.MapGraphQL();
-    endpoints.MapHealthChecksUI(opt => opt
-        .AddCustomStylesheet("wwwroot/healthcheck-ui.css"));
-    endpoints.MapDetailedHealthChecks();
+    route.MapGraphQL();
+    route.MapHealthChecksUI(opt => opt
+        .AddCustomStylesheet("wwwroot/healthcheck-ui.css")
+    );
+    route.MapDetailedHealthChecks();
 });
 
 app.Run();
