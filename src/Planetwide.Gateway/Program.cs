@@ -30,6 +30,9 @@ builder.Services
         {   
             opt.AddHealthCheckEndpoint(schemas.Key, new Uri(schemas.Value, "/health").ToString());
         }
+
+        opt.SetHeaderText("Planetwide Health Checks");
+        opt.MaximumHistoryEntriesPerEndpoint(50);
     })
     .AddInMemoryStorage();
 
