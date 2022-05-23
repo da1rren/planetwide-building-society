@@ -49,12 +49,14 @@ builder.Services
     .AddMongoDbPagingProviders()
     .AddQueryType<QueryRoot>()
     .AddMutationType<MutationRoot>()
+    .AddSubscriptionType<SubscriptionRoot>()
     .RegisterObjectExtensions(typeof(Program).Assembly);
 
 var app = builder.Build();
 
 app.UseRouting();
 app.UseAuthorization();
+app.UseWebSockets();
 
 app.UseEndpoints(endpoints =>
 {

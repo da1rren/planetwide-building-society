@@ -1,5 +1,7 @@
 using HotChocolate.Execution.Configuration;
+using HotChocolate.Execution.Options;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Planetwide.Graphql.Shared.Extensions;
 
@@ -12,7 +14,14 @@ public static class GraphqlServerExtensions
             .AddGlobalObjectIdentification()
             .UseAutomaticPersistedQueryPipeline()
             .AddInMemoryQueryStorage()
-            .AddApolloTracing()
-            .AddMutationConventions(applyToAllMutations: true);
+            .AddApolloTracing(TracingPreference.Always)
+            .AddMutationConventions(applyToAllMutations: true)
+            .AddRedisSubscriptions(sp => sp.GetRequiredService<ConnectionMultiplexer>())
+            .ModifyRequestOptions(opt =>
+            {
+                opt.Complexity.ApplyDefaults = true;
+                opt.Complexity.DefaultComplexity = 1;
+                opt.Complexity.DefaultResolverComplexity = 5;
+            });
     }
 }

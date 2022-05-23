@@ -1,7 +1,6 @@
-using System.Linq;
-namespace Planetwide.Transactions.Api.Features.Transactions.Queries;
-
 using MongoDB.Driver;
+
+namespace Planetwide.Transactions.Api.Features.Transactions;
 
 [ExtendObjectType(typeof(QueryRoot))]
 public class TransactionQueries

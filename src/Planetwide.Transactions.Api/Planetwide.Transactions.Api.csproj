@@ -16,6 +16,7 @@
         <PackageReference Include="HotChocolate.Data.MongoDb" Version="12.9.0" />
         <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.9.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>

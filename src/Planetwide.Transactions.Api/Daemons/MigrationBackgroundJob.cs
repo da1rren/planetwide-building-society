@@ -31,28 +31,24 @@ public class MigrationBackgroundJob : IHostedService
         {
             new()
             {
-                Id = 1,
                 AccountId = 1,
                 Amount = -20,
                 Reference = "1234"
             },
             new()
             {
-                Id = 2,
                 AccountId = 1,
                 Amount = -12.4m,
                 Reference = "1234"
             },
             new()
             {
-                Id = 3,
                 AccountId = 2,
                 Amount = -12.4m,
                 Reference = "1234"
             },
             new()
             {
-                Id = 4,
                 AccountId = 2,
                 Amount = 400.4m,
                 Reference = "1234"

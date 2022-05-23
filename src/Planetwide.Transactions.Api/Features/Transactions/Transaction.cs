@@ -1,9 +1,15 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
 public class Transaction : INode
 {
     [ID]
-    public int Id { get; set; }
+    [BsonId]
+    [BsonElement("_id")]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public ObjectId Id { get; set; }
 
     public int AccountId { get; set; }
 
@@ -11,5 +17,7 @@ public class Transaction : INode
 
     public string? Reference { get; set; }
 
-    public string[] Tags { get; set; }
+    public string[]? Tags { get; set; }
+
+    public DateTimeOffset MadeOn { get; set; }
 }

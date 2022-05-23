@@ -50,6 +50,7 @@ var app = builder.Build();
 
 app.UseRouting();
 app.UseAuthorization();
+app.UseWebSockets();
 
 app.UseEndpoints(endpoints =>
 {
