@@ -28,7 +28,8 @@ builder.Services
     })
     .AddHostedService<MigrationBackgroundJob>()
     .AddAuthorization()
-    .RegisterRedis();
+    .RegisterRedis()
+    .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"]);
 
 builder.Services
     .AddHealthChecks()

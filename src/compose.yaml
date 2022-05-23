@@ -72,6 +72,17 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
 
+  zipkin:
+    image: openzipkin/zipkin
+    restart: always
+    networks:
+      - gateway
+      - microservices
+    env_file:
+      - .env
+    ports:
+      - "9411:9411"
+
 networks:
   gateway:
     name: gatewate-to-microservices

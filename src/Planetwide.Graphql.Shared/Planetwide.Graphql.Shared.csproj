@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
+      <PackageReference Include="HotChocolate.Diagnostics" Version="12.9.0" />
       <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
       <PackageReference Include="HotChocolate.Stitching" Version="12.9.0" />
       <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.9.0" />

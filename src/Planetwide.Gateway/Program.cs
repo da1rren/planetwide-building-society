@@ -13,6 +13,7 @@ var endpoints = WellKnown.Schemas.All.ToDictionary(
 builder.Services
     .AddAuthorization()
     .RegisterRedis()
+    .RegisterOpenTelemetry("Planetwide.Gateway", builder.Configuration["Database:Zipkin"])
     .RegisterSchemaHttpClients(endpoints);
 
 builder.Services.AddHealthChecks()

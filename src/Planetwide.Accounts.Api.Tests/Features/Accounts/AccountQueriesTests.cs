@@ -1,5 +1,4 @@
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 using Planetwide.Accounts.Api.Tests.Fixtures;
 
 namespace Planetwide.Accounts.Api.Tests.Features.Accounts;

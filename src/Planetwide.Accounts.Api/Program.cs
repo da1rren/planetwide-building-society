@@ -24,7 +24,8 @@ builder.Services.AddPooledDbContextFactory<AccountContext>(
 builder.Services
     .AddHostedService<MigrationBackgroundJob>()
     .AddAuthorization()
-    .RegisterRedis();
+    .RegisterRedis()
+    .RegisterOpenTelemetry("Planetwide.Accounts", builder.Configuration["Database:Zipkin"]);
 
 builder.Services.AddHealthChecks()
     .AddRedis(builder.Configuration["Database:Redis"]);

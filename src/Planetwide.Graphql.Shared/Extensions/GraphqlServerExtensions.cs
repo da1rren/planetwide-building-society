@@ -17,6 +17,7 @@ public static class GraphqlServerExtensions
             .AddApolloTracing(TracingPreference.Always)
             .AddMutationConventions(applyToAllMutations: true)
             .AddRedisSubscriptions(sp => sp.GetRequiredService<ConnectionMultiplexer>())
+            .AddInstrumentation()
             .ModifyRequestOptions(opt =>
             {
                 opt.Complexity.ApplyDefaults = true;
