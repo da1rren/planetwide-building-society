@@ -8,9 +8,15 @@ This project currently contains 4 microservices:
 * Members Api
 * Transactions Api
 
-One member can have many accounts
+## Why Graphql
 
-One account has one member
+* Data Fetching
+  * No under or over fetching
+* Schema & Type Safety
+* Stitching allows us to integrate anything into the graphql
+
+![Why Graphql](https://www.apollographql.com/blog/static/8efafc9157a25a40baf71107578247cd/1_qpyJSVVPkd5c6ItMmivnYg.png "Why Graphql")
+
 
 ## Dependencies
 * Currently none
@@ -27,7 +33,12 @@ Some data will be randomly generated and stored in memory.
 
 ## Sample Queries
 
-List a member with their:
+See the graphql docs https://graphql.org/learn/queries/
+
+### Query a member details
+
+![Why Graphql](https://media.graphcms.com/I0FNSt2cQ3SlihuEpfyI "Why Graphql")
+
 * Basic Details
 * Marketing Preferences
 * Accounts List
@@ -56,7 +67,7 @@ query getMemberAccounts {
 }
 ```
 
-Batching Queries:
+### Batching Queries:
 
 This allows us to request any set of entities we like
 ```
@@ -76,7 +87,10 @@ query getMemberAccounts {
 ```
 
 ## Sample Mutations
-Adds a transaction to memberwith the Id "QWNjb3VudAppMQ=="
+
+See the graphql docs https://graphql.org/learn/queries/#mutations
+
+### Adds a transaction to a member
 
 ```graphql
 mutation addTransaction {
@@ -92,7 +106,7 @@ mutation addTransaction {
 }
 ```
 
-Batching Mutations & Using Aliases
+### Batching Mutations & Using Aliases
 ```
 mutation addTransaction {
   transaction1: addTransaction(
@@ -135,7 +149,7 @@ mutation addTransaction {
 ## Sample Subscriptions
 Triggers when the previous mutation is run.
 
-*Note: This currently does not work via the gateway, support is already built into HC 13 which should release in the next month or two*
+*Note: This currently does not work via the gateway, support is already built into HC 13 which should release in the next few months*
 
 ```
 subscription transactionAdded {
@@ -147,3 +161,4 @@ subscription transactionAdded {
   }
 }
 ```
+
