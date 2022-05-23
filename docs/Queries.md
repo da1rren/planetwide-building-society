@@ -2,9 +2,9 @@
 
 See the graphql docs https://graphql.org/learn/queries/
 
-## Query a member details
-
 ![Why Graphql](images/burger.png "Why Graphql")
+
+## Query a member details
 
 * Basic Details
 * Marketing Preferences
