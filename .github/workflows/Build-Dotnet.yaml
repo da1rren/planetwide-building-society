@@ -8,7 +8,8 @@ jobs:
       matrix:
         dotnet-version: ["6.0.x"]
     defaults:
-      working-directory: src
+      run:
+        working-directory: src
     steps:
       - uses: actions/checkout@v2
         
