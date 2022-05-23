@@ -1,7 +1,7 @@
-namespace Planetwide.Members.Api.Features.Members;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Planetwide.Members.Api.Features.Members;
 
 public class Member : INode
 {
@@ -11,6 +11,8 @@ public class Member : INode
     public string? Firstname { get; set; }
 
     public string? Surname { get; set; }
+    
+    public virtual MemberMarketingPreferences? Preferences { get; set; }
 }
 
 public class MemberEntityConfiguration : IEntityTypeConfiguration<Member>

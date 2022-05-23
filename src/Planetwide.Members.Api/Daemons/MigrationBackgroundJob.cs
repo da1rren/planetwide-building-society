@@ -36,7 +36,12 @@ public class MigrationBackgroundJob : IHostedService
             {
                 Id = 1,
                 Firstname = "Darren",
-                Surname = "Maddox"
+                Surname = "Maddox",
+                Preferences = new MemberMarketingPreferences()
+                {
+                    ByEmail = DateTimeOffset.Now,
+                    ByOnline = DateTimeOffset.Now
+                }
             }
         }, cancellationToken);
 

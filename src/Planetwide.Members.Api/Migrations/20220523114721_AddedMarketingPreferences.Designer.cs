@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Planetwide.Members.Api.Infrastructure.Data;
 
@@ -10,9 +11,10 @@ using Planetwide.Members.Api.Infrastructure.Data;
 namespace Planetwide.Members.Api.Migrations
 {
     [DbContext(typeof(MemberContext))]
-    partial class MemberContextModelSnapshot : ModelSnapshot
+    [Migration("20220523114721_AddedMarketingPreferences")]
+    partial class AddedMarketingPreferences
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");

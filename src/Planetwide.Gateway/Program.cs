@@ -1,3 +1,4 @@
+using HotChocolate.Stitching;
 using Planetwide.Gateway.Extensions;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
@@ -39,7 +40,12 @@ var graphqlConfiguration = builder.Services
 
 foreach (var schemas in WellKnown.Schemas.All)
 {
-    graphqlConfiguration.AddRemoteSchema(schemas);
+    // HC 13 Features
+    // https://github.com/ChilliCream/hotchocolate/issues/5074
+    graphqlConfiguration.AddRemoteSchema(schemas /*, capabilities: new EndpointCapabilities
+    {
+        Subscriptions = SubscriptionSupport.WebSocket
+    }*/);
 }
 
 // Don't use this in prod.

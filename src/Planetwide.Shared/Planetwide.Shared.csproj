@@ -9,7 +9,6 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
     <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.9.0" />
-    <PackageReference Include="HotChocolate.Types" Version="12.9.0" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.5" />
     <PackageReference Include="StackExchange.Redis" Version="2.5.61" />
   </ItemGroup>
