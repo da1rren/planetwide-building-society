@@ -3,9 +3,10 @@ namespace Planetwide.Members.Api.Features.Members;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class Member
+public class Member : INode
 {
-    public int Id { get; init; }
+    [ID]
+    public int Id { get; set; }
 
     public string? Firstname { get; set; }
 

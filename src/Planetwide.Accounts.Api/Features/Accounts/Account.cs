@@ -3,9 +3,10 @@ namespace Planetwide.Accounts.Api.Features.Accounts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class Account
+public class Account : INode
 {
-    public int Id { get; init; }
+    [ID]
+    public int Id { get; set; }
 
     public int MemberId { get; init; }
 

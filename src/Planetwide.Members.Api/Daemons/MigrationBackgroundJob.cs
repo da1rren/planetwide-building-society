@@ -1,5 +1,6 @@
 namespace Planetwide.Members.Api.Daemons;
 
+using Features.Members;
 using Members.Api.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,5 +29,17 @@ public class MigrationBackgroundJob : IHostedService
     {
         await using var memberContext = await _memberContextFactory.CreateDbContextAsync(cancellationToken);
         await memberContext.Database.MigrateAsync(cancellationToken: cancellationToken);
+
+        await memberContext.AddRangeAsync(new List<Member>
+        {
+            new Member
+            {
+                Id = 1,
+                Firstname = "Darren",
+                Surname = "Maddox"
+            }
+        }, cancellationToken);
+
+        await memberContext.SaveChangesAsync(cancellationToken);
     }
 }

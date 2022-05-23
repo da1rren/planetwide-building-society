@@ -25,6 +25,8 @@ builder.Services
 builder.Services
     .AddGraphQLServer()
     .InitializeOnStartup()
+    .AddGlobalObjectIdentification()
+    .AddMutationConventions(applyToAllMutations: true)
     .PublishSchemaDefinition(opt => opt
         .SetName(WellKnown.Schemas.SchemaKey)
         .PublishToRedis(WellKnown.Schemas.Transactions, sp => sp

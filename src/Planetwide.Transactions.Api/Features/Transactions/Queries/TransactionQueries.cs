@@ -1,13 +1,16 @@
 namespace Planetwide.Transactions.Api.Features.Transactions.Queries;
 
+using MongoDB.Driver;
+
+[ExtendObjectType(typeof(QueryRoot))]
 public class TransactionQueries
 {
-    public async Task<IQueryable<Transactions>> GetTransactions()
+    [UsePaging]
+    [UseProjection]
+    [UseSorting]
+    [UseFiltering]
+    public IExecutable<Transaction> GetTransactions([Service] IMongoCollection<Transaction> collection)
     {
-        return new List<Transactions>
-        {
-
-        }
-            .AsQueryable();
+        return collection.AsExecutable();
     }
 }

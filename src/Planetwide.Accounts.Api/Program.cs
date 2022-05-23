@@ -4,7 +4,6 @@ using Planetwide.Accounts.Api.Daemons;
 using Planetwide.Accounts.Api.Features;
 using Planetwide.Accounts.Api.Infrastructure.Data;
 using Planetwide.Graphql.Shared.Extensions;
-using Planetwide.Members.Api.Daemons;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
 using StackExchange.Redis;
@@ -32,6 +31,8 @@ builder.Services.AddHealthChecks()
 builder.Services
     .AddGraphQLServer()
     .InitializeOnStartup()
+    .AddGlobalObjectIdentification()
+    .AddMutationConventions(applyToAllMutations: true)
     .PublishSchemaDefinition(opt => opt
         .SetName(WellKnown.Schemas.SchemaKey)
         .PublishToRedis(WellKnown.Schemas.Accounts, sp => sp

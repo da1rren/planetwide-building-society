@@ -1,7 +1,8 @@
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
-public class Transactions
+public class Transaction : INode
 {
+    [ID]
     public int Id { get; set; }
 
     public int AccountId { get; set; }
@@ -11,8 +12,4 @@ public class Transactions
     public string? Reference { get; set; }
 
     public string[] Tags { get; set; }
-
-    public Transactions()
-    {
-    }
 }

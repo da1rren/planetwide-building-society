@@ -16,12 +16,8 @@ public class MemberQueries
 
     [UseSingleOrDefault]
     [UseProjection]
-    public async Task<Member> GetMember(IResolverContext context, MemberContext memberContext, int memberId)
+    public IQueryable<Member> GetMember(MemberContext memberContext, [ID] int memberId)
     {
-        return await context.BatchDataLoader<int, Member>(async (keys, ct) =>
-        {
-            return await memberContext.Members.Where(a => keys.Contains(a.Id))
-                .ToDictionaryAsync(x => x.Id, cancellationToken: ct);
-        }).LoadAsync(memberId);
+        return memberContext.Members.Where(x => x.Id == memberId);
     }
 }

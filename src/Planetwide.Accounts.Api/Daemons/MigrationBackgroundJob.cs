@@ -3,6 +3,8 @@ using Planetwide.Accounts.Api.Infrastructure.Data;
 
 namespace Planetwide.Accounts.Api.Daemons;
 
+using Features.Accounts;
+
 public class MigrationBackgroundJob : IHostedService
 {
     private readonly IDbContextFactory<AccountContext> _memberContextFactory;
@@ -26,7 +28,31 @@ public class MigrationBackgroundJob : IHostedService
 
     private async Task MigrateDatabase(CancellationToken cancellationToken)
     {
-        await using var memberContext = await _memberContextFactory.CreateDbContextAsync(cancellationToken);
-        await memberContext.Database.MigrateAsync(cancellationToken: cancellationToken);
+        await using var accountContext = await _memberContextFactory.CreateDbContextAsync(cancellationToken);
+        await accountContext.Database.MigrateAsync(cancellationToken: cancellationToken);
+
+        await accountContext.AddRangeAsync(new List<Account>
+        {
+            new Account
+            {
+                Id = 1,
+                MemberId = 1,
+                Balance = 502,
+                Iban = "GB38BARC20031868458639",
+                Number = "10203040",
+                SortCode = "070093"
+            },
+            new Account
+            {
+                Id = 2,
+                MemberId = 1,
+                Balance = 50_000,
+                Iban = "GB35BARC20035386314237",
+                Number = "14233241",
+                SortCode = "070093"
+            },
+        }, cancellationToken);
+
+        await accountContext.SaveChangesAsync(cancellationToken);
     }
 }
