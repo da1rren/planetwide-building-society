@@ -15,7 +15,7 @@ This project currently contains 4 microservices:
 * Schema & Type Safety
 * Stitching allows us to integrate anything into the graphql
 
-![Why Graphql](https://www.apollographql.com/blog/static/8efafc9157a25a40baf71107578247cd/1_qpyJSVVPkd5c6ItMmivnYg.png "Why Graphql")
+![Why Graphql](docs/images/requests.png "Why Graphql")
 
 
 ## Dependencies
@@ -37,7 +37,7 @@ See the graphql docs https://graphql.org/learn/queries/
 
 ### Query a member details
 
-![Why Graphql](https://media.graphcms.com/I0FNSt2cQ3SlihuEpfyI "Why Graphql")
+![Why Graphql](docs/images/burger.png "Why Graphql")
 
 * Basic Details
 * Marketing Preferences
