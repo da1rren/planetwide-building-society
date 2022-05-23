@@ -23,3 +23,14 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
+
+  Docker-Compose-Build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Compose Build
+        run: docker compose build
