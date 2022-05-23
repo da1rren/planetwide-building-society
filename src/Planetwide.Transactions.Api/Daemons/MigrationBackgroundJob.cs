@@ -6,12 +6,12 @@ using Shared;
 
 public class MigrationBackgroundJob : IHostedService
 {
-    private readonly MongoClient _mongoClient;
+    private readonly IMongoCollection<Transaction> _mongoCollection;
     private Task _backgroundTask = null!;
 
-    public MigrationBackgroundJob(MongoClient mongoClient)
+    public MigrationBackgroundJob(IMongoCollection<Transaction> mongoCollection)
     {
-        _mongoClient = mongoClient;
+        _mongoCollection = mongoCollection;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -27,44 +27,42 @@ public class MigrationBackgroundJob : IHostedService
 
     private async Task MigrateDatabase(CancellationToken cancellationToken)
     {
-        var database = _mongoClient.GetDatabase(WellKnown.Database.MongoDatabase)
-            .GetCollection<Transaction>("Transactions");
-
         var transactions = new List<Transaction>
         {
-            new Transaction
+            new()
             {
                 Id = 1,
                 AccountId = 1,
                 Amount = -20,
                 Reference = "1234"
             },
-            new Transaction
+            new()
             {
                 Id = 2,
                 AccountId = 1,
-                Amount = -12.4,
+                Amount = -12.4m,
                 Reference = "1234"
             },
-            new Transaction
+            new()
             {
                 Id = 3,
                 AccountId = 2,
-                Amount = -12.4,
+                Amount = -12.4m,
                 Reference = "1234"
             },
-            new Transaction
+            new()
             {
                 Id = 4,
                 AccountId = 2,
-                Amount = -12.4,
+                Amount = 400.4m,
                 Reference = "1234"
             }
         };
 
         foreach (var transaction in transactions)
         {
-            await database.InsertOneAsync(transaction, cancellationToken: cancellationToken);
+            await _mongoCollection.InsertOneAsync(
+                transaction, cancellationToken: cancellationToken);
         }
     }
 }

@@ -1,3 +1,4 @@
+using HotChocolate.Execution.Options;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Planetwide.Accounts.Api.Daemons;
@@ -29,10 +30,9 @@ builder.Services.AddHealthChecks()
     .AddRedis(builder.Configuration["Database:Redis"]);
 
 builder.Services
+    .AddMemoryCache()
     .AddGraphQLServer()
-    .InitializeOnStartup()
-    .AddGlobalObjectIdentification()
-    .AddMutationConventions(applyToAllMutations: true)
+    .AddPlanetwideDefaults()
     .PublishSchemaDefinition(opt => opt
         .SetName(WellKnown.Schemas.SchemaKey)
         .PublishToRedis(WellKnown.Schemas.Accounts, sp => sp

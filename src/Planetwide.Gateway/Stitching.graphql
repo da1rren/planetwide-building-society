@@ -1,7 +1,12 @@
 extend type Member {
-    accounts: [Account] @delegate(schema: "accounts", path: "memberAccounts(memberId: $fields:id)")
+    accounts: [Account] @delegate(schema: "Accounts", path: "accounts(memberId: $fields:id)")
 }
 
 extend type Account {
-    member: Member! @delegate(schema: "members", path: "member(memberId: $fields:memberId)")
+    member: Member! @delegate(schema: "Members", path: "member(memberId: $fields:memberId)")
+    transactions: [Transaction] @delegate(schema: "Transactions", path: "transactions(accountId: $fields:id)")
+}
+
+extend type Transaction {
+    account: Account! @delegate(schema: "Accounts", path: "account(accountId: $fields:accountId)")
 }

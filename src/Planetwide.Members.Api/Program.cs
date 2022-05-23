@@ -29,10 +29,9 @@ builder.Services
     .RegisterRedis();
 
 builder.Services
+    .AddMemoryCache()
     .AddGraphQLServer()
-    .InitializeOnStartup()
-    .AddGlobalObjectIdentification()
-    .AddMutationConventions(applyToAllMutations: true)
+    .AddPlanetwideDefaults()
     .PublishSchemaDefinition(opt => opt
         .SetName(WellKnown.Schemas.SchemaKey)
         .PublishToRedis(WellKnown.Schemas.Members, sp => sp

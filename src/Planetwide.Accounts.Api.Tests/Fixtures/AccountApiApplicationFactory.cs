@@ -1,4 +1,3 @@
-using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Planetwide.Accounts.Api.Features.Accounts;
 using Planetwide.Accounts.Api.Infrastructure.Data;
-using Planetwide.Members.Api.Daemons;
 
 namespace Planetwide.Accounts.Api.Tests.Fixtures;
 

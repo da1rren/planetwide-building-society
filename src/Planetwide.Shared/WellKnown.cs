@@ -4,7 +4,7 @@ public static class WellKnown
 {
     public static class Database
     {
-        public const string MongoDatabase = "Planetwide";
+        public const string MongoDatabase = "planetwide";
     }
     
     public static class Schemas

@@ -32,7 +32,7 @@ public class MigrationBackgroundJob : IHostedService
 
         await memberContext.AddRangeAsync(new List<Member>
         {
-            new Member
+            new()
             {
                 Id = 1,
                 Firstname = "Darren",

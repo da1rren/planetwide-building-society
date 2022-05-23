@@ -33,7 +33,7 @@ public class MigrationBackgroundJob : IHostedService
 
         await accountContext.AddRangeAsync(new List<Account>
         {
-            new Account
+            new()
             {
                 Id = 1,
                 MemberId = 1,
@@ -42,7 +42,7 @@ public class MigrationBackgroundJob : IHostedService
                 Number = "10203040",
                 SortCode = "070093"
             },
-            new Account
+            new()
             {
                 Id = 2,
                 MemberId = 1,

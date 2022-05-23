@@ -6,6 +6,7 @@ This project currently contains 4 microservices:
 * Gateway Api
 * Accounts Api
 * Members Api
+* Transactions Api
 
 One member can have many accounts
 
@@ -27,16 +28,18 @@ Go to http://localhost:9001/graphql/ for the schema explorer or http://localhost
 List the first 5 members and their accounts:
 
 ```graphql
-{
-  members(first: 5) {
-    nodes{
-      firstname
-      surname
-      accounts {
+query getMemberAccounts {
+  member(memberId: "TWVtYmVyCmkx") {
+    id
+    firstname
+    surname
+    accounts {
+      iban
+      balance
+      transactions {
         id
-        sortCode
-        number
-        balance
+        amount
+        reference
       }
     }
   }
@@ -47,22 +50,6 @@ List the first 5 accounts and their members details
 ```graphql
 {
   accounts(first: 5) {
-    nodes{
-      iban
-      balance
-      member {
-        firstname
-        surname
-      }
-    }
-  }
-}
-```
-
-Filter to accounts that have balances > 5000
-```graphql
-{
-  accounts(first: 5, where: { balance: {gt: 5000}}) {
     nodes{
       iban
       balance
