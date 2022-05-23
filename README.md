@@ -22,17 +22,17 @@ This project currently contains 4 microservices structured like:
 
 ![Why Graphql](docs/images/requests.png "Why Graphql")
 
-## To run
-* Run `docker compose up` in the src folder
-
-Some data will be randomly generated and stored in memory.
+## Docs
+* [Queries](docs/Queries.md)
+* [Mutations](docs/Mutations.md)
+* [Subscriptions](docs/Subscriptions.md)
 
 ## Endpoints
 * Heathchecks Ui http://localhost:9001/healthchecks-ui
   * This will check all endpoints & databases are available
 * Federated Gateway schema explorer http://localhost:9001/graphql
 
-## Docs
-* [Queries](docs/Queries.md)
-* [Mutations](docs/Mutations.md)
-* [Subscriptions](docs/Subscriptions.md)
+## To run
+* Run `docker compose up` in the src folder
+
+Some data will be generated and stored in memory.
