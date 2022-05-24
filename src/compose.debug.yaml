@@ -1,20 +1,9 @@
 services:
   gateway:
     container_name: planetwide-gateway-debug
-    environment:
-      - Graphql:Endpoint:GatewayHealth=http://gateway/Health/
-      - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
-      - Graphql:Endpoint:Members=http://members.api/graphql/
-      - Graphql:Endpoint:Transactions=http://transactions.api/graphql/
     build:
       dockerfile: 'Planetwide.Gateway/Debug.Dockerfile'
       context: '.'
-    networks:
-      - gateway
-    ports:
-      - "9001:80"
-    env_file:
-      - .env
     volumes:
       - ./Planetwide.Gateway/bin/Debug/net6.0:/app
 
@@ -23,71 +12,36 @@ services:
     build:
       dockerfile: 'Planetwide.Accounts.Api/Debug.Dockerfile'
       context: '.'
-    networks:
-      - gateway
-      - microservices
-    env_file:
-      - .env
     volumes:
       - ./Planetwide.Accounts.Api/bin/Debug/net6.0:/app
+    ports:
+      - "9002:80"
 
   members.api:
     container_name: planetwide-members-debug
     build:
       dockerfile: 'Planetwide.Members.Api/Debug.Dockerfile'
       context: '.'
-    networks:
-      - gateway
-      - microservices
-    env_file:
-      - .env
     volumes:
       - ./Planetwide.Members.Api/bin/Debug/net6.0:/app
+    ports:
+      - "9003:80"
 
   transactions.api:
     container_name: planetwide-transactions-debug
     build:
       dockerfile: 'Planetwide.Transactions.Api/Debug.Dockerfile'
       context: '.'
-    networks:
-      - gateway
-      - microservices
-    env_file:
-      - .env
     volumes:
       - ./Planetwide.Transactions.Api/bin/Debug/net6.0:/app
+    ports:
+      - "9004:80"
 
   redis:
-    container_name: planetwide-redis
-    image: redis
-    restart: always
-    networks:
-      - gateway
+    container_name: planetwide-redis-debug
 
   mongo:
-    container_name: planetwide-mongo
-    image: mongo
-    restart: always
-    networks:
-      - microservices
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    container_name: planetwide-mongo-debug
 
   zipkin:
-    container_name: planetwide-zipkin
-    image: openzipkin/zipkin
-    restart: always
-    networks:
-      - gateway
-      - microservices
-    env_file:
-      - .env
-    ports:
-      - "9411:9411"
-
-networks:
-  gateway:
-    name: gatewate-to-microservices
-  microservices:
-    name: microservices-to-databases
+    container_name: planetwide-zipkin-debug
