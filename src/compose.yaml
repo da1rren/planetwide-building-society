@@ -44,6 +44,8 @@ services:
       - microservices
     env_file:
       - .env
+    ports:
+      - "9004:80"
 
   redis:
     image: redis

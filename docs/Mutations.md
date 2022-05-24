@@ -6,7 +6,7 @@ See the graphql docs https://graphql.org/learn/queries/#mutations
 ```graphql
 mutation addTransaction {
   addTransaction(input: { accountId: "QWNjb3VudAppMQ==", amount: -200, reference: "Rent2",  tags: ["house", "spending"] }) {
-    transaction {
+    transactionBase {
       id
       accountId
       amount
@@ -28,7 +28,7 @@ mutation addTransaction {
       tags: ["house", "spending"]
     }
   ) {
-    transaction {
+    transactionBase {
       id
       accountId
       amount
@@ -45,7 +45,7 @@ mutation addTransaction {
       tags: ["entertainment"]
     }
   ) {
-    transaction {
+    transactionBase {
       id
       accountId
       amount

@@ -60,4 +60,9 @@ Show how to run a basic query
 - Intellisense
 - Recursive
 
+Subscriptions endpoint needs exposed in prod build 
+
 Show how to run a basic query with a variable
+
+Polymorphic
+
