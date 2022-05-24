@@ -36,9 +36,13 @@
     <None Update="healthcheck-ui.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Stitching.graphql">
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="Stitching.graphql" />
+    <Content Include="Stitching.graphql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 
 </Project>

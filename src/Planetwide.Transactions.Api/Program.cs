@@ -1,5 +1,6 @@
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using OpenTelemetry.Trace;
 using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
@@ -13,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddSingleton(_ =>
     {
+        BsonClassMap.RegisterClassMap<BasicTransaction>();
+        BsonClassMap.RegisterClassMap<DirectDebitTransaction>();
+        
         var connectionString = builder.Configuration["Database:Mongo"];
         ArgumentNullException.ThrowIfNull(connectionString, "Mongo db connection string");
         return new MongoClient(connectionString);
@@ -22,19 +26,15 @@ builder.Services
         var mongo = sp.GetRequiredService<MongoClient>();
         return mongo.GetDatabase(WellKnown.Database.MongoDatabase);
     })
-    .AddSingleton<IMongoCollection<Transaction>>(sp =>
+    .AddSingleton<IMongoCollection<TransactionBase>>(sp =>
     {
         var database = sp.GetRequiredService<IMongoDatabase>();
-        return database.GetCollection<Transaction>("transactions");
+        return database.GetCollection<TransactionBase>("transactions");
     })
     .AddHostedService<MigrationBackgroundJob>()
     .AddAuthorization()
     .RegisterRedis()
-    .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"])
-    .AddOpenTelemetryTracing(b =>
-    {
-        b.AddMongoDBInstrumentation();
-    });
+    .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"]);
 
 builder.Services
     .AddHealthChecks()
@@ -53,10 +53,16 @@ builder.Services
     .AddMongoDbProjections()
     .AddMongoDbSorting()
     .AddMongoDbPagingProviders()
+    .BindRuntimeType<ObjectId, IdType>()
+    .AddTypeConverter<ObjectId, string>(x => x.ToString())
+    .AddTypeConverter<string, ObjectId>(x => ObjectId.Parse(x))
     .AddQueryType<QueryRoot>()
     .AddMutationType<MutationRoot>()
     .AddSubscriptionType<SubscriptionRoot>()
-    .RegisterObjectExtensions(typeof(Program).Assembly);
+    .RegisterObjectExtensions(typeof(Program).Assembly)
+    .AddType<TransactionBase>()
+    .AddType<BasicTransaction>()
+    .AddType<DirectDebitTransaction>();
 
 var app = builder.Build();
 

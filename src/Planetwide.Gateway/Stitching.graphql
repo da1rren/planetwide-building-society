@@ -4,9 +4,13 @@ extend type Member {
 
 extend type Account {
     member: Member! @delegate(schema: "Members", path: "member(memberId: $fields:memberId)")
-    transactions: [Transaction] @delegate(schema: "Transactions", path: "transactions(accountId: $fields:id)")
+    transactions: [TransactionBase] @delegate(schema: "Transactions", path: "transactions(accountId: $fields:id)")
 }
 
-extend type Transaction {
+extend type BasicTransaction {
+    account: Account! @delegate(schema: "Accounts", path: "account(accountId: $fields:accountId)")
+}
+
+extend type DirectDebitTransaction {
     account: Account! @delegate(schema: "Accounts", path: "account(accountId: $fields:accountId)")
 }

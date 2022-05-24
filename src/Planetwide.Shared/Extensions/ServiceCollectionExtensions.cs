@@ -24,7 +24,8 @@ public static class ServiceCollectionExtensions
         string zipkinEndpoint)
     {
         ArgumentNullException.ThrowIfNull(serviceName);
-        
+        ArgumentNullException.ThrowIfNull(zipkinEndpoint);
+
         return services.AddOpenTelemetryTracing(b =>
         {
             b
@@ -33,7 +34,6 @@ public static class ServiceCollectionExtensions
                     opt.Endpoint = new Uri(zipkinEndpoint);
                 })
                 .AddSqlClientInstrumentation()
-                .AddRedisInstrumentation()
                 .AddSource(serviceName)
                 .SetResourceBuilder(
                     ResourceBuilder.CreateDefault()

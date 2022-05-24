@@ -3,7 +3,8 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
-public class Transaction : INode
+[InterfaceType]
+public abstract class TransactionBase
 {
     [ID]
     [BsonId]
@@ -20,4 +21,17 @@ public class Transaction : INode
     public string[]? Tags { get; set; }
 
     public DateTimeOffset MadeOn { get; set; }
+
+}
+
+[BsonDiscriminator("BasicTransaction")]
+public class BasicTransaction : TransactionBase, INode
+{
+    public string? City { get; set; }
+}
+
+[BsonDiscriminator("DirectDebitTransaction")]
+public class DirectDebitTransaction : TransactionBase, INode
+{
+    public string? Merchant { get; set; }
 }

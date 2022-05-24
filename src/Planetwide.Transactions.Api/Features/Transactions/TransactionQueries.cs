@@ -5,12 +5,10 @@ namespace Planetwide.Transactions.Api.Features.Transactions;
 [ExtendObjectType(typeof(QueryRoot))]
 public class TransactionQueries
 {
-    [UseProjection]
-    [UseSorting]
-    public IExecutable<Transaction> GetTransactions([Service] IMongoCollection<Transaction> collection,
+    public IExecutable<TransactionBase> GetTransactions([Service] IMongoCollection<TransactionBase> collection,
         [ID] int accountId)
     {
-        var filter = Builders<Transaction>.Filter
+        var filter = Builders<TransactionBase>.Filter
             .Eq(x => x.AccountId, accountId);
 
         return collection.Find(filter)

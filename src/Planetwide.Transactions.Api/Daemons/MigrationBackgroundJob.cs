@@ -1,3 +1,5 @@
+using MongoDB.Bson;
+
 namespace Planetwide.Transactions.Api.Daemons;
 
 using Features.Transactions;
@@ -6,10 +8,10 @@ using Shared;
 
 public class MigrationBackgroundJob : IHostedService
 {
-    private readonly IMongoCollection<Transaction> _mongoCollection;
+    private readonly IMongoCollection<TransactionBase> _mongoCollection;
     private Task _backgroundTask = null!;
 
-    public MigrationBackgroundJob(IMongoCollection<Transaction> mongoCollection)
+    public MigrationBackgroundJob(IMongoCollection<TransactionBase> mongoCollection)
     {
         _mongoCollection = mongoCollection;
     }
@@ -27,31 +29,43 @@ public class MigrationBackgroundJob : IHostedService
 
     private async Task MigrateDatabase(CancellationToken cancellationToken)
     {
-        var transactions = new List<Transaction>
+        var transactions = new List<TransactionBase>
         {
-            new()
+            new BasicTransaction
             {
+                Id = ObjectId.GenerateNewId(),
                 AccountId = 1,
                 Amount = -20,
-                Reference = "1234"
+                Reference = "1234",
+                MadeOn = DateTimeOffset.Now,
+                City = "Dundee"
             },
-            new()
+            new BasicTransaction
             {
+                Id = ObjectId.GenerateNewId(),
                 AccountId = 1,
                 Amount = -12.4m,
-                Reference = "1234"
+                Reference = "1234",
+                MadeOn = DateTimeOffset.Now,
+                City = "Glasgow"
             },
-            new()
+            new BasicTransaction
             {
+                Id = ObjectId.GenerateNewId(),
                 AccountId = 2,
                 Amount = -12.4m,
-                Reference = "1234"
+                Reference = "1234",
+                City = "Aberdeen",
+                MadeOn = DateTimeOffset.Now
             },
-            new()
+            new DirectDebitTransaction
             {
+                Id = ObjectId.GenerateNewId(),
                 AccountId = 2,
-                Amount = 400.4m,
-                Reference = "1234"
+                Amount = 148,
+                Reference = "1234",
+                MadeOn = DateTimeOffset.Now,
+                Merchant = "Edinburgh Council"
             }
         };
 

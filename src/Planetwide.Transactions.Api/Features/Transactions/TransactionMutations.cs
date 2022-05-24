@@ -7,8 +7,8 @@ namespace Planetwide.Transactions.Api.Features.Transactions;
 [ExtendObjectType(typeof(MutationRoot))]
 public class TransactionMutations
 {
-    public async Task<Transaction> AddTransaction(
-        [Service] IMongoCollection<Transaction> collection, 
+    public async Task<TransactionBase> AddTransaction(
+        [Service] IMongoCollection<TransactionBase> collection, 
         [Service] ITopicEventSender sender, 
         [Service] ConnectionMultiplexer multiplexer,
         CancellationToken cancellationToken,
@@ -17,7 +17,7 @@ public class TransactionMutations
         string reference, 
         string[]? tags)
     {
-        var transaction = new Transaction
+        var transaction = new BasicTransaction
         {
             AccountId = accountId,
             Amount = amount,

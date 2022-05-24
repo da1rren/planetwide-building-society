@@ -53,3 +53,37 @@ query getMemberAccounts {
 }
 ```
 
+## Interfaces/Polymorphism
+As we can use interfaces, we can do type descrimination
+
+```graphql
+{
+  member(memberId: "TWVtYmVyCmkx") {
+    id
+    firstname
+    accounts {
+      id
+
+      iban
+      balance
+      transactions {
+        __typename
+        id
+        amount
+        reference
+        tags
+        madeOn
+
+        ... on BasicTransaction {
+          city
+        }
+
+        ... on DirectDebitTransaction {
+          merchant
+        }
+      }
+    }
+  }
+}
+
+```
