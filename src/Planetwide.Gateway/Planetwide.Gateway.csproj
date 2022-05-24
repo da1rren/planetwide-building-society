@@ -15,7 +15,6 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.4" />
     <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
-    <PackageReference Include="Faker.Net" Version="2.0.154" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
     <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
@@ -28,16 +27,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.5" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Stiching.graphql" />
-    <Content Include="Stitching.graphql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\Planetwide.Shared\Planetwide.Shared.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="healthcheck-ui.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

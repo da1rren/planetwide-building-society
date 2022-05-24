@@ -3,15 +3,12 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="" />
-        <option name="removeVolumesOnComposeDown" value="true" />
         <option name="sourceFilePath" value="compose.debug.yaml" />
-        <option name="upForceRecreate" value="true" />
-        <option name="upRenewAnonVolumes" value="true" />
       </settings>
     </deployment>
     <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isPublishEnabled="true" />
     <method v="2">
-      <option name="Publish Solution" enabled="true" />
+      <option name="Build Solution" enabled="true" />
     </method>
   </configuration>
 </component>
