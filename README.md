@@ -52,31 +52,34 @@ Some data will be generated and stored in memory.
 
 ### Presentation Plan
 
-What is graphql...
-What are the main components...
-What is federaton...
+What is graphql...  Why?... One Api limitless flexability
+What are the main components... Gateway, micro-services, redis
+What is federation... Why?
 
 Show how to run a basic query
-- talk about the result format
-- Query name/params
-- Intellisense
-- Recursive
-- Variables
-- Polymorphic
-- Freedom from schema
-- Projection, sorting, paging, filter
+* Talk about the result format
+* Query name/Variables
+* Intellisense
+* Recursive
+* Polymorphic
+* Shared Schema
+* Type Safety
+* In Built projection, sorting, paging, filter
 
 Mutations
-How run mutations batching
-How errors work
+* How run mutations batching
+* How errors work
 
 Subscriptions
-Show a subscription running
-Mention current limit
+* Show a subscription running
+* Mention current limit
 
-Healthchecks
-
-Open telemetry
-
-Integration Testing
+Misc
+* Security
+* Rate Limiting
+* Caching
+* Performance
+* Health Checks
+* Open telemetry
+* Integration Testing
 
