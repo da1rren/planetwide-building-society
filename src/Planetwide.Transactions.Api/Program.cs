@@ -37,6 +37,7 @@ builder.Services
     })
     .AddHostedService<SeedJob>()
     .AddAuthorization()
+    .AddHttpClient()
     .RegisterRedis()
     .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"]);
 
