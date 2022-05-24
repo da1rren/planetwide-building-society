@@ -13,6 +13,8 @@
       <PackageReference Include="HotChocolate.Stitching" Version="12.9.0" />
       <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.9.0" />
       <PackageReference Include="HotChocolate.Types" Version="12.9.0" />
+      <PackageReference Include="MongoDB.Driver.Core.Extensions.OpenTelemetry" Version="1.0.0" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.StackExchangeRedis" Version="1.0.0-rc9.3" />
     </ItemGroup>
 
 </Project>

@@ -1,12 +1,13 @@
 services:
   gateway:
+    container_name: planetwide-gateway-debug
     environment:
       - Graphql:Endpoint:GatewayHealth=http://gateway/Health/
       - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
       - Graphql:Endpoint:Members=http://members.api/graphql/
       - Graphql:Endpoint:Transactions=http://transactions.api/graphql/
     build:
-      dockerfile: 'Planetwide.Gateway/Dockerfile'
+      dockerfile: 'Planetwide.Gateway/Debug.Dockerfile'
       context: '.'
     networks:
       - gateway
@@ -14,44 +15,57 @@ services:
       - "9001:80"
     env_file:
       - .env
+    volumes:
+      - ./Planetwide.Gateway/bin/Debug/net6.0:/app
 
   accounts.api:
+    container_name: planetwide-accounts-debug
     build:
-      dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
+      dockerfile: 'Planetwide.Accounts.Api/Debug.Dockerfile'
       context: '.'
     networks:
       - gateway
       - microservices
     env_file:
       - .env
+    volumes:
+      - ./Planetwide.Accounts.Api/bin/Debug/net6.0:/app
 
   members.api:
+    container_name: planetwide-members-debug
     build:
-      dockerfile: 'Planetwide.Members.Api/Dockerfile'
+      dockerfile: 'Planetwide.Members.Api/Debug.Dockerfile'
       context: '.'
     networks:
       - gateway
       - microservices
     env_file:
       - .env
+    volumes:
+      - ./Planetwide.Members.Api/bin/Debug/net6.0:/app
 
   transactions.api:
+    container_name: planetwide-transactions-debug
     build:
-      dockerfile: 'Planetwide.Transactions.Api/Dockerfile'
+      dockerfile: 'Planetwide.Transactions.Api/Debug.Dockerfile'
       context: '.'
     networks:
       - gateway
       - microservices
     env_file:
       - .env
+    volumes:
+      - ./Planetwide.Transactions.Api/bin/Debug/net6.0:/app
 
   redis:
+    container_name: planetwide-redis
     image: redis
     restart: always
     networks:
       - gateway
 
   mongo:
+    container_name: planetwide-mongo
     image: mongo
     restart: always
     networks:
@@ -61,6 +75,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
 
   zipkin:
+    container_name: planetwide-zipkin
     image: openzipkin/zipkin
     restart: always
     networks:

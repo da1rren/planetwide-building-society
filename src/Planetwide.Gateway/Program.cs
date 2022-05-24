@@ -69,6 +69,7 @@ app.UseWebSockets();
 
 app.UseEndpoints(route =>
 {
+    route.MapGet("/test", () => "Test");
     route.MapGraphQL();
     route.MapHealthChecksUI(opt => opt
         .AddCustomStylesheet("wwwroot/healthcheck-ui.css")

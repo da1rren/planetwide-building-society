@@ -32,6 +32,8 @@ public static class ServiceCollectionExtensions
                 {
                     opt.Endpoint = new Uri(zipkinEndpoint);
                 })
+                .AddSqlClientInstrumentation()
+                .AddRedisInstrumentation()
                 .AddSource(serviceName)
                 .SetResourceBuilder(
                     ResourceBuilder.CreateDefault()

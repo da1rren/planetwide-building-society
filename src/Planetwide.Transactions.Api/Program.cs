@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using OpenTelemetry.Trace;
 using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
@@ -29,7 +30,11 @@ builder.Services
     .AddHostedService<MigrationBackgroundJob>()
     .AddAuthorization()
     .RegisterRedis()
-    .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"]);
+    .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"])
+    .AddOpenTelemetryTracing(b =>
+    {
+        b.AddMongoDBInstrumentation();
+    });
 
 builder.Services
     .AddHealthChecks()
