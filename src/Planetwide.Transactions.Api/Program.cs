@@ -44,7 +44,7 @@ builder.Services
     .AddAuthorization()
     .AddHttpClient()
     .RegisterRedis()
-    .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"]);
+    .RegisterOpenTelemetry("transactions.api", builder.Configuration["Database:Zipkin"]);
 
 builder.Services
     .AddHealthChecks()

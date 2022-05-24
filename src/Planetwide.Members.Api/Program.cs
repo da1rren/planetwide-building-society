@@ -27,7 +27,7 @@ builder.Services
     .AddAuthorization()
     .AddHostedService<MigrationBackgroundJob>()
     .RegisterRedis()
-    .RegisterOpenTelemetry("Planetwide.Members", builder.Configuration["Database:Zipkin"]);
+    .RegisterOpenTelemetry("members.api", builder.Configuration["Database:Zipkin"]);
 
 builder.Services
     .AddMemoryCache()

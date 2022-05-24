@@ -25,7 +25,7 @@ builder.Services
     .AddHostedService<MigrationBackgroundJob>()
     .AddAuthorization()
     .RegisterRedis()
-    .RegisterOpenTelemetry("Planetwide.Accounts", builder.Configuration["Database:Zipkin"]);
+    .RegisterOpenTelemetry("accounts.api", builder.Configuration["Database:Zipkin"]);
 
 builder.Services.AddHealthChecks()
     .AddRedis(builder.Configuration["Database:Redis"]);
