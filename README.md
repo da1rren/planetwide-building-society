@@ -49,20 +49,33 @@ Additionally all services use redis to coordinate the graph.
 
 Some data will be generated and stored in memory.
 
-### todo
+### Presentation Plan
 
-Docker compose up
-Navigate to graphql endpoint
-Syntax
+What is graphql...
+What are the main components...
+What is federaton...
+
 Show how to run a basic query
 - talk about the result format
 - Query name/params
 - Intellisense
 - Recursive
+- Variables
+- Polymorphic
+- Freedom from schema
+- Projection, sorting, paging, filter
 
-Subscriptions endpoint needs exposed in prod build 
+Mutations
+How run mutations batching
 
-Show how to run a basic query with a variable
+Subscriptions
+Show a subscription running
+Mention current limit
 
-Polymorphic
+Healthchecks
+
+Open telemetry
+Soon to have redis and mongo
+
+Integration Testing
 
