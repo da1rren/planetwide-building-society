@@ -22,6 +22,8 @@ This project currently contains 4 microservices structured like:
       D-->G
 ```
 
+Additionally all services use redis to coordinate the graph.
+
 ## Why Graphql
 
 * Data Fetching
