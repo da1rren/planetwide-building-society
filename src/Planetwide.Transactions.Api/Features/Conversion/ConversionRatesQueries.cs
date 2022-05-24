@@ -3,14 +3,23 @@ using System.Xml.XPath;
 
 namespace Planetwide.Transactions.Api.Features.Conversion;
 
+using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Immutable;
+
 public record ConversionRate(string Currency, decimal Rate);
 
 [ExtendObjectType(typeof(QueryRoot))]
 public class ConversionRatesQueries
 {
-    public IEnumerable<ConversionRate> GetConversionRates([Service] IHttpClientFactory factory)
+    public IEnumerable<ConversionRate> GetConversionRates([Service] IHttpClientFactory factory, [Service] IMemoryCache cache)
     {
-        return XDocument.Load("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")
+        const string ratesCacheKey = "Rates";
+        if(cache.TryGetValue(ratesCacheKey, out ConversionRate[] conversionRates))
+        {
+            return conversionRates;
+        }
+        
+        var rates = XDocument.Load("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml")
             .XPathSelectElements("//*[@currency]")
             .Select(node =>
             {
@@ -19,7 +28,10 @@ public class ConversionRatesQueries
 
                 return new ConversionRate(attributes["currency"], decimal.Parse(attributes["rate"]));
             })
-            .ToList();
+            .ToArray();
+
+        cache.Set(ratesCacheKey, rates);
+        return rates;
     }
 }
 

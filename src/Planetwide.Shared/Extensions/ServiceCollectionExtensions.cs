@@ -5,6 +5,7 @@ namespace Planetwide.Shared.Extensions;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 using StackExchange.Redis;
 
 public static class ServiceCollectionExtensions
@@ -40,7 +41,14 @@ public static class ServiceCollectionExtensions
                         .AddService(serviceName: serviceName, serviceVersion: "dev"))
                 .AddHttpClientInstrumentation()
                 .AddAspNetCoreInstrumentation()
-                .AddHotChocolateInstrumentation();
+                .AddHotChocolateInstrumentation()
+                .AddMongoDBInstrumentation();
+
+            b.Configure((sp, builder) =>
+            {
+                var multiplexer = sp.GetRequiredService<ConnectionMultiplexer>();
+                builder.AddRedisInstrumentation(multiplexer);
+            });
         });
     }
 }

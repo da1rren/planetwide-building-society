@@ -23,7 +23,6 @@
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.5" />
-        <PackageReference Include="MongoDB.Driver.Core.Extensions.OpenTelemetry" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -12,6 +12,7 @@ public abstract class TransactionBase
     [BsonRepresentation(BsonType.ObjectId)]
     public ObjectId Id { get; set; }
 
+    [ID("Account")]
     public int AccountId { get; set; }
 
     public decimal Amount { get; set; }

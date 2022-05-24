@@ -1,6 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Extensions.DiagnosticSources;
 using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
@@ -23,7 +24,11 @@ builder.Services
 
         var connectionString = builder.Configuration["Database:Mongo"];
         ArgumentNullException.ThrowIfNull(connectionString, "Mongo db connection string");
-        return new MongoClient(connectionString);
+        
+        var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
+        clientSettings.ClusterConfigurator = cb => cb.Subscribe(new DiagnosticsActivityEventSubscriber());
+        
+        return new MongoClient(clientSettings);
     })
     .AddSingleton<IMongoDatabase>(sp =>
     {

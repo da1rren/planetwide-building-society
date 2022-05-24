@@ -4,9 +4,14 @@ using StackExchange.Redis;
 
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
+using Exceptions;
+
 [ExtendObjectType(typeof(MutationRoot))]
 public class TransactionMutations
 {
+    private const decimal Limit = 10_000;
+    
+    [Error(typeof(AmountTooLargeException))]
     public async Task<TransactionBase> AddTransaction(
         [Service] IMongoCollection<TransactionBase> collection, 
         [Service] ITopicEventSender sender, 
@@ -17,6 +22,11 @@ public class TransactionMutations
         string reference, 
         string[]? tags)
     {
+        if (Math.Abs(amount) > Limit)
+        {
+            throw new AmountTooLargeException(amount, Limit);
+        }
+
         var transaction = new BasicTransaction
         {
             AccountId = accountId,

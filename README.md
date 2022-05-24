@@ -38,6 +38,7 @@ Additionally all services use redis to coordinate the graph.
 * [Mutations](docs/Mutations.md)
 * [Subscriptions](docs/Subscriptions.md)
 * [Relay](docs/Relay.md)
+* [Open Telemetry](docs/Open_Telemetry.md)
 
 ## Endpoints
 * Heathchecks Ui http://localhost:9001/healthchecks-ui
@@ -67,6 +68,7 @@ Show how to run a basic query
 
 Mutations
 How run mutations batching
+How errors work
 
 Subscriptions
 Show a subscription running
@@ -75,7 +77,6 @@ Mention current limit
 Healthchecks
 
 Open telemetry
-Soon to have redis and mongo
 
 Integration Testing
 
