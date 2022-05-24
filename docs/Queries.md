@@ -87,3 +87,45 @@ As we can use interfaces, we can do type descrimination
 }
 
 ```
+
+## Union types
+
+Union types let us merge arrays of directly unrelated objects.
+
+```graphql 
+query getMemberAccounts {
+  member(memberId: "TWVtYmVyCmkx") {
+    id
+    firstname
+    surname
+    preferences {
+      byPost
+      byOnline
+    }
+    accounts {
+      iban
+      balance
+      transactions {
+        id
+        amount
+        reference
+        metadata{
+          __typename
+
+          ... on NetworkMetadata{
+            ipAddress
+          }
+
+          ... on LatencyMetadata{
+            latency
+          }
+
+          ... on RetentionMetadata {
+            deleteOn
+          }
+        }
+      }
+    }
+  }
+}
+```
