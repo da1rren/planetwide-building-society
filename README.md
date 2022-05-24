@@ -8,9 +8,18 @@ This project currently contains 4 microservices structured like:
       B["Accounts Api"]
       C["Members Api"]
       D["Transactions Api"]
+      E["Sqlite In Memory"]
+      EE["Sqlite In Memory"]
+      F["Mongodb"]
+      G["European Central Bank Api"]
+
       A-->B;
       A-->C;
       A-->D;
+      B-->E
+      C-->EE
+      D-->F
+      D-->G
 ```
 
 ## Why Graphql
