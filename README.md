@@ -75,11 +75,11 @@ Subscriptions
 * Mention current limit
 
 Misc
+* Unit/Integration Testing
 * Security
 * Rate Limiting
 * Caching
 * Performance
 * Health Checks
 * Open telemetry
-* Integration Testing
 
