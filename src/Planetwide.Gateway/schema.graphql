@@ -163,36 +163,19 @@ type Query {
         ids: [ID!]!
     ): [Node]!
     Transactions_version: String!
-    transactions(
-        accountId: ID!
-
-        """
-        Returns the first _n_ elements from the list.
-        """
-        first: Int
-
-        """
-        Returns the elements in the list that come after the specified cursor.
-        """
-        after: String
-
-        """
-        Returns the last _n_ elements from the list.
-        """
-        last: Int
-
-        """
-        Returns the elements in the list that come before the specified cursor.
-        """
-        before: String
-        order: [TransactionSortInput!]
-    ): TransactionsConnection
+    transactions(accountId: ID!): [TransactionBase!]!
 }
 
 type Mutation {
     version: VersionPayload!
     Members_version: VersionPayload!
     Transactions_version: VersionPayload!
+    addTransaction(input: AddTransactionInput!): AddTransactionPayload!
+}
+
+type Subscription {
+    version: String!
+    transactionAdded: TransactionSummary!
 }
 
 """
@@ -210,7 +193,7 @@ type Account implements Node {
     iban: String!
     balance: Decimal!
     member: Member!
-    transactions: [Transaction]
+    transactions: [TransactionBase]
 }
 
 type VersionPayload {
@@ -298,7 +281,22 @@ type Member implements Node {
     id: ID!
     firstname: String
     surname: String
+    preferences: MemberMarketingPreferences
     accounts: [Account]
+}
+
+type MemberMarketingPreferences {
+    id: ID!
+    byPost: DateTime
+    byTelephone: DateTime
+    byEmail: DateTime
+    byOnline: DateTime
+    faceToFace: DateTime
+    byPhone: DateTime
+    bySmsService: DateTime
+    bySmsMarketing: DateTime
+    memberId: Int!
+    member: Member
 }
 
 """
@@ -361,69 +359,114 @@ type PageInfo {
     endCursor: String
 }
 
+input ComparableNullableOfDateTimeOffsetOperationFilterInput {
+    eq: DateTime
+    neq: DateTime
+    in: [DateTime]
+    nin: [DateTime]
+    gt: DateTime
+    ngt: DateTime
+    gte: DateTime
+    ngte: DateTime
+    lt: DateTime
+    nlt: DateTime
+    lte: DateTime
+    nlte: DateTime
+}
+
 input MemberFilterInput {
     and: [MemberFilterInput!]
     or: [MemberFilterInput!]
     id: IdOperationFilterInput
     firstname: StringOperationFilterInput
     surname: StringOperationFilterInput
+    preferences: MemberMarketingPreferencesFilterInput
+}
+
+input MemberMarketingPreferencesFilterInput {
+    and: [MemberMarketingPreferencesFilterInput!]
+    or: [MemberMarketingPreferencesFilterInput!]
+    id: IdOperationFilterInput
+    byPost: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    byTelephone: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    byEmail: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    byOnline: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    faceToFace: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    byPhone: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    bySmsService: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    bySmsMarketing: ComparableNullableOfDateTimeOffsetOperationFilterInput
+    memberId: ComparableInt32OperationFilterInput
+    member: MemberFilterInput
+}
+
+input MemberMarketingPreferencesSortInput {
+    id: SortEnumType
+    byPost: SortEnumType
+    byTelephone: SortEnumType
+    byEmail: SortEnumType
+    byOnline: SortEnumType
+    faceToFace: SortEnumType
+    byPhone: SortEnumType
+    bySmsService: SortEnumType
+    bySmsMarketing: SortEnumType
+    memberId: SortEnumType
+    member: MemberSortInput
 }
 
 input MemberSortInput {
     id: SortEnumType
     firstname: SortEnumType
     surname: SortEnumType
+    preferences: MemberMarketingPreferencesSortInput
 }
 
-type Transaction implements Node {
+interface TransactionBase {
     id: ID!
     accountId: Int!
     amount: Decimal!
     reference: String
-    tags: [String!]!
+    tags: [String!]
+    madeOn: DateTime!
+}
+
+type AddTransactionPayload {
+    transactionBase: TransactionBase
+}
+
+type BasicTransaction implements Node & TransactionBase {
+    city: String
+    id: ID!
+    accountId: Int!
+    amount: Decimal!
+    reference: String
+    tags: [String!]
+    madeOn: DateTime!
     account: Account!
 }
 
-"""
-A connection to a list of items.
-"""
-type TransactionsConnection {
-    """
-    Information to aid in pagination.
-    """
-    pageInfo: PageInfo!
-
-    """
-    A list of edges.
-    """
-    edges: [TransactionsEdge!]
-
-    """
-    A flattened list of the nodes.
-    """
-    nodes: [Transaction!]
+type DirectDebitTransaction implements Node & TransactionBase {
+    merchant: String
+    id: ID!
+    accountId: Int!
+    amount: Decimal!
+    reference: String
+    tags: [String!]
+    madeOn: DateTime!
+    account: Account!
 }
 
-"""
-An edge in a connection.
-"""
-type TransactionsEdge {
-    """
-    A cursor for use in pagination.
-    """
-    cursor: String!
-
-    """
-    The item at the end of the edge.
-    """
-    node: Transaction!
+type TransactionSummary {
+    madeOn: DateTime!
+    amount: Decimal!
+    reference: String!
+    tags: [String!]
 }
 
-input TransactionSortInput {
-    id: SortEnumType
-    accountId: SortEnumType
-    amount: SortEnumType
-    reference: SortEnumType
+input AddTransactionInput {
+    accountId: ID!
+    amount: Decimal!
+    reference: String!
+    tags: [String!]
 }
 
 """
@@ -435,3 +478,8 @@ scalar Name
 The built-in `Decimal` scalar type.
 """
 scalar Decimal
+
+"""
+The `DateTime` scalar represents an ISO-8601 compliant date time type.
+"""
+scalar DateTime
