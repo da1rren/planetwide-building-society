@@ -17,6 +17,10 @@ builder.Services
         BsonClassMap.RegisterClassMap<BasicTransaction>();
         BsonClassMap.RegisterClassMap<DirectDebitTransaction>();
         
+        BsonClassMap.RegisterClassMap<NetworkMetadata>();
+        BsonClassMap.RegisterClassMap<LatencyMetadata>();
+        BsonClassMap.RegisterClassMap<RetentionMetadata>();
+
         var connectionString = builder.Configuration["Database:Mongo"];
         ArgumentNullException.ThrowIfNull(connectionString, "Mongo db connection string");
         return new MongoClient(connectionString);
@@ -31,7 +35,7 @@ builder.Services
         var database = sp.GetRequiredService<IMongoDatabase>();
         return database.GetCollection<TransactionBase>("transactions");
     })
-    .AddHostedService<MigrationBackgroundJob>()
+    .AddHostedService<SeedJob>()
     .AddAuthorization()
     .RegisterRedis()
     .RegisterOpenTelemetry("Planetwide.Transactions", builder.Configuration["Database:Zipkin"]);
@@ -62,7 +66,10 @@ builder.Services
     .RegisterObjectExtensions(typeof(Program).Assembly)
     .AddType<TransactionBase>()
     .AddType<BasicTransaction>()
-    .AddType<DirectDebitTransaction>();
+    .AddType<DirectDebitTransaction>()
+    .AddType<NetworkMetadata>()
+    .AddType<LatencyMetadata>()
+    .AddType<RetentionMetadata>();
 
 var app = builder.Build();
 

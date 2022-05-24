@@ -18,10 +18,11 @@ public abstract class TransactionBase
 
     public string? Reference { get; set; }
 
-    public string[]? Tags { get; set; }
-
     public DateTimeOffset MadeOn { get; set; }
 
+    public string[]? Tags { get; set; }
+
+    public IMetadata[]? Metadata { get; set; }
 }
 
 [BsonDiscriminator("BasicTransaction")]
