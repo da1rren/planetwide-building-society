@@ -52,9 +52,22 @@ Some data will be generated and stored in memory.
 
 ### Presentation Plan
 
-What is graphql...  Why?... One Api limitless flexability
-What are the main components... Gateway, micro-services, redis
+What is graphql...  Why?... One Api limitless flexibility
+* Ask for what you need, get exactly that
+* Get many resources in a single request
+* Describe what’s possible with a type system
+* No storage system deps, works with existing infra
+
+What are the main components... 
+* Gateway
+* micro-services
+* redis
+* mongo
+* ecb api
+
 What is federation... Why?
+* Show Schema  
+* Discuss Stitching
 
 Show how to run a basic query
 * Talk about the result format
