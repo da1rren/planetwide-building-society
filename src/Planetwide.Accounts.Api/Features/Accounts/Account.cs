@@ -8,6 +8,7 @@ public class Account : INode
     [ID]
     public int Id { get; set; }
 
+    [ID("Member")]
     public int MemberId { get; init; }
 
     public string Number { get; init; }
