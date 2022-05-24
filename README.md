@@ -37,6 +37,7 @@ Additionally all services use redis to coordinate the graph.
 * [Queries](docs/Queries.md)
 * [Mutations](docs/Mutations.md)
 * [Subscriptions](docs/Subscriptions.md)
+* [Relay](docs/Relay.md)
 
 ## Endpoints
 * Heathchecks Ui http://localhost:9001/healthchecks-ui
@@ -47,3 +48,16 @@ Additionally all services use redis to coordinate the graph.
 * Run `docker compose up` in the src folder
 
 Some data will be generated and stored in memory.
+
+### todo
+
+Docker compose up
+Navigate to graphql endpoint
+Syntax
+Show how to run a basic query
+- talk about the result format
+- Query name/params
+- Intellisense
+- Recursive
+
+Show how to run a basic query with a variable
