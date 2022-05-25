@@ -59,6 +59,8 @@ What is graphql...  Why?... One Api limitless flexibility
 * Get many resources in a single request
 * Describe what’s possible with a type system
 * No storage system deps, works with existing infra
+* Fast!
+* Complexity pushed from clients to server
 
 What are the main components... 
 * Gateway
@@ -69,7 +71,7 @@ What are the main components...
 
 What is federation... Why?
 * Show Schema  
-* Discuss Stitching
+* Discuss Stitching, merging, 
 
 Show how to run a basic query
 * Talk about the result format
