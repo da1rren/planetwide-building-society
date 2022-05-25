@@ -77,6 +77,7 @@ Show how to run a basic query
 * Polymorphic
 * Shared Schema
 * Type Safety
+* Defer
 * In Built projection, sorting, paging, filter
 
 Mutations

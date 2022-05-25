@@ -11,8 +11,10 @@ public record ConversionRate(string Currency, decimal Rate);
 [ExtendObjectType(typeof(QueryRoot))]
 public class ConversionRatesQueries
 {
-    public IEnumerable<ConversionRate> GetConversionRates([Service] IHttpClientFactory factory, [Service] IMemoryCache cache)
+    public async Task<IEnumerable<ConversionRate>> GetConversionRates([Service] IHttpClientFactory factory, [Service] IMemoryCache cache)
     {
+        await Task.Delay(2000);
+
         const string ratesCacheKey = "Rates";
         if(cache.TryGetValue(ratesCacheKey, out ConversionRate[] conversionRates))
         {
