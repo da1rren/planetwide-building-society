@@ -100,6 +100,7 @@ Misc
 * Performance
 * Health Checks
 * Open telemetry
+* Docker
 * Schemas can be documented
 * directives, custom types etc
 
