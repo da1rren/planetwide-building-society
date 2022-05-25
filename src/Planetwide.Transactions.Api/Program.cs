@@ -51,6 +51,13 @@ builder.Services
     .AddRedis(builder.Configuration["Database:Redis"])
     .AddMongoDb(builder.Configuration["Database:Mongo"]);
 
+// Don't use this in prod.
+builder.Services.AddCors(options =>
+    options.AddDefaultPolicy(policy =>
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowAnyOrigin()));
+
 builder.Services
     .AddMemoryCache()
     .AddGraphQLServer()
@@ -80,6 +87,7 @@ builder.Services
 var app = builder.Build();
 
 app.UseRouting();
+app.UseCors();
 app.UseAuthorization();
 app.UseWebSockets();
 
