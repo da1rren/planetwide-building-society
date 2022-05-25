@@ -52,6 +52,8 @@ Some data will be generated and stored in memory.
 
 ### Presentation Plan
 
+* All built in 3 days, probably not stable
+
 What is graphql...  Why?... One Api limitless flexibility
 * Ask for what you need, get exactly that
 * Get many resources in a single request
@@ -96,4 +98,6 @@ Misc
 * Performance
 * Health Checks
 * Open telemetry
+* Schemas can be documented
+* directives, custom types etc
 
