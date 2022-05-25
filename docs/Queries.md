@@ -53,6 +53,28 @@ query getMemberAccounts {
 }
 ```
 
+## Defer
+This allows us to deprioritize parts of the query, to ensure a rapid ui response
+```graphql
+# I've added 2 second delay to demo this feature
+query getMemberRates {
+  ... @defer {
+    conversionRates {
+      currency
+      rate
+    }
+  }
+
+  member(memberId: "TWVtYmVyCmkx") {
+    preferences {
+      byTelephone
+      byEmail
+    }
+  }
+}
+
+```
+
 ## Interfaces/Polymorphism
 As we can use interfaces, we can do type descrimination
 
