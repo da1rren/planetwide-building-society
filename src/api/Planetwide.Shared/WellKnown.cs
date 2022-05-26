@@ -13,12 +13,15 @@ public static class WellKnown
         {
             Accounts,
             Members,
-            Transactions
+            Transactions,
+            Prompts
         };
         
         public const string SchemaKey = "planetwide";
         public const string Accounts = "Accounts";
         public const string Members = "Members";
         public const string Transactions = "Transactions";
+        public const string Prompts = "Prompts";
+
     }
 }

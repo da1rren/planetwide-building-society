@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="6.0.2" />
+        <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
+        <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.Data.MongoDb" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.9.0" />
+        <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.9.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Planetwide.Graphql.Shared\Planetwide.Graphql.Shared.csproj" />
+      <ProjectReference Include="..\Planetwide.Shared\Planetwide.Shared.csproj" />
+    </ItemGroup>
+
+</Project>

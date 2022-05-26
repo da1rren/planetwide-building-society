@@ -6,7 +6,7 @@ namespace Planetwide.Transactions.Api.Features.Transactions;
 public class TransactionQueries
 {
     public IExecutable<TransactionBase> GetTransactions([Service] IMongoCollection<TransactionBase> collection,
-        [ID] int accountId)
+        [ID("Account")] int accountId)
     {
         var filter = Builders<TransactionBase>.Filter
             .Eq(x => x.AccountId, accountId);

@@ -5,6 +5,7 @@ services:
       - Graphql:Endpoint:Accounts=http://accounts.api/graphql/
       - Graphql:Endpoint:Members=http://members.api/graphql/
       - Graphql:Endpoint:Transactions=http://transactions.api/graphql/
+      - Graphql:Endpoint:Prompts=http://prompts.api/graphql/
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
       context: '.'
@@ -44,8 +45,16 @@ services:
       - microservices
     env_file:
       - .env
-    ports:
-      - "9004:80"
+
+  prompts.api:
+    build:
+      dockerfile: 'Planetwide.Prompts.Api/Dockerfile'
+      context: '.'
+    networks:
+      - gateway
+      - microservices
+    env_file:
+      - .env
 
   redis:
     image: redis

@@ -18,7 +18,7 @@ public class SeedJob : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        _backgroundTask = MigrateDatabase(cancellationToken);
+        _backgroundTask = SeedDatabase(cancellationToken);
         return Task.CompletedTask;
     }
 
@@ -27,7 +27,7 @@ public class SeedJob : IHostedService
         await _backgroundTask;
     }
 
-    private async Task MigrateDatabase(CancellationToken cancellationToken)
+    private async Task SeedDatabase(CancellationToken cancellationToken)
     {
         var transactions = new List<TransactionBase>
         {

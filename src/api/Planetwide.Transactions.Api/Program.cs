@@ -6,6 +6,7 @@ using Planetwide.Graphql.Shared.Extensions;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
 using Planetwide.Transactions.Api.Daemons;
+using Planetwide.Transactions.Api.Extensions;
 using Planetwide.Transactions.Api.Features;
 using Planetwide.Transactions.Api.Features.Transactions;
 using StackExchange.Redis;
@@ -13,33 +14,7 @@ using StackExchange.Redis;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
-    .AddSingleton(_ =>
-    {
-        BsonClassMap.RegisterClassMap<BasicTransaction>();
-        BsonClassMap.RegisterClassMap<DirectDebitTransaction>();
-        
-        BsonClassMap.RegisterClassMap<NetworkMetadata>();
-        BsonClassMap.RegisterClassMap<LatencyMetadata>();
-        BsonClassMap.RegisterClassMap<RetentionMetadata>();
-
-        var connectionString = builder.Configuration["Database:Mongo"];
-        ArgumentNullException.ThrowIfNull(connectionString, "Mongo db connection string");
-        
-        var clientSettings = MongoClientSettings.FromConnectionString(connectionString);
-        clientSettings.ClusterConfigurator = cb => cb.Subscribe(new DiagnosticsActivityEventSubscriber());
-        
-        return new MongoClient(clientSettings);
-    })
-    .AddSingleton<IMongoDatabase>(sp =>
-    {
-        var mongo = sp.GetRequiredService<MongoClient>();
-        return mongo.GetDatabase(WellKnown.Database.MongoDatabase);
-    })
-    .AddSingleton<IMongoCollection<TransactionBase>>(sp =>
-    {
-        var database = sp.GetRequiredService<IMongoDatabase>();
-        return database.GetCollection<TransactionBase>("transactions");
-    })
+    .RegisterMongoDb(builder.Configuration["Database:Mongo"])
     .AddHostedService<SeedJob>()
     .AddAuthorization()
     .AddHttpClient()
@@ -50,13 +25,6 @@ builder.Services
     .AddHealthChecks()
     .AddRedis(builder.Configuration["Database:Redis"])
     .AddMongoDb(builder.Configuration["Database:Mongo"]);
-
-// Don't use this in prod.
-builder.Services.AddCors(options =>
-    options.AddDefaultPolicy(policy =>
-        policy.AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowAnyOrigin()));
 
 builder.Services
     .AddMemoryCache()
@@ -87,7 +55,6 @@ builder.Services
 var app = builder.Build();
 
 app.UseRouting();
-app.UseCors();
 app.UseAuthorization();
 app.UseWebSockets();
 

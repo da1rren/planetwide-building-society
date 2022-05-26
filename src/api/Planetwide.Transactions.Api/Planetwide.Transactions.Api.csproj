@@ -10,18 +10,12 @@
     <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.MongoDb" Version="6.0.2" />
         <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="6.0.4" />
-        <PackageReference Include="AspNetCore.HealthChecks.UI" Version="6.0.4" />
         <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Data.MongoDb" Version="12.9.0" />
         <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.9.0" />
         <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.9.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-            <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
         <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="6.0.5" />
     </ItemGroup>
 

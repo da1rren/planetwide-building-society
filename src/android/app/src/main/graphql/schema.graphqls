@@ -1,0 +1,569 @@
+"""
+The `@defer` directive may be provided for fragment spreads and inline fragments to inform the executor to delay the execution of the current fragment to indicate deprioritization of the current fragment. A query with `@defer` directive will cause the request to potentially return multiple responses, where non-deferred data is delivered in the initial response and data deferred is delivered in a subsequent response. `@include` and `@skip` take precedence over `@defer`.
+"""
+directive @defer(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this defer directive. This label is intended to give client applications a way to identify to which fragment a deferred result belongs to.
+  """
+  label: String
+
+  """
+  Deferred when true.
+  """
+  if: Boolean
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"""
+The `@stream` directive may be provided for a field of `List` type so that the backend can leverage technology such as asynchronous iterators to provide a partial list in the initial response, and additional list items in subsequent responses. `@include` and `@skip` take precedence over `@stream`.
+"""
+directive @stream(
+  """
+  If this argument label has a value other than null, it will be passed on to the result of this stream directive. This label is intended to give client applications a way to identify to which fragment a streamed result belongs to.
+  """
+  label: String
+
+  """
+  The initial elements that shall be send down to the consumer.
+  """
+  initialCount: Int! = 0
+
+  """
+  Streamed when true.
+  """
+  if: Boolean
+) on FIELD
+
+"""
+Delegates a resolver to a remote schema.
+"""
+directive @delegate(
+  """
+  The path to the field on the remote schema.
+  """
+  path: String
+
+  """
+  The name of the schema to which this field shall be delegated to.
+  """
+  schema: Name!
+) on FIELD_DEFINITION
+
+directive @computed(
+  """
+  Specifies the fields on which a computed field is dependent on.
+  """
+  dependantOn: [Name!]
+) on FIELD_DEFINITION
+
+"""
+Annotates the original name of a type.
+"""
+directive @source(
+  """
+  The original name of the annotated type.
+  """
+  name: Name!
+
+  """
+  The name of the schema to which this type belongs to.
+  """
+  schema: Name!
+) repeatable on ENUM | OBJECT | INTERFACE | UNION | INPUT_OBJECT | FIELD_DEFINITION | INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE
+
+type Query {
+  """
+  Fetches an object given its ID.
+  """
+  node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+
+  """
+  Lookup nodes by a list of IDs.
+  """
+  nodes(
+    """
+    The list of node IDs.
+    """
+    ids: [ID!]!
+  ): [Node]!
+  version: String!
+  account(accountId: ID!): Account
+  accounts(
+    memberId: ID!
+    where: AccountFilterInput
+    order: [AccountSortInput!]
+  ): [Account!]!
+
+  """
+  Fetches an object given its ID.
+  """
+  Members_node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+
+  """
+  Lookup nodes by a list of IDs.
+  """
+  Members_nodes(
+    """
+    The list of node IDs.
+    """
+    ids: [ID!]!
+  ): [Node]!
+  Members_version: String!
+  members(
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    where: MemberFilterInput
+    order: [MemberSortInput!]
+  ): MembersConnection
+  member(memberId: ID!): Member
+
+  """
+  Fetches an object given its ID.
+  """
+  Transactions_node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+
+  """
+  Lookup nodes by a list of IDs.
+  """
+  Transactions_nodes(
+    """
+    The list of node IDs.
+    """
+    ids: [ID!]!
+  ): [Node]!
+  Transactions_version: String!
+  transactions(accountId: ID!): [TransactionBase!]!
+  conversionRates: [ConversionRate!]!
+
+  """
+  Fetches an object given its ID.
+  """
+  Prompts_node(
+    """
+    ID of the object.
+    """
+    id: ID!
+  ): Node
+
+  """
+  Lookup nodes by a list of IDs.
+  """
+  Prompts_nodes(
+    """
+    The list of node IDs.
+    """
+    ids: [ID!]!
+  ): [Node]!
+  Prompts_version: String!
+  prompts(memberId: ID!): [Prompt!]!
+}
+
+type Mutation {
+  version: VersionPayload!
+  Members_version: VersionPayload!
+  Transactions_version: VersionPayload!
+  addTransaction(input: AddTransactionInput!): AddTransactionPayload!
+  Prompts_version: VersionPayload!
+  dismissPrompt(input: DismissPromptInput!): DismissPromptPayload!
+}
+
+type Subscription {
+  version: String!
+  transactionAdded: TransactionSummary!
+}
+
+"""
+The node interface is implemented by entities that have a global unique identifier.
+"""
+interface Node {
+  id: ID!
+}
+
+type Account implements Node {
+  id: ID!
+  memberId: ID!
+  number: String!
+  sortCode: String!
+  iban: String!
+  balance: Decimal!
+  member: Member!
+  transactions: [TransactionBase]
+}
+
+type VersionPayload {
+  string: String
+}
+
+input AccountFilterInput {
+  and: [AccountFilterInput!]
+  or: [AccountFilterInput!]
+  id: IdOperationFilterInput
+  memberId: IdOperationFilterInput
+  number: StringOperationFilterInput
+  sortCode: StringOperationFilterInput
+  iban: StringOperationFilterInput
+  balance: ComparableDecimalOperationFilterInput
+}
+
+input AccountSortInput {
+  id: SortEnumType
+  memberId: SortEnumType
+  number: SortEnumType
+  sortCode: SortEnumType
+  iban: SortEnumType
+  balance: SortEnumType
+}
+
+input ComparableDecimalOperationFilterInput {
+  eq: Decimal
+  neq: Decimal
+  in: [Decimal!]
+  nin: [Decimal!]
+  gt: Decimal
+  ngt: Decimal
+  gte: Decimal
+  ngte: Decimal
+  lt: Decimal
+  nlt: Decimal
+  lte: Decimal
+  nlte: Decimal
+}
+
+input IdOperationFilterInput {
+  eq: ID
+  neq: ID
+  in: [ID]
+  nin: [ID]
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+type Member implements Node {
+  id: ID!
+  firstname: String
+  surname: String
+  preferences: MemberMarketingPreferences
+  accounts: [Account]
+}
+
+type MemberMarketingPreferences {
+  id: ID!
+  byPost: DateTime
+  byTelephone: DateTime
+  byEmail: DateTime
+  byOnline: DateTime
+  faceToFace: DateTime
+  byPhone: DateTime
+  bySmsService: DateTime
+  bySmsMarketing: DateTime
+  memberId: Int!
+  member: Member
+}
+
+"""
+A connection to a list of items.
+"""
+type MembersConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [MembersEdge!]
+
+  """
+  A flattened list of the nodes.
+  """
+  nodes: [Member!]
+}
+
+"""
+An edge in a connection.
+"""
+type MembersEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Member!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  Indicates whether more edges exist following the set defined by the clients arguments.
+  """
+  hasNextPage: Boolean!
+
+  """
+  Indicates whether more edges exist prior the set defined by the clients arguments.
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input ComparableNullableOfDateTimeOffsetOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input MemberFilterInput {
+  and: [MemberFilterInput!]
+  or: [MemberFilterInput!]
+  id: IdOperationFilterInput
+  firstname: StringOperationFilterInput
+  surname: StringOperationFilterInput
+  preferences: MemberMarketingPreferencesFilterInput
+}
+
+input MemberMarketingPreferencesFilterInput {
+  and: [MemberMarketingPreferencesFilterInput!]
+  or: [MemberMarketingPreferencesFilterInput!]
+  id: IdOperationFilterInput
+  byPost: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  byTelephone: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  byEmail: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  byOnline: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  faceToFace: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  byPhone: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  bySmsService: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  bySmsMarketing: ComparableNullableOfDateTimeOffsetOperationFilterInput
+  memberId: ComparableInt32OperationFilterInput
+  member: MemberFilterInput
+}
+
+input MemberMarketingPreferencesSortInput {
+  id: SortEnumType
+  byPost: SortEnumType
+  byTelephone: SortEnumType
+  byEmail: SortEnumType
+  byOnline: SortEnumType
+  faceToFace: SortEnumType
+  byPhone: SortEnumType
+  bySmsService: SortEnumType
+  bySmsMarketing: SortEnumType
+  memberId: SortEnumType
+  member: MemberSortInput
+}
+
+input MemberSortInput {
+  id: SortEnumType
+  firstname: SortEnumType
+  surname: SortEnumType
+  preferences: MemberMarketingPreferencesSortInput
+}
+
+interface Error {
+  message: String!
+}
+
+interface TransactionBase {
+  id: ID!
+  accountId: ID!
+  amount: Decimal!
+  reference: String
+  madeOn: DateTime!
+  tags: [String!]
+  metadata: [Metadata!]
+}
+
+type AddTransactionPayload {
+  transactionBase: TransactionBase
+  errors: [AddTransactionError!]
+}
+
+type AmountTooLargeError implements Error {
+  message: String!
+  attemptedAmount: Decimal!
+  limit: Decimal!
+}
+
+type BasicTransaction implements Node & TransactionBase {
+  city: String
+  id: ID!
+  accountId: ID!
+  amount: Decimal!
+  reference: String
+  madeOn: DateTime!
+  tags: [String!]
+  metadata: [Metadata!]
+  account: Account!
+}
+
+type ConversionRate {
+  currency: String!
+  rate: Decimal!
+}
+
+type DirectDebitTransaction implements Node & TransactionBase {
+  merchant: String
+  id: ID!
+  accountId: ID!
+  amount: Decimal!
+  reference: String
+  madeOn: DateTime!
+  tags: [String!]
+  metadata: [Metadata!]
+  account: Account!
+}
+
+type LatencyMetadata {
+  latency: TimeSpan!
+}
+
+type NetworkMetadata {
+  ipAddress: String!
+}
+
+type RetentionMetadata {
+  deleteOn: DateTime!
+}
+
+type TransactionSummary {
+  madeOn: DateTime!
+  amount: Decimal!
+  reference: String!
+  tags: [String!]
+}
+
+union AddTransactionError = AmountTooLargeError
+
+union Metadata = NetworkMetadata | LatencyMetadata | RetentionMetadata
+
+input AddTransactionInput {
+  accountId: ID!
+  amount: Decimal!
+  reference: String!
+  tags: [String!]
+}
+
+type DismissPromptPayload {
+  dismissedPrompt: DismissedPrompt
+}
+
+type DismissedPrompt {
+  id: ID!
+}
+
+type Prompt implements Node {
+  id: ID!
+  memberId: ID!
+  message: String
+  dismissedOn: DateTime
+}
+
+input DismissPromptInput {
+  promptId: ID!
+}
+
+"""
+The name scalar represents a valid GraphQL name as specified in the spec and can be used to refer to fields or types.
+"""
+scalar Name
+
+"""
+The built-in `Decimal` scalar type.
+"""
+scalar Decimal
+
+"""
+The `DateTime` scalar represents an ISO-8601 compliant date time type.
+"""
+scalar DateTime
+
+"""
+The `TimeSpan` scalar represents an ISO-8601 compliant duration type.
+"""
+scalar TimeSpan

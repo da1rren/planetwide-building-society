@@ -37,6 +37,16 @@ services:
     ports:
       - "9004:80"
 
+  prompts.api:
+    container_name: planetwide-prompts-debug
+    build:
+      dockerfile: 'Planetwide.Prompts.Api/Debug.Dockerfile'
+      context: '.'
+    volumes:
+      - ./Planetwide.Prompts.Api/bin/Debug/net6.0:/app
+    ports:
+      - "9005:80"
+
   redis:
     container_name: planetwide-redis-debug
 

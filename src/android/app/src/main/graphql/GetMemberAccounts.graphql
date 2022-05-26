@@ -1,0 +1,20 @@
+query GetMemberAccounts($memberId: ID!) {
+    prompts(memberId: $memberId) {
+        id
+        message
+    }
+
+    member(memberId: $memberId) {
+        id
+        firstname
+        surname
+        preferences {
+            byPost
+            byOnline
+        }
+        accounts {
+            iban
+            balance
+        }
+    }
+}
