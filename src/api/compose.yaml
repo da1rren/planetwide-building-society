@@ -9,7 +9,7 @@ services:
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
       context: '.'
-    image: ghcr.io/da1rren/planetwide-gateway
+    image: ghcr.io/da1rren/planetwide-gateway:latest
     networks:
       - gateway
     ports:
@@ -21,7 +21,7 @@ services:
     build:
       dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
       context: '.'
-    image: ghcr.io/da1rren/planetwide-accounts-api
+    image: ghcr.io/da1rren/planetwide-accounts-api:latest
     networks:
       - gateway
       - microservices
@@ -32,7 +32,7 @@ services:
     build:
       dockerfile: 'Planetwide.Members.Api/Dockerfile'
       context: '.'
-    image: ghcr.io/da1rren/planetwide-members-api
+    image: ghcr.io/da1rren/planetwide-members-api:latest
     networks:
       - gateway
       - microservices
@@ -43,7 +43,7 @@ services:
     build:
       dockerfile: 'Planetwide.Transactions.Api/Dockerfile'
       context: '.'
-    image: ghcr.io/da1rren/planetwide-transactions-api
+    image: ghcr.io/da1rren/planetwide-transactions-api:latest
     networks:
       - gateway
       - microservices
@@ -54,7 +54,7 @@ services:
     build:
       dockerfile: 'Planetwide.Prompts.Api/Dockerfile'
       context: '.'
-    image: ghcr.io/da1rren/planetwide-prompts-api
+    image: ghcr.io/da1rren/planetwide-prompts-api:latest
     networks:
       - gateway
       - microservices
