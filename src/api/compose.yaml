@@ -9,6 +9,8 @@ services:
     build:
       dockerfile: 'Planetwide.Gateway/Dockerfile'
       context: '.'
+      cache_from:
+        - "ghcr.io/da1rren/planetwide-gateway:latest"
     image: ghcr.io/da1rren/planetwide-gateway:latest
     networks:
       - gateway
@@ -21,6 +23,8 @@ services:
     build:
       dockerfile: 'Planetwide.Accounts.Api/Dockerfile'
       context: '.'
+      cache_from:
+        - "ghcr.io/da1rren/planetwide-accounts-api:latest"
     image: ghcr.io/da1rren/planetwide-accounts-api:latest
     networks:
       - gateway
@@ -32,6 +36,8 @@ services:
     build:
       dockerfile: 'Planetwide.Members.Api/Dockerfile'
       context: '.'
+      cache_from:
+        - "ghcr.io/da1rren/planetwide-members-api:latest"
     image: ghcr.io/da1rren/planetwide-members-api:latest
     networks:
       - gateway
@@ -43,6 +49,8 @@ services:
     build:
       dockerfile: 'Planetwide.Transactions.Api/Dockerfile'
       context: '.'
+      cache_from:
+        - "ghcr.io/da1rren/planetwide-transactions-api:latest"
     image: ghcr.io/da1rren/planetwide-transactions-api:latest
     networks:
       - gateway
@@ -54,6 +62,8 @@ services:
     build:
       dockerfile: 'Planetwide.Prompts.Api/Dockerfile'
       context: '.'
+      cache_from:
+        - "ghcr.io/da1rren/planetwide-prompts-api:latest"
     image: ghcr.io/da1rren/planetwide-prompts-api:latest
     networks:
       - gateway
