@@ -32,6 +32,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Login
+        run: echo "${{ github.token }}" | docker login https://docker.pkg.github.com -u da1rren --password-stdin
+
       - name: Docker Compose Build
         run: docker compose build
 
