@@ -1,4 +1,4 @@
-#  Simple Building Society 
+#  Planetwide Building Society 
 
 This project currently contains 4 microservices structured like:
 
