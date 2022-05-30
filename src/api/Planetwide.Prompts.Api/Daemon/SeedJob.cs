@@ -48,7 +48,7 @@ public class SeedJob : IHostedService
                 Id = ObjectId.GenerateNewId(),
                 MemberId = 1,
                 Message = "Your Planetwide account was opened",
-                DismissedOn = DateTimeOffset.Now.AddYears(-1)
+                DismissedOn = DateTime.Now.AddYears(-1)
             },
         };
 

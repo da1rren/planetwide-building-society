@@ -535,6 +535,7 @@ type DismissPromptPayload {
 
 type DismissedPrompt {
   id: ID!
+  dismissedOn: DateTime
 }
 
 type Prompt implements Node {

@@ -1,0 +1,26 @@
+query GetMember($memberId: ID!) {
+    prompts(memberId: $memberId) {
+        id
+        message
+        dismissedOn
+    }
+
+    member(memberId: $memberId) {
+        id
+        firstname
+        surname
+        accounts {
+            iban
+            balance
+        }
+    }
+}
+
+mutation dismissPrompt($promptId: ID!){
+    dismissPrompt( input: { promptId: $promptId }) {
+        dismissedPrompt {
+            id
+            dismissedOn
+        }
+    }
+}

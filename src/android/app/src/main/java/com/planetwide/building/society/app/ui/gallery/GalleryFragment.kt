@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.planetwide.building.society.app.GetMemberQuery
 import com.planetwide.building.society.app.databinding.FragmentGalleryBinding
 
 class GalleryFragment : Fragment() {
@@ -22,21 +23,30 @@ class GalleryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
+        val promptsViewModel =
             ViewModelProvider(this).get(GalleryViewModel::class.java)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textGallery
+        binding.recyclerViewPrompts.adapter = PromptAdapter(arrayOf(GetMemberQuery.Prompt("none", "Loading...", null)))
 
-        galleryViewModel.member.observe(viewLifecycleOwner) {
+        promptsViewModel.member.observe(viewLifecycleOwner) {
             textView.text = "name: " + it.firstname + it.surname
         }
 
-        galleryViewModel.getAccounts();
+        promptsViewModel.prompts.observe(viewLifecycleOwner) {
+            binding.recyclerViewPrompts.adapter = PromptAdapter(it.toTypedArray())
+        }
+
+        promptsViewModel.getAccounts();
 
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
     }
 
     override fun onDestroyView() {

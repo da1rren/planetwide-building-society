@@ -50,9 +50,13 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
     implementation("com.apollographql.apollo3:apollo-runtime:3.3.0")
+    implementation("com.apollographql.apollo3:apollo-adapters:3.3.0")
     implementation("com.apollographql.apollo3:apollo-normalized-cache-sqlite:3.3.0")
 }
 
 apollo {
     packageName.set("com.planetwide.building.society.app")
+
+    mapScalar("DateTime", "java.time.OffsetDateTime",
+        "com.apollographql.apollo3.adapter.JavaOffsetDateTimeAdapter")
 }
