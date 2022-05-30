@@ -4,3 +4,6 @@ Currently a mess but it contains an example of using our cache as our source of 
 
 ## How to use
 The app depends on having planetwides server components running.  So ensure you can access graphql on http://localhost:9001/graphql
+
+
+Sorry about the quality this is the first time I've written Kotlin :)
