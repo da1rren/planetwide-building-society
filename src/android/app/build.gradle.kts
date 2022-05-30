@@ -51,7 +51,7 @@ dependencies {
 
     implementation("com.apollographql.apollo3:apollo-runtime:3.3.0")
     implementation("com.apollographql.apollo3:apollo-adapters:3.3.0")
-    implementation("com.apollographql.apollo3:apollo-normalized-cache-sqlite:3.3.0")
+    implementation("com.apollographql.apollo3:apollo-normalized-cache:3.3.0")
 }
 
 apollo {
