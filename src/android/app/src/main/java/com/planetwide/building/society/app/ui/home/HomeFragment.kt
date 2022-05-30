@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
 
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            textView.text = "Look in the prompts tab, under the hamburger menu"
         }
         return root
     }
