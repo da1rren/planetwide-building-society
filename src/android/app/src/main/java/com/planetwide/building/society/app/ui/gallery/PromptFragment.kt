@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.planetwide.building.society.app.GetMemberQuery
 import com.planetwide.building.society.app.databinding.FragmentGalleryBinding
 
-class GalleryFragment : Fragment() {
+class PromptFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
 
@@ -24,7 +24,7 @@ class GalleryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val promptsViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+            ViewModelProvider(this).get(PromptViewModel::class.java)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root

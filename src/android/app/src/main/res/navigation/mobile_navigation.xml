@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.planetwide.building.society.app.ui.gallery.GalleryFragment"
+        android:name="com.planetwide.building.society.app.ui.gallery.PromptFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 

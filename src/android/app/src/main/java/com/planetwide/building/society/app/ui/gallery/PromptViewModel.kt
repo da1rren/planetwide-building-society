@@ -11,7 +11,7 @@ import com.planetwide.building.society.app.GetMemberQuery
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class GalleryViewModel : ViewModel() {
+class PromptViewModel : ViewModel() {
 
     private val _member = MutableLiveData<GetMemberQuery.Member>()
     val member: LiveData<GetMemberQuery.Member> = _member;
@@ -26,7 +26,7 @@ class GalleryViewModel : ViewModel() {
             val response =  client.query(GetMemberQuery("TWVtYmVyCmkx"))
                 .watch()
                 .collect {
-§                    Log.i("PromptViewModel", "Refreshing from prompt cache")
+                    Log.i("PromptViewModel", "Refreshing from prompt cache")
                     _member.postValue(it.data?.member!!)
                     _prompts.postValue(it.data?.prompts!!)
                 };
