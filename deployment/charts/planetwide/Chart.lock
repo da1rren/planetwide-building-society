@@ -1,0 +1,12 @@
+dependencies:
+- name: mongodb
+  repository: https://charts.bitnami.com/mongodb
+  version: 12.1.20
+- name: redis
+  repository: https://charts.bitnami.com/redis
+  version: 16.12.2
+- name: jaeger
+  repository: https://jaegertracing.github.io/helm-charts
+  version: 0.56.7
+digest: sha256:4e3a74e4f50333bcfb7d47b7f2ab30055ae77baaf4042dd69d0eaa0f087acfc2
+generated: "2022-06-17T12:41:19.58328+01:00"
