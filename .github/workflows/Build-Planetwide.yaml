@@ -74,7 +74,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: start minikube
+      - name: Start Minikube
         id: minikube
         uses: medyagh/setup-minikube@master
 
