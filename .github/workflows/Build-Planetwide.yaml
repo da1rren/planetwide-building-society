@@ -41,7 +41,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ env.GITHUB_ACTOR }}
+          username: ${GITHUB_ACTOR}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Docker meta
@@ -49,11 +49,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            ghcr.io/${{ env.GITHUB_ACTOR }}/planetwide-gateway
-            ghcr.io/${{ env.GITHUB_ACTOR }}/planetwide-accounts-api
-            ghcr.io/${{ env.GITHUB_ACTOR }}/planetwide-members-api
-            ghcr.io/${{ env.GITHUB_ACTOR }}/planetwide-transactions-api
-            ghcr.io/${{ env.GITHUB_ACTOR }}/planetwide-prompts-api
+            ghcr.io/${GITHUB_ACTOR}/planetwide-gateway
+            ghcr.io/${GITHUB_ACTOR}/planetwide-accounts-api
+            ghcr.io/${GITHUB_ACTOR}/planetwide-members-api
+            ghcr.io/${GITHUB_ACTOR}/planetwide-transactions-api
+            ghcr.io/${GITHUB_ACTOR}/planetwide-prompts-api
           flavour: |
             latest=true
             type=ref,event=branch
