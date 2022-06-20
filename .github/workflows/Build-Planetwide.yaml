@@ -5,7 +5,8 @@ on: [push]
 env:
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
-
+  TAG: ${GITHUB_RUN_ID}.${GITHUB_RUN_NUMBER}
+  
 jobs:
   Dotnet-Build:
     runs-on: ubuntu-latest
@@ -43,23 +44,6 @@ jobs:
           registry: ghcr.io
           username: ${GITHUB_ACTOR}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: |
-            ghcr.io/${GITHUB_ACTOR}/planetwide-gateway
-            ghcr.io/${GITHUB_ACTOR}/planetwide-accounts-api
-            ghcr.io/${GITHUB_ACTOR}/planetwide-members-api
-            ghcr.io/${GITHUB_ACTOR}/planetwide-transactions-api
-            ghcr.io/${GITHUB_ACTOR}/planetwide-prompts-api
-          flavor: |
-            latest=true
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=sha
 
       - name: Docker Compose Build
         run: docker compose build --build-arg BUILDKIT_INLINE_CACHE=1

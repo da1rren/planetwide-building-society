@@ -11,7 +11,7 @@ services:
       context: '.'
       cache_from:
         - "ghcr.io/da1rren/planetwide-gateway:latest"
-    image: ghcr.io/da1rren/planetwide-gateway:latest
+    image: ghcr.io/da1rren/planetwide-gateway:${TAG:-latest}
     networks:
       - gateway
     ports:
@@ -25,7 +25,7 @@ services:
       context: '.'
       cache_from:
         - "ghcr.io/da1rren/planetwide-accounts-api:latest"
-    image: ghcr.io/da1rren/planetwide-accounts-api:latest
+    image: ghcr.io/da1rren/planetwide-accounts-api:${TAG:-latest}
     networks:
       - gateway
       - microservices
@@ -38,7 +38,7 @@ services:
       context: '.'
       cache_from:
         - "ghcr.io/da1rren/planetwide-members-api:latest"
-    image: ghcr.io/da1rren/planetwide-members-api:latest
+    image: ghcr.io/da1rren/planetwide-members-api:${TAG:-latest}
     networks:
       - gateway
       - microservices
@@ -51,7 +51,7 @@ services:
       context: '.'
       cache_from:
         - "ghcr.io/da1rren/planetwide-transactions-api:latest"
-    image: ghcr.io/da1rren/planetwide-transactions-api:latest
+    image: ghcr.io/da1rren/planetwide-transactions-api:${TAG:-latest}
     networks:
       - gateway
       - microservices
@@ -64,7 +64,7 @@ services:
       context: '.'
       cache_from:
         - "ghcr.io/da1rren/planetwide-prompts-api:latest"
-    image: ghcr.io/da1rren/planetwide-prompts-api:latest
+    image: ghcr.io/da1rren/planetwide-prompts-api:${TAG:-latest}
     networks:
       - gateway
       - microservices
