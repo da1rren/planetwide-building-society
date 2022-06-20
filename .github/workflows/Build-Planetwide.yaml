@@ -5,7 +5,7 @@ on: [push]
 env:
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
-  TAG: "${{ env.GITHUB_RUN_ID }}.${{ env.GITHUB_RUN_NUMBER }}"
+  TAG: "${{ github.GITHUB_RUN_ID }}.${{ github.GITHUB_RUN_NUMBER }}"
 
 jobs:
   Dotnet-Build:
