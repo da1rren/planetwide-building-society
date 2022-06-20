@@ -54,7 +54,7 @@ jobs:
             ghcr.io/${GITHUB_ACTOR}/planetwide-members-api
             ghcr.io/${GITHUB_ACTOR}/planetwide-transactions-api
             ghcr.io/${GITHUB_ACTOR}/planetwide-prompts-api
-          flavour: |
+          flavor: |
             latest=true
             type=ref,event=branch
             type=ref,event=pr
