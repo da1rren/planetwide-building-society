@@ -56,6 +56,9 @@ jobs:
             ghcr.io/${GITHUB_ACTOR}/planetwide-prompts-api
           flavor: |
             latest=true
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
             type=sha
 
       - name: Docker Compose Build
