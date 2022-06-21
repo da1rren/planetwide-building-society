@@ -11,6 +11,8 @@ jaeger:
     enabled: false
   query:
     enabled: false
+  zipkin:
+    port: 9411
 
 global:
   redis:
