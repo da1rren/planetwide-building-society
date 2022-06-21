@@ -79,6 +79,10 @@ jobs:
         id: minikube
         uses: medyagh/setup-minikube@master
 
+      - name: Check Minikube
+        run: |
+          kubectl cluster-info
+
       - name: Deploy Chart
         run: |
           helm install planetwide . --namespace planetwide --create-namespace --wait
