@@ -86,3 +86,8 @@ jobs:
       - name: Deploy Chart
         run: |
           helm install planetwide . --namespace planetwide --create-namespace --wait
+
+      - name: Get Pod Status
+        if: always()
+        run: |
+          kubectl get pods -n planetwide
