@@ -5,7 +5,7 @@ on: [push]
 env:
   DOCKER_BUILDKIT: 1
   COMPOSE_DOCKER_CLI_BUILD: 1
-  TAG: "${{ github.GITHUB_RUN_ID }}${{ github.GITHUB_RUN_NUMBER }}"
+  TAG: "${{ github.run_id }}${{ github.run_number }}"
 
 jobs:
   Dotnet-Build:
@@ -54,6 +54,8 @@ jobs:
         run: docker compose push
         env:
           TAG: ${{ env.TAG }}
+
+
 
   Deploy-To-Minikube:
     runs-on: ubuntu-latest
