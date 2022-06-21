@@ -18,9 +18,11 @@ global:
 
 mongodb:
   readinessProbe:
-    initialDelaySeconds: 300
+    failureThreshold: 30
   livenessProbe:
-    initialDelaySeconds: 300
+    failureThreshold: 30
+  startupProbe:
+    failureThreshold: 120
   auth:
     rootUser: "planetwideroot"
     rootPassword: "Root123"
