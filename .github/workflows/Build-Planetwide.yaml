@@ -55,6 +55,16 @@ jobs:
         env:
           TAG: ${{ env.TAG }}
 
+      # todo make this better
+      - name: Docker Compose Build
+        run: docker compose build --build-arg BUILDKIT_INLINE_CACHE=1
+        env:
+          TAG: latest
+
+      - name: Docker Compose Push
+        run: docker compose push
+        env:
+          TAG: latest
 
 
   Deploy-To-Minikube:
