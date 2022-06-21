@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: deployment/planetwide
+        working-directory: deployment/charts/planetwide
     steps:
       - uses: actions/checkout@v2
 
