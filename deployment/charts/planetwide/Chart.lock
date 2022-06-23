@@ -4,9 +4,9 @@ dependencies:
   version: 12.1.20
 - name: redis
   repository: https://charts.bitnami.com/redis
-  version: 16.12.2
+  version: 16.12.3
 - name: jaeger
   repository: https://jaegertracing.github.io/helm-charts
-  version: 0.56.7
-digest: sha256:4e3a74e4f50333bcfb7d47b7f2ab30055ae77baaf4042dd69d0eaa0f087acfc2
-generated: "2022-06-17T12:41:19.58328+01:00"
+  version: 0.56.8
+digest: sha256:fc1e2f69a4c5eb468fc49074ebed2d57b1a7ed0074421d083f5171e932d66b3f
+generated: "2022-06-23T12:57:46.129414+01:00"

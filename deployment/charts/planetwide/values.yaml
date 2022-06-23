@@ -3,6 +3,8 @@ jaeger:
     cassandra: false
   allInOne:
     enabled: true
+    ingress:
+      enabled: false
   storage:
     type: none
   agent:
@@ -34,11 +36,19 @@ mongodb:
       - "PlanetwideAdminDoesStuff"
     databases:
       - "planetwide"
+
 env:
   Database__Redis: "planetwide-redis-master:6379,abortConnect=false,password=AReallyBadPassword"
   Database__Mongo: "mongodb://planetwideadmin:PlanetwideAdminDoesStuff@planetwide-mongodb/planetwide"
   Database__Zipkin: "http://planetwide-jaeger-collector/api/v2/spans"
   Database__SqliteConnectionString: "DataSource=Planetwide;mode=memory;cache=shared"
+
+  #Graphql__Endpoint__GatewayHealth: http://planetwide-gateway/Health/
+  #Graphql__Endpoint__Accounts: http://planetwide-accounts-api/graphql/
+  #Graphql__Endpoint__Members: http://planetwide-members-api/graphql/
+  #Graphql__Endpoint__Transactions: http://planetwide-transactions-api/graphql/
+  #Graphql__Endpoint__Prompts: http://planetwide-prompts-api/graphql/
+
   Graphql__Endpoint__GatewayHealth: http://planetwide-gateway/Health/
   Graphql__Endpoint__Accounts: http://planetwide-accounts-api/graphql/
   Graphql__Endpoint__Members: http://planetwide-members-api/graphql/
