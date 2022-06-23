@@ -98,6 +98,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install Glooctl
+        run: |
+          curl -sL https://run.solo.io/gloo/install | sh
+          export PATH=$HOME/.gloo/bin:$PATH
+
       - name: Build Gloo Cluster
         env:
           GLOO_TOKEN: ${{ secrets.GLOO_TOKEN }}
