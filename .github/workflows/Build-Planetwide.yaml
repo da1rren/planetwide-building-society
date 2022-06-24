@@ -104,4 +104,5 @@ jobs:
         run: |
           curl -sL https://run.solo.io/gloo/install | sh
           export PATH=$HOME/.gloo/bin:$PATH
-          make create-cluster
+
+          make create-cluster-with-gloo-and-istio

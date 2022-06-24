@@ -1,3 +1,7 @@
+global:
+  redis:
+    password: "AReallyBadPassword"
+
 jaeger:
   provisionDataStore:
     cassandra: false
@@ -16,9 +20,8 @@ jaeger:
   zipkin:
     port: 9411
 
-global:
-  redis:
-    password: "AReallyBadPassword"
+redis:
+  architecture: standalone
 
 mongodb:
   readinessProbe:
