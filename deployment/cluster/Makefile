@@ -18,6 +18,9 @@ install-istio:
 	kubectl create namespace planetwide
 	kubectl create -f istio-peer-security-policy.yaml
 	kubectl label namespace planetwide istio-injection=enabled
+	kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/kiali.yaml
+	kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/prometheus.yaml
+
 # See https://github.com/solo-io/gloo/issues/6623
 # glooctl istio inject	
 

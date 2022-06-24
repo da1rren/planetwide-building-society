@@ -38,6 +38,8 @@ helm.sh/chart: {{ include "planetwide-transactions-api.chart" . }}
 {{ include "planetwide-transactions-api.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+version: {{ .Chart.AppVersion | quote }}
+app: planetwide
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}

@@ -38,6 +38,8 @@ helm.sh/chart: {{ include "planetwide-prompts-api.chart" . }}
 {{ include "planetwide-prompts-api.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+version: {{ .Chart.AppVersion | quote }}
+app: planetwide
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}

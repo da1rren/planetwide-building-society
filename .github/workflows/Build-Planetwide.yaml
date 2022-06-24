@@ -105,4 +105,21 @@ jobs:
           curl -sL https://run.solo.io/gloo/install | sh
           export PATH=$HOME/.gloo/bin:$PATH
 
+          make create-cluster-with-gloo
+
+  Deploy-Gloo-And-Istio-To-Kind-Cluster:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deployment/cluster
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Gloo Cluster
+        env:
+          GLOO_TOKEN: ${{ secrets.GLOO_TOKEN }}
+        run: |
+          curl -sL https://run.solo.io/gloo/install | sh
+          export PATH=$HOME/.gloo/bin:$PATH
+
           make create-cluster-with-gloo-and-istio
