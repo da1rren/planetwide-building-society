@@ -13,7 +13,6 @@ endif
 
 install-istio:
 	curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.13.5 TARGET_ARCH=x86_64 sh -
-	istio-1.13.5/bin/istioctl experimental precheck
 	istio-1.13.5/bin/istioctl install -y --set profile=minimal
 	rm -rf istio-1.13.5/
 	kubectl create namespace planetwide

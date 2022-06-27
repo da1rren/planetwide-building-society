@@ -156,4 +156,9 @@ jobs:
         run: |
           kubectl get pods -n planetwide
           kubectl get nodes
+          kubectl get deployment planetwide-accounts-api -n planetwide
+          kubectl get deployment planetwide-members-api -n planetwide
+          kubectl get deployment planetwide-prompts-api -n planetwide
+          kubectl get deployment planetwide-transactions-api -n planetwide
+          kubectl get deployment planetwide-gateway -n planetwide
 
