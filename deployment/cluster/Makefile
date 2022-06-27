@@ -31,7 +31,9 @@ install-planetwide:
 create-cluster-with-gloo: create-cluster install-gloo install-planetwide
 	$(info Gloo cluster created)
 
-create-cluster-with-gloo-and-istio: create-cluster install-gloo install-istio install-planetwide
+create-cluster-with-gloo-and-istio: create-cluster install-istio install-gloo install-planetwide
+	glooctl istio inject
+	kubectl set image deployment/gateway-proxy sds=quay.io/solo-io/sds:1.11.16 -n gloo-system
 	glooctl istio enable-mtls --upstream planetwide-planetwide-gateway-80
 	$(info Gloo & istio cluster created)
 

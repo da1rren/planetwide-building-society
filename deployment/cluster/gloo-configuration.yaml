@@ -15,7 +15,6 @@ grafana:
   defaultInstallationEnabled: false
 global:
   glooMtls:
-    enabled: true
     sds:
       image:
         tag: 1.11.16
