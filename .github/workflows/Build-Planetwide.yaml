@@ -113,10 +113,12 @@ jobs:
           # Swith to use --retry-all-errors once curl is updated to >7.71.0
           curl --version
 
-          until $(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
+          until contents=$(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
           do
             break
           done
+
+          echo $contents
 
           
   Deploy-Gloo-And-Istio-To-Kind-Cluster:
@@ -142,8 +144,10 @@ jobs:
           # Swith to use --retry-all-errors once curl is updated to >7.71.0
           curl --version
 
-          until $(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
+          until contents=$(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
           do
             break
           done
+
+          echo $contents
           
