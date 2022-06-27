@@ -120,7 +120,6 @@ jobs:
 
           echo $contents
 
-          
   Deploy-Gloo-And-Istio-To-Kind-Cluster:
     runs-on: ubuntu-latest
     defaults:
@@ -150,15 +149,14 @@ jobs:
           done
 
           echo $contents
-          
+
       - name: Get K8s Status
         if: always()
         run: |
           kubectl get pods -n planetwide
           kubectl get nodes
-          kubectl get deployment planetwide-accounts-api -n planetwide
-          kubectl get deployment planetwide-members-api -n planetwide
-          kubectl get deployment planetwide-prompts-api -n planetwide
-          kubectl get deployment planetwide-transactions-api -n planetwide
-          kubectl get deployment planetwide-gateway -n planetwide
-
+          kubectl describe deployment planetwide-accounts-api -n planetwide
+          kubectl describe deployment planetwide-members-api -n planetwide
+          kubectl describe deployment planetwide-prompts-api -n planetwide
+          kubectl describe deployment planetwide-transactions-api -n planetwide
+          kubectl describe deployment planetwide-gateway -n planetwide
