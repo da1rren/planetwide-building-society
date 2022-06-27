@@ -151,3 +151,8 @@ jobs:
 
           echo $contents
           
+      - name: Get Pod Status
+        if: always()
+        run: |
+          kubectl get pods -n planetwide
+
