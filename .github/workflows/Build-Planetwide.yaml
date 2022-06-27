@@ -107,6 +107,8 @@ jobs:
 
           make create-cluster-with-gloo
 
+          curl http://localhost:31500/health
+
   Deploy-Gloo-And-Istio-To-Kind-Cluster:
     runs-on: ubuntu-latest
     defaults:
@@ -122,5 +124,6 @@ jobs:
           curl -sL https://run.solo.io/gloo/install | sh
           export PATH=$HOME/.gloo/bin:$PATH
 
-          istioctl x precheck
           make create-cluster-with-gloo-and-istio
+
+          curl http://localhost:31500/health
