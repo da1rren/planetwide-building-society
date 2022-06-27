@@ -107,9 +107,18 @@ jobs:
 
           make create-cluster-with-gloo
 
+      - name: Test Cluster
+        timeout-minutes: 5
+        run: |
+          # Swith to use --retry-all-errors once curl is updated to >7.71.0
           curl --version
-          curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused
 
+          until $(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
+          do
+            break
+          done
+
+          
   Deploy-Gloo-And-Istio-To-Kind-Cluster:
     runs-on: ubuntu-latest
     defaults:
@@ -127,5 +136,14 @@ jobs:
 
           make create-cluster-with-gloo-and-istio
 
+      - name: Test Cluster
+        timeout-minutes: 5
+        run: |
+          # Swith to use --retry-all-errors once curl is updated to >7.71.0
           curl --version
-          curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused
+
+          until $(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
+          do
+            break
+          done
+          
