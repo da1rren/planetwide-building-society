@@ -151,8 +151,9 @@ jobs:
 
           echo $contents
           
-      - name: Get Pod Status
+      - name: Get K8s Status
         if: always()
         run: |
           kubectl get pods -n planetwide
+          kubectl get nodes
 
