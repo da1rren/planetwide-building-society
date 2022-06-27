@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Planetwide.Shared.Attributes;
 
 namespace Planetwide.Members.Api.Features.Members;
 
 public class Member : INode
 {
-    [ID]
+    [MemberId]
     public int Id { get; set; }
 
     public string? Firstname { get; set; }

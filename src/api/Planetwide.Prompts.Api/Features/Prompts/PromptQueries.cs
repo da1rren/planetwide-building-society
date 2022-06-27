@@ -1,5 +1,6 @@
 using HotChocolate.Data;
 using MongoDB.Driver;
+using Planetwide.Shared.Attributes;
 
 namespace Planetwide.Prompts.Api.Features.Prompts;
 
@@ -7,7 +8,7 @@ namespace Planetwide.Prompts.Api.Features.Prompts;
 public class PromptQueries
 {
     public IExecutable<Prompt> GetPrompts([Service] IMongoCollection<Prompt> collection,
-        [ID("Member")] int memberId)
+        [MemberId] int memberId)
     {
         var filter = Builders<Prompt>.Filter
             .Eq(x => x.MemberId, memberId);

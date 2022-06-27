@@ -1,5 +1,6 @@
 using HotChocolate.Subscriptions;
 using MongoDB.Driver;
+using Planetwide.Shared.Attributes;
 using StackExchange.Redis;
 
 namespace Planetwide.Transactions.Api.Features.Transactions;
@@ -17,7 +18,7 @@ public class TransactionMutations
         [Service] ITopicEventSender sender, 
         [Service] ConnectionMultiplexer multiplexer,
         CancellationToken cancellationToken,
-        [ID]int accountId, 
+        [AccountId]int accountId, 
         decimal amount, 
         string reference, 
         string[]? tags)

@@ -1,11 +1,12 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Planetwide.Shared.Attributes;
 
 namespace Planetwide.Prompts.Api.Features.Prompts;
 
 public class DismissedPrompt
 {
-    [ID("Prompt")] public ObjectId Id { get; set; }
+    [PromptId] public ObjectId Id { get; set; }
     
     public DateTimeOffset? DismissedOn { get; set; }
 }
@@ -14,7 +15,7 @@ public class DismissedPrompt
 public class PromptMutations
 {
     public async Task<DismissedPrompt> DismissPrompt([Service] IMongoCollection<Prompt> collection,
-        CancellationToken cancellationToken, [ID("Prompt")] ObjectId promptId)
+        CancellationToken cancellationToken, [PromptId] ObjectId promptId)
     {
         var filter = Builders<Prompt>.Filter
             .Eq(x => x.Id, promptId);

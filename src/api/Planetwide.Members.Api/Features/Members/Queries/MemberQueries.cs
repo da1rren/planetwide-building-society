@@ -1,3 +1,5 @@
+using Planetwide.Shared.Attributes;
+
 namespace Planetwide.Members.Api.Features.Members.Queries;
 
 using HotChocolate.Resolvers;
@@ -16,7 +18,7 @@ public class MemberQueries
 
     [UseSingleOrDefault]
     [UseProjection]
-    public IQueryable<Member> GetMember(MemberContext memberContext, [ID] int memberId)
+    public IQueryable<Member> GetMember(MemberContext memberContext, [MemberId] int memberId)
     {
         return memberContext.Members.Where(x => x.Id == memberId);
     }

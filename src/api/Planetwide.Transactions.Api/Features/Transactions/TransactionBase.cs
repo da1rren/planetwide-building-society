@@ -1,18 +1,19 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Planetwide.Shared.Attributes;
 
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
 [InterfaceType]
 public abstract class TransactionBase
 {
-    [ID]
+    [AccountId]
     [BsonId]
     [BsonElement("_id")]
     [BsonRepresentation(BsonType.ObjectId)]
     public ObjectId Id { get; set; }
 
-    [ID("Account")]
+    [AccountId]
     public int AccountId { get; set; }
 
     public decimal Amount { get; set; }

@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Planetwide.Shared.Attributes;
 
 namespace Planetwide.Members.Api.Features.Members;
 
 public class MemberMarketingPreferences
 {
-    [ID]
+    [MemberMarketingId]
     public int Id { get; set; }
 
     public DateTimeOffset? ByPost { get; set; }

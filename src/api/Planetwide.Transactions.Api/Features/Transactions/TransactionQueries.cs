@@ -1,4 +1,5 @@
 using MongoDB.Driver;
+using Planetwide.Shared.Attributes;
 
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
@@ -6,7 +7,7 @@ namespace Planetwide.Transactions.Api.Features.Transactions;
 public class TransactionQueries
 {
     public IExecutable<TransactionBase> GetTransactions([Service] IMongoCollection<TransactionBase> collection,
-        [ID("Account")] int accountId)
+        [AccountId] int accountId)
     {
         var filter = Builders<TransactionBase>.Filter
             .Eq(x => x.AccountId, accountId);

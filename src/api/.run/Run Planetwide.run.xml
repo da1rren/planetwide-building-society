@@ -4,6 +4,7 @@
     <toRun name="Planetwide Gateway" type="LaunchSettings" />
     <toRun name="Planetwide Members Api" type="LaunchSettings" />
     <toRun name="Planetwide Transactions Api" type="LaunchSettings" />
+    <toRun name="Planetwide.Prompts.Api" type="LaunchSettings" />
     <toRun name="Run Mongo" type="docker-deploy" />
     <toRun name="Run Redis" type="docker-deploy" />
     <method v="2" />

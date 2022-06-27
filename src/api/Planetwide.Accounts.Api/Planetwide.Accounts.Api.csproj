@@ -32,4 +32,8 @@
   <ItemGroup>
     <InternalsVisibleTo Include="Planetwide.Accounts.Api.Tests" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Cards\Queries" />
+  </ItemGroup>
 </Project>

@@ -1,3 +1,6 @@
+using Planetwide.Accounts.Api.Features.Cards;
+using Planetwide.Shared.Attributes;
+
 namespace Planetwide.Accounts.Api.Features.Accounts;
 
 using Microsoft.EntityFrameworkCore;
@@ -5,19 +8,21 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public class Account : INode
 {
-    [ID]
+    [AccountId]
     public int Id { get; set; }
 
-    [ID("Member")]
+    [MemberId]
     public int MemberId { get; init; }
 
-    public string Number { get; init; }
+    public string Number { get; init; } = null!;
 
-    public string SortCode { get; init; }
+    public string SortCode { get; init; } = null!;
 
-    public string Iban { get; init; }
+    public string Iban { get; init; } = null!;
 
     public decimal Balance { get; set; }
+
+    public ICollection<Card> Cards { get; set; } = null!;
 }
 
 public class AccountEntityConfiguration : IEntityTypeConfiguration<Account>

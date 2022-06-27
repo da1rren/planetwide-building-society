@@ -1,3 +1,5 @@
+using Planetwide.Shared.Attributes;
+
 namespace Planetwide.Accounts.Api.Features.Accounts.Queries;
 
 using Infrastructure.Data;
@@ -7,7 +9,8 @@ public class AccountQueries
 {
     [UseDbContext(typeof(AccountContext))]
     [UseSingleOrDefault]
-    public IQueryable<Account> GetAccount(AccountContext accountContext, [ID] int accountId)
+    [UseProjection]
+    public IQueryable<Account> GetAccount(AccountContext accountContext, [AccountId] int accountId)
     {
         return accountContext.Account.Where(x => x.Id == accountId);
     }
@@ -15,6 +18,6 @@ public class AccountQueries
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Account> GetAccounts(AccountContext accountContext, [ID] int memberId)
+    public IQueryable<Account> GetAccounts(AccountContext accountContext, [MemberId] int memberId)
         => accountContext.Account.Where(x => x.MemberId == memberId);
 }
