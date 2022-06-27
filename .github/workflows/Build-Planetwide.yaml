@@ -107,7 +107,7 @@ jobs:
 
           make create-cluster-with-gloo
 
-          curl --help
+          curl --version
           curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused
 
   Deploy-Gloo-And-Istio-To-Kind-Cluster:
@@ -127,5 +127,5 @@ jobs:
 
           make create-cluster-with-gloo-and-istio
 
-          curl --help
+          curl --version
           curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused
