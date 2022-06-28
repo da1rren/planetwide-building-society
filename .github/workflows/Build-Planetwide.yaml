@@ -105,7 +105,7 @@ jobs:
           curl -sL https://run.solo.io/gloo/install | sh
           export PATH=$HOME/.gloo/bin:$PATH
 
-          make create-cluster-with-gloo
+          make cluster
 
       - name: Test Cluster
         timeout-minutes: 5
