@@ -94,7 +94,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: deployment/cluster
+        working-directory: deployment/cluster/gloo-edge
     steps:
       - uses: actions/checkout@v2
 
@@ -121,44 +121,3 @@ jobs:
           echo $contents
 
           
-#  Deploy-Gloo-And-Istio-To-Kind-Cluster:
-#    runs-on: ubuntu-latest
-#    defaults:
-#      run:
-#        working-directory: deployment/cluster
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Build Gloo Cluster
-#        env:
-#          GLOO_TOKEN: ${{ secrets.GLOO_TOKEN }}
-#        run: |
-#          curl -sL https://run.solo.io/gloo/install | sh
-#          export PATH=$HOME/.gloo/bin:$PATH
-#
-#          make create-cluster-with-gloo-and-istio
-#
-#      - name: Test Cluster
-#        timeout-minutes: 5
-#        run: |
-#          # Swith to use --retry-all-errors once curl is updated to >7.71.0
-#          curl --version
-#
-#          until contents=$(curl http://localhost:31500/health --retry 10 --retry-delay 5 --max-time 10 --retry-connrefused)
-#          do
-#            break
-#          done
-#
-#          echo $contents
-#          
-#      - name: Get K8s Status
-#        if: always()
-#        run: |
-#          kubectl get pods -n planetwide
-#          kubectl get nodes
-#          kubectl get deployment planetwide-accounts-api -n planetwide
-#          kubectl get deployment planetwide-members-api -n planetwide
-#          kubectl get deployment planetwide-prompts-api -n planetwide
-#          kubectl get deployment planetwide-transactions-api -n planetwide
-#          kubectl get deployment planetwide-gateway -n planetwide
-#
