@@ -3,10 +3,10 @@ gloo:
     gatewayProxy:
       service:
         type: NodePort
-        httpPort: 31500
-        httpsPort: 32500
-        httpNodePort: 31500
-        httpsNodePort: 32500
+        httpPort: 31000
+        httpsPort: 31001
+        httpNodePort: 31000
+        httpsNodePort: 31001
 gloo-fed:
   enabled: false
 prometheus:

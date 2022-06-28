@@ -1,8 +1,3 @@
-# https://4nzr3nswgcav75pijf6lwrahiu0odlmw.lambda-url.eu-west-2.on.aws/
-
-create-cluster:
-	kind create cluster --config kind-cluster.yaml --wait 5m --name planetary-core-01
-
 install-gloo:
 ifeq ("$(GLOO_TOKEN)",)
 	$(info No GLOO_TOKEN env variable found, please set it with a Gloo enterprise license key)
@@ -25,17 +20,7 @@ install-istio:
 # glooctl istio inject	
 
 install-planetwide:
-	helm install planetwide ../charts/planetwide --namespace planetwide --create-namespace --wait
+	helm install planetwide ../../charts/planetwide --namespace planetwide --create-namespace --wait
 	glooctl add route --path-prefix / --dest-name planetwide-planetwide-gateway-80
 
-create-cluster-with-gloo: create-cluster install-gloo install-planetwide
-	$(info Gloo cluster created)
 
-create-cluster-with-gloo-and-istio: create-cluster install-istio install-gloo install-planetwide
-	glooctl istio inject
-	kubectl set image deployment/gateway-proxy sds=quay.io/solo-io/sds:1.11.16 -n gloo-system
-	glooctl istio enable-mtls --upstream planetwide-planetwide-gateway-80
-	$(info Gloo & istio cluster created)
-
-delete-cluster:
-	kind delete cluster --name planetary-core-01
