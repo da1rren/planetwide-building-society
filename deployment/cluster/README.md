@@ -8,6 +8,11 @@ For glooctl do:
     curl -sL https://run.solo.io/gloo/install | sh
     export PATH=$HOME/.gloo/bin:$PATH
 ```
+For meshctl do:
+```
+curl -sL https://run.solo.io/meshctl/install | sh
+export PATH=$HOME/.gloo-mesh/bin:$PATH
+```
 
 You also need to set `GLOO_TOKEN` which you can get from the slack channel or me.
 

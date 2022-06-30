@@ -1,0 +1,20 @@
+gloo:
+  gatewayProxies:
+    gatewayProxy:
+      service:
+        type: NodePort
+        httpPort: 32100
+        httpsPort: 32101
+        httpNodePort: 32100
+        httpsNodePort: 32101
+gloo-fed:
+  enabled: true
+prometheus:
+  enabled: false
+grafana:
+  defaultInstallationEnabled: false
+global:
+  glooMtls:
+    sds:
+      image:
+        tag: 1.11.16
