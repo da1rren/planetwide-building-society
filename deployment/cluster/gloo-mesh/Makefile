@@ -102,6 +102,8 @@ install-solo-istio: download-istio
 		-n istio-gateways \
 		--values ./istio/istio-ingress.yaml
 
+	kubectl apply -f ./istio-$(ISTIO_VERSION)/samples/addons/kiali.yaml
+
 	make delete-istio
 
 configure-planetwide-gateway:
