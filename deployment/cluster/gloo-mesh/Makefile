@@ -33,6 +33,7 @@ clusters:
 	make configure-worker-cluster
 	make install-gloo-addons
 	make configure-planetwide-for-istio
+	kubectl label namespace planetwide istio.io/rev=$(ISTIO_REV)
 	make configure-workspaces
 	make install-planetwide-core
 	make configure-planetwide-gateway

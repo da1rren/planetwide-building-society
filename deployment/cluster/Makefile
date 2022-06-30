@@ -22,6 +22,7 @@ install-istio: download-istio
 	istio-$(ISTIO_VERSION)/bin/istioctl install -y --set profile=minimal
 	make delete-istio
 	make configure-planetwide-for-istio
+	kubectl label namespace planetwide istio-injection=enabled
 	kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/kiali.yaml
 	kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.13/samples/addons/prometheus.yaml
 
@@ -31,8 +32,6 @@ install-istio: download-istio
 configure-planetwide-for-istio:
 	kubectl create namespace planetwide
 	kubectl create -f $(ISTIO_SECURITY_POLICY)
-	kubectl label namespace planetwide istio-injection=enabled
-	kubectl label namespace planetwide istio.io/rev=$(ISTIO_REV)
 
 install-planetwide-core:
 	helm install planetwide ../../charts/planetwide --namespace planetwide --create-namespace --wait
