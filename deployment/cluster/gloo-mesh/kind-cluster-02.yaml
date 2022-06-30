@@ -1,0 +1,25 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+featureGates:
+  EphemeralContainers: true
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 32100
+        hostPort: 32100
+        protocol: TCP
+      - containerPort: 32101
+        hostPort: 32101
+        protocol: TCP
+kubeadmConfigPatches:
+- |
+  apiVersion: kubeadm.k8s.io/v1beta2
+  kind: ClusterConfiguration
+  apiServer:
+    extraArgs:
+      service-account-signing-key-file: /etc/kubernetes/pki/sa.key
+      service-account-key-file: /etc/kubernetes/pki/sa.pub
+      service-account-issuer: api
+      service-account-api-audiences: api,vault,factors
+  metadata:
+    name: config
