@@ -18,7 +18,7 @@ builder.Services
 
 var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/health";
 
-var echoServerEndpoint = "http://echoserver?echo_env_body=HOSTNAME";
+var echoServerEndpoint = "http://echoserver.echoserver.svc.cluster.local?echo_env_body=HOSTNAME";
 
 var urlEndpoints = endpoints.Values.Select(uri => new Uri(uri, "/health"))
     .Append(new Uri(gatewayUri))
