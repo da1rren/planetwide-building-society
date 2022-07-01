@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Planetwide.Gateway.Extensions;
 using Planetwide.Shared;
 using Planetwide.Shared.Extensions;
@@ -15,15 +16,25 @@ builder.Services
     .RegisterOpenTelemetry("Planetwide.Gateway", builder.Configuration["Database:Zipkin"])
     .RegisterSchemaHttpClients(endpoints);
 
+var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/health";
+
+var echoServerEndpoint = "http://echoserver?echo_env_body=HOSTNAME";
+
+var urlEndpoints = endpoints.Values.Select(uri => new Uri(uri, "/health"))
+    .Append(new Uri(gatewayUri))
+    .Append(new Uri(echoServerEndpoint));
+
 builder.Services.AddHealthChecks()
     .AddEndpointDnsChecks(endpoints)
+    .AddUrlGroup(urlEndpoints, failureStatus: HealthStatus.Degraded)
     .AddRedis(builder.Configuration["Database:Redis"]);
 
 builder.Services
     .AddHealthChecksUI(opt =>
     {
-        var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/health";
         opt.AddHealthCheckEndpoint("Gateway", gatewayUri);
+
+        opt.AddHealthCheckEndpoint("EchoServerInRemoteCluster", echoServerEndpoint);
 
         foreach (var schemas in endpoints)
         {   
