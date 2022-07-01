@@ -1,7 +1,7 @@
 apiVersion: admin.gloo.solo.io/v2
 kind: WorkspaceSettings
 metadata:
-  name: gateways:
+  name: gateways
   namespace: istio-gateways
 spec:
   importFrom:
