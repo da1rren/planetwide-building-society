@@ -57,3 +57,4 @@ env:
   Graphql__Endpoint__Members: http://planetwide-members-api/graphql/
   Graphql__Endpoint__Transactions: http://planetwide-transactions-api/graphql/
   Graphql__Endpoint__Prompts: http://planetwide-prompts-api/graphql/
+  Graphql__Endpoint__Echo: http://echoserver.mesh.internal.com?echo_env_body=HOSTNAME

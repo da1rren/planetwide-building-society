@@ -7,12 +7,15 @@ GLOO_CONFIGURATION_PATH_02=gloo-configuration-02.yaml
 
 CLUSTER_CONFIG_01=kind-cluster-01.yaml
 CLUSTER_CONFIG_02=kind-cluster-02.yaml
+CLUSTER_CONFIG_03=kind-cluster-03.yaml
 
 ADMIN_CLUSTER_NAME=planetary-adminstration-mesh-01
 DATA_CLUSTER_NAME=planetary-core-mesh-01
+PASSIVE_CLUSTER_NAME=planetary-core-mesh-02
 
 ADMIN_CONTEXT_NAME=kind-$(ADMIN_CLUSTER_NAME)
 DATA_CONTEXT_NAME=kind-$(DATA_CLUSTER_NAME)
+PASSIVE_CONTEXT_NAME=kind-$(PASSIVE_CLUSTER_NAME)
 
 METAL_LB_CONFIG=SetThisPlox
 
@@ -22,20 +25,34 @@ ENDPOINT_GLOO_MESH=gloo-mesh-mgmt-server:9900
 HOST_GLOO_MESH=gloo-mesh-mgmt-server
 
 clusters:
+	kind create cluster --config $(CLUSTER_CONFIG_03) --wait 5m --name $(PASSIVE_CLUSTER_NAME)
+	make METAL_LB_CONFIG=metallb-config-01.yaml install-metalb
+
 	kind create cluster --config $(CLUSTER_CONFIG_02) --wait 5m --name $(DATA_CLUSTER_NAME)
 	make METAL_LB_CONFIG=metallb-config-02.yaml install-metalb
 
 	kind create cluster --config $(CLUSTER_CONFIG_01) --wait 5m --name $(ADMIN_CLUSTER_NAME)
 	make METAL_LB_CONFIG=metallb-config-01.yaml install-metalb
 
-	make install-solo-istio
+	make DATA_CLUSTER_NAME=$(DATA_CLUSTER_NAME) install-solo-istio
+	make DATA_CLUSTER_NAME=$(PASSIVE_CLUSTER_NAME) install-solo-istio
+
 	make configure-administration-cluster
-	make configure-worker-cluster
+
+	make DATA_CONTEXT_NAME=$(DATA_CONTEXT_NAME) DATA_CLUSTER_NAME=$(DATA_CLUSTER_NAME) configure-worker-cluster
+	make DATA_CONTEXT_NAME=$(PASSIVE_CONTEXT_NAME) DATA_CLUSTER_NAME=$(PASSIVE_CLUSTER_NAME) configure-worker-cluster
+
+	kubectl config use-context $(DATA_CONTEXT_NAME)
 	make install-gloo-addons
 	make configure-planetwide-for-istio
 	kubectl label namespace planetwide istio.io/rev=$(ISTIO_REV)
+
+	kubectl apply -f ../../charts/echo/echo.kube.yaml --context $(PASSIVE_CONTEXT_NAME)
+
 	make configure-workspaces
 	make install-planetwide-core
+	kubectl apply -f ../../charts/echo/virtual-destination.yaml --context $(DATA_CONTEXT_NAME)
+
 	make configure-planetwide-gateway
 
 configure-administration-cluster:
@@ -66,7 +83,9 @@ configure-worker-cluster:
 
 configure-workspaces:
 	kubectl apply --context $(ADMIN_CONTEXT_NAME) -f ./gloo/workspaces.yaml
-	kubectl apply --context $(DATA_CONTEXT_NAME) -f ./gloo/workspace-settings.yaml
+	kubectl apply --context $(DATA_CONTEXT_NAME) -f ./gloo/workspace-settings-01.yaml
+	kubectl apply --context $(PASSIVE_CONTEXT_NAME) -f ./gloo/workspace-settings-02.yaml
+
 
 install-gloo-addons:
 	kubectl --context $(DATA_CONTEXT_NAME) create namespace gloo-mesh-addons
@@ -101,6 +120,11 @@ install-solo-istio: download-istio
 		./istio-$(ISTIO_VERSION)/manifests/charts/gateways/istio-ingress \
 		-n istio-gateways \
 		--values ./istio/istio-ingress.yaml
+
+	helm upgrade --install istio-eastwestgateway \
+		./istio-$(ISTIO_VERSION)/manifests/charts/gateways/istio-ingress \
+		-n istio-gateways \
+		--values ./istio/istio-east-west-gateway.yaml
 
 	kubectl apply -f ./istio-$(ISTIO_VERSION)/samples/addons/kiali.yaml
 
