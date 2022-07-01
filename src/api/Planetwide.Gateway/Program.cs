@@ -20,14 +20,11 @@ var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/he
 
 var echoServerEndpoint = "http://echoserver.echoserver.svc.cluster.local?echo_env_body=HOSTNAME";
 
-var urlEndpoints = endpoints.Values.Select(uri => new Uri(uri, "/health"))
-    .Append(new Uri(gatewayUri))
-    .Append(new Uri(echoServerEndpoint));
-
-builder.Services.AddHealthChecks()
+var healthCheckBuilder = builder.Services.AddHealthChecks()
     .AddEndpointDnsChecks(endpoints)
-    .AddUrlGroup(urlEndpoints, failureStatus: HealthStatus.Degraded)
-    .AddRedis(builder.Configuration["Database:Redis"]);
+    .AddRedis(builder.Configuration["Database:Redis"])
+    .AddUrlGroup(new Uri(gatewayUri), name: "Gateway", failureStatus: HealthStatus.Healthy)
+    .AddUrlGroup(new Uri(echoServerEndpoint), name: "EchoServer", failureStatus: HealthStatus.Healthy);
 
 builder.Services
     .AddHealthChecksUI(opt =>
