@@ -43,7 +43,7 @@ mongodb:
 env:
   Database__Redis: "planetwide-redis-master:6379,abortConnect=false,password=AReallyBadPassword"
   Database__Mongo: "mongodb://planetwideadmin:PlanetwideAdminDoesStuff@planetwide-mongodb/planetwide"
-  Database__Zipkin: "http://planetwide-jaeger-collector/api/v2/spans"
+  Database__Zipkin: "http://planetwide-jaeger-collector:9411/api/v2/spans"
   Database__SqliteConnectionString: "DataSource=Planetwide;mode=memory;cache=shared"
 
   #Graphql__Endpoint__GatewayHealth: http://planetwide-gateway/Health/
