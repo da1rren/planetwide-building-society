@@ -7,7 +7,7 @@ using StackExchange.Redis;
 var builder = WebApplication.CreateBuilder(args);
 
 var endpoints = WellKnown.Schemas.All.ToDictionary(
-    schema => schema, 
+    schema => schema,
     schema => new Uri(builder.Configuration[$"Graphql:Endpoint:{schema}"]));
 
 builder.Services
@@ -18,19 +18,12 @@ builder.Services
 
 var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/health";
 
-
 var healthCheckBuilder = builder.Services.AddHealthChecks()
     .AddEndpointDnsChecks(endpoints)
-    .AddRedis(builder.Configuration["Database:Redis"])
-    .AddUrlGroup(new Uri(gatewayUri), name: "Gateway", failureStatus: HealthStatus.Healthy);
+    .AddRedis(builder.Configuration["Database:Redis"]);
 
 var echoEndpoint = builder.Configuration["Graphql:Endpoint:Echo"];
 
-if (!string.IsNullOrEmpty(echoEndpoint))
-{
-    healthCheckBuilder
-        .AddUrlGroup(new Uri(echoEndpoint), name: "EchoServer", failureStatus: HealthStatus.Healthy);
-}
 builder.Services
     .AddHealthChecksUI(opt =>
     {
@@ -42,7 +35,7 @@ builder.Services
         }
 
         foreach (var schemas in endpoints)
-        {   
+        {
             opt.AddHealthCheckEndpoint(schemas.Key, new Uri(schemas.Value, "/health").ToString());
         }
 
@@ -54,7 +47,7 @@ builder.Services
 
 var graphqlConfiguration = builder.Services
     .AddGraphQLServer()
-    .AddRemoteSchemasFromRedis(WellKnown.Schemas.SchemaKey, sp => 
+    .AddRemoteSchemasFromRedis(WellKnown.Schemas.SchemaKey, sp =>
         sp.GetRequiredService<ConnectionMultiplexer>())
     .AddTypeExtensionsFromFile("./Stitching.graphql");
 
@@ -84,6 +77,12 @@ app.UseWebSockets();
 
 app.UseEndpoints(route =>
 {
+    route.MapGet("/echo", async () =>
+    {
+        var client = new HttpClient();
+        return await client.GetStringAsync(echoEndpoint);
+    });
+
     route.MapGraphQL();
     route.MapHealthChecksUI(opt => opt
         .AddCustomStylesheet("healthcheck-ui.css")
