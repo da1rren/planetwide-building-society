@@ -80,7 +80,14 @@ app.UseEndpoints(route =>
     route.MapGet("/echo", async () =>
     {
         var client = new HttpClient();
-        return await client.GetStringAsync(echoEndpoint);
+        var response = await client.GetAsync(echoEndpoint);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        return response.StatusCode.ToString();
     });
 
     route.MapGraphQL();
