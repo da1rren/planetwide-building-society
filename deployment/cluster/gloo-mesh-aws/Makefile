@@ -5,7 +5,8 @@ clusters:
 	./scripts/install-istio.sh
 	./scripts/configure-admin-cluster.sh
 	./scripts/configure-worker-clusters.sh
-	./scripts/install-echoserver.sh
+	./scripts/install-aws-echoserver.sh
+	./scripts/install-az-echoserver.sh
 	./scripts/install-planetwide.sh
 
 	# config worker cluster

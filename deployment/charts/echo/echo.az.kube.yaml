@@ -32,14 +32,16 @@ spec:
           env:
             - name: PORT
               value: "80"
+            - name: "COMMANDS__HTTPBODY__QUERY"
+              value: "Hello from Azure"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: echoserver
-  namespace: echoserver
+  name: echoserver-az
+  namespace: echoserver-az
   labels:
-    app: echoserver
+    app: echoserver-az
 spec:
   ports:
     - port: 80
