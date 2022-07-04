@@ -22,4 +22,5 @@ helm upgrade --install gloo-mesh-enterprise gloo-mesh-enterprise/gloo-mesh-enter
     --set mgmtClusterName=$ADMIN_CLUSTER_01 \
     --set licenseKey=$GLOO_TOKEN
 
+kubectl apply -f ./gloo/root-trust-policy.yaml --context $ADMIN_CLUSTER_01
 kubectl apply -f ./gloo/workspaces.yaml --context $ADMIN_CLUSTER_01

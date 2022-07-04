@@ -1,45 +1,50 @@
 apiVersion: admin.gloo.solo.io/v2
 kind: WorkspaceSettings
 metadata:
-  name: gateways
-  namespace: istio-gateways
+  name: istio-system-settings
+  namespace: istio-system
 spec:
   importFrom:
     - workspaces:
-        - selector:
-            allow_ingress: "true"
-      resources:
-        - kind: SERVICE
-        - kind: ALL
-          labels:
-            expose: "true"
-  exportTo:
-    - workspaces:
-        - selector:
-            allow_ingress: "true"
-      resources:
-        - kind: SERVICE
+        - name: planetwide
 ---
 apiVersion: admin.gloo.solo.io/v2
 kind: WorkspaceSettings
 metadata:
-  name: planetwide
+  name: planetwide-settings
   namespace: planetwide
 spec:
-  importFrom:
-    - workspaces:
-        - selector:
-            app: "planetwide"
-      resources:
-        - kind: ALL
   exportTo:
     - workspaces:
-        - name: gateways
-      resources:
-        - kind: SERVICE
-          labels:
-            app: planetwide
-            app.kubernetes.io/name: gateway
-        - kind: ALL
-          labels:
-            expose: "true"
+        - name: istio-system
+  options:
+    serviceIsolation:
+      enabled: true
+    federation:
+      enabled: true
+      serviceSelector:
+        - {}
+      hostSuffix: "global"
+---
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: echoserver-east-west
+  namespace: planetwide
+spec:
+  hosts:
+    - "echoserver.mesh.internal.com"
+  http:
+    - name: echoserver
+      matchers:
+        - uri:
+            prefix: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: echoserver
+              namespace: echoserver
+              cluster: planetary-core-mesh-02
+            kind: VIRTUAL_DESTINATION
+            port:
+              number: 80

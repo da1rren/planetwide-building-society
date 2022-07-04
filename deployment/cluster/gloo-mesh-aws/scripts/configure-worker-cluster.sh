@@ -22,3 +22,5 @@ meshctl cluster register \
     --gloo-mesh-agent-chart-values=gloo-mesh-config.yaml \
     --version $GLOO_MESH_VERSION \
     $WORKER_CONTEXT_NAME
+
+kubectl apply --context $WORKER_CONTEXT_NAME -f gloo/gateway-$WORKER_CONTEXT_NAME.yaml

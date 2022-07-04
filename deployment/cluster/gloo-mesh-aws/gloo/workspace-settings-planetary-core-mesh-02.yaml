@@ -1,35 +1,17 @@
-apiVersion: admin.gloo.solo.io/v2
-kind: WorkspaceSettings
-metadata:
-  name: gateways
-  namespace: istio-gateways
-spec:
-  importFrom:
-    - workspaces:
-        - selector:
-            allow_ingress: "true"
-      resources:
-        - kind: SERVICE
-        - kind: ALL
-          labels:
-            expose: "true"
-  exportTo:
-    - workspaces:
-        - selector:
-            allow_ingress: "true"
-      resources:
-        - kind: SERVICE
----
-apiVersion: admin.gloo.solo.io/v2
-kind: WorkspaceSettings
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualDestination
 metadata:
   name: echoserver
   namespace: echoserver
-  labels:
-    app: "planetwide"
 spec:
-  exportTo:
-    - workspaces:
-        - name: planetwide
-      resources:
-        - kind: ALL
+  hosts:
+    # Arbitrary, internal-only hostname assigned to the endpoint
+    - echoserver.mesh.internal.com
+  ports:
+    - number: 80
+      protocol: HTTP
+      targetPort:
+        number: 80
+  services:
+    - labels:
+        app: echoserver

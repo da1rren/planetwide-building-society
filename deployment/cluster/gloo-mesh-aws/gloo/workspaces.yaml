@@ -1,38 +1,29 @@
 apiVersion: admin.gloo.solo.io/v2
 kind: Workspace
 metadata:
-  name: gateways
+  name: istio-system
   namespace: gloo-mesh
 spec:
   workloadClusters:
     - name: planetary-core-mesh-01
       namespaces:
+        - name: istio-system
         - name: istio-gateways
-        - name: gloo-mesh-addons
+    - name: planetary-core-mesh-02
+      namespaces:
+        - name: istio-system
+        - name: istio-gateways
 ---
 apiVersion: admin.gloo.solo.io/v2
 kind: Workspace
 metadata:
   name: planetwide
   namespace: gloo-mesh
-  labels:
-    allow_ingress: "true"
-    app: "planetwide"
 spec:
   workloadClusters:
     - name: planetary-core-mesh-01
       namespaces:
         - name: planetwide
----
-apiVersion: admin.gloo.solo.io/v2
-kind: Workspace
-metadata:
-  name: echoserver
-  namespace: gloo-mesh
-  labels:
-    app: "planetwide"
-spec:
-  workloadClusters:
     - name: planetary-core-mesh-02
       namespaces:
         - name: echoserver
