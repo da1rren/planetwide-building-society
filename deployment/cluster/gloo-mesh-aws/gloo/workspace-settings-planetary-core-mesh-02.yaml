@@ -1,0 +1,35 @@
+apiVersion: admin.gloo.solo.io/v2
+kind: WorkspaceSettings
+metadata:
+  name: gateways
+  namespace: istio-gateways
+spec:
+  importFrom:
+    - workspaces:
+        - selector:
+            allow_ingress: "true"
+      resources:
+        - kind: SERVICE
+        - kind: ALL
+          labels:
+            expose: "true"
+  exportTo:
+    - workspaces:
+        - selector:
+            allow_ingress: "true"
+      resources:
+        - kind: SERVICE
+---
+apiVersion: admin.gloo.solo.io/v2
+kind: WorkspaceSettings
+metadata:
+  name: echoserver
+  namespace: echoserver
+  labels:
+    app: "planetwide"
+spec:
+  exportTo:
+    - workspaces:
+        - name: planetwide
+      resources:
+        - kind: ALL

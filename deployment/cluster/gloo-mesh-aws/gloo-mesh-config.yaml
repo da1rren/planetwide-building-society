@@ -1,0 +1,4 @@
+rate-limiter:
+  enabled: false
+ext-auth-service:
+  enabled: false

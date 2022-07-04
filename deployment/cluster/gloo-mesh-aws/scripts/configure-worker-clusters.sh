@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source .env
+
+time xargs -n4 -P 5 -I {} sh -c 'eval "$1"' - {} <<EOF
+ADMIN_CONTEXT_NAME=$ADMIN_CLUSTER_01 WORKER_CONTEXT_NAME=$WORKER_CLUSTER_01 GLOO_MESH_VERSION=$GLOO_MESH_VERSION ./scripts/configure-worker-cluster.sh
+ADMIN_CONTEXT_NAME=$ADMIN_CLUSTER_01 WORKER_CONTEXT_NAME=$WORKER_CLUSTER_02 GLOO_MESH_VERSION=$GLOO_MESH_VERSION ./scripts/configure-worker-cluster.sh
+EOF

@@ -1,0 +1,17 @@
+global:
+  hub: us-docker.pkg.dev/gloo-mesh/istio-workshops
+  tag: 1.13.4-solo
+gateways:
+  istio-ingressgateway:
+    name: istio-ingressgateway
+    namespace: istio-gateways
+    labels:
+      istio: ingressgateway
+    injectionTemplate: gateway
+    ports:
+    - name: http2
+      port: 80
+      targetPort: 8080
+    - name: https
+      port: 443
+      targetPort: 8443

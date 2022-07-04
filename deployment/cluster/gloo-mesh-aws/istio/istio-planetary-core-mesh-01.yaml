@@ -1,0 +1,25 @@
+revision: 1-13
+global:
+  meshID: mesh1
+  multiCluster:
+    clusterName: planetary-core-mesh-01
+  network: network1
+  hub: us-docker.pkg.dev/gloo-mesh/istio-workshops
+  tag: 1.13.4-solo
+meshConfig:
+  trustDomain: planetary-core-mesh-01
+  accessLogFile: /dev/stdout
+  enableAutoMtls: true
+  defaultConfig:
+    envoyMetricsService:
+      address: gloo-mesh-agent.gloo-mesh:9977
+    envoyAccessLogService:
+      address: gloo-mesh-agent.gloo-mesh:9977
+    proxyMetadata:
+      ISTIO_META_DNS_CAPTURE: "true"
+      ISTIO_META_DNS_AUTO_ALLOCATE: "true"
+      GLOO_MESH_CLUSTER_NAME: planetary-core-mesh-01
+pilot:
+  env:
+    PILOT_ENABLE_K8S_SELECT_WORKLOAD_ENTRIES: "false"
+    PILOT_SKIP_VALIDATE_TRUST_DOMAIN: "true"
