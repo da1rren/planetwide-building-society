@@ -19,7 +19,7 @@ spec:
         - name: istio-system
   options:
     serviceIsolation:
-      enabled: true
+      enabled: false
     federation:
       enabled: true
       serviceSelector:
@@ -45,29 +45,6 @@ spec:
               name: echoserver-aws
               namespace: echoserver
               cluster: planetary-core-mesh-02
-            kind: VIRTUAL_DESTINATION
-            port:
-              number: 80
----
-apiVersion: networking.gloo.solo.io/v2
-kind: RouteTable
-metadata:
-  name: echoserver-az-east-west
-  namespace: planetwide
-spec:
-  hosts:
-    - "echoserver.az.mesh.internal.com"
-  http:
-    - name: echoserver-az
-      matchers:
-        - uri:
-            prefix: /
-      forwardTo:
-        destinations:
-          - ref:
-              name: echoserver-az
-              namespace: echoserver
-              cluster: planetary-core-mesh-03
             kind: VIRTUAL_DESTINATION
             port:
               number: 80

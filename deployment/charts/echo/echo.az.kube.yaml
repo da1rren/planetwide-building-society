@@ -9,19 +9,19 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: echoserver
+  name: echoserver-az
   namespace: echoserver
   labels:
-    app: echoserver
+    app: echoserver-az
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: echoserver
+      app: echoserver-az
   template:
     metadata:
       labels:
-        app: echoserver
+        app: echoserver-az
     spec:
       containers:
         - image: ealen/echo-server:latest
@@ -49,4 +49,69 @@ spec:
       protocol: TCP
   type: ClusterIP
   selector:
-    app: echoserver
+    app: echoserver-az
+---
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualDestination
+metadata:
+  name: echoserver-az
+  namespace: echoserver
+spec:
+  hosts:
+    - echoserver.az.mesh.internal.com
+  ports:
+    - number: 80
+      protocol: HTTP
+      targetPort:
+        number: 80
+  services:
+    - labels:
+        app: echoserver-az
+---
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: echoserver-east-west
+  namespace: echoserver
+spec:
+  hosts:
+    - "echoserver.echoserver.svc.cluster.local"
+  workloadSelectors:
+    - selector:
+        labels:
+          app: echoserver
+  http:
+    - name: echoserver
+      matchers:
+        - uri:
+            prefix: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: echoserver
+            kind: VIRTUAL_DESTINATION
+            port:
+              number: 80
+---
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: echoserver-az-east-west
+  namespace: echoserver
+spec:
+  hosts:
+    - "echoserver.az.mesh.internal.com"
+  http:
+    - name: echoserver-az
+      matchers:
+        - uri:
+            prefix: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: echoserver-az
+              namespace: echoserver
+              cluster: planetary-core-mesh-03
+            kind: VIRTUAL_DESTINATION
+            port:
+              number: 80

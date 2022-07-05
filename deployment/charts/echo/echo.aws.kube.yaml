@@ -9,19 +9,19 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: echoserver
+  name: echoserver-aws
   namespace: echoserver
   labels:
-    app: echoserver
+    app: echoserver-aws
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: echoserver
+      app: echoserver-aws
   template:
     metadata:
       labels:
-        app: echoserver
+        app: echoserver-aws
     spec:
       containers:
         - image: ealen/echo-server:latest
@@ -49,4 +49,48 @@ spec:
       protocol: TCP
   type: ClusterIP
   selector:
-    app: echoserver
+    app: echoserver-aws
+---
+#CHECKED TO HERE
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualDestination
+metadata:
+  name: echoserver-aws
+  namespace: echoserver
+spec:
+  hosts:
+    # Arbitrary, internal-only hostname assigned to the endpoint
+    - echoserver.aws.mesh.internal.com
+  ports:
+    - number: 80
+      protocol: HTTP
+      targetPort:
+        number: 80
+  services:
+    - labels:
+        app: echoserver-aws
+---
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: echoserver-east-west
+  namespace: echoserver
+spec:
+  hosts:
+    - "echoserver.echoserver.svc.cluster.local"
+  workloadSelectors:
+    - selector:
+        labels:
+          app: echoserver
+  http:
+    - name: echoserver
+      matchers:
+        - uri:
+            prefix: /
+      forwardTo:
+        destinations:
+          - ref:
+              name: echoserver
+            kind: VIRTUAL_DESTINATION
+            port:
+              number: 80
