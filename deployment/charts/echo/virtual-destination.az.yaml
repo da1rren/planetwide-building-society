@@ -1,12 +1,12 @@
 apiVersion: networking.gloo.solo.io/v2
 kind: VirtualDestination
 metadata:
-  name: echoserver
+  name: echoserver-az
   namespace: echoserver
 spec:
   hosts:
     # Arbitrary, internal-only hostname assigned to the endpoint
-    - echoserver.mesh.internal.com
+    - echoserver.az.mesh.internal.com
   ports:
     - number: 80
       protocol: HTTP

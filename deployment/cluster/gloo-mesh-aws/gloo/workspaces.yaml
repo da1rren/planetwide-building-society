@@ -13,6 +13,11 @@ spec:
       namespaces:
         - name: istio-system
         - name: istio-gateways
+    - name: planetary-core-mesh-03
+      namespaces:
+        - name: istio-system
+        - name: istio-gateways
+
 ---
 apiVersion: admin.gloo.solo.io/v2
 kind: Workspace
@@ -25,5 +30,8 @@ spec:
       namespaces:
         - name: planetwide
     - name: planetary-core-mesh-02
+      namespaces:
+        - name: echoserver
+    - name: planetary-core-mesh-03
       namespaces:
         - name: echoserver

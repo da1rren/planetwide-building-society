@@ -33,13 +33,13 @@ spec:
             - name: PORT
               value: "80"
             - name: "COMMANDS__HTTPBODY__QUERY"
-              value: "Hello from Aws"
+              value: "Hello from !!!!!!AWS!!!!!"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: echoserver-aws
-  namespace: echoserver-aws
+  namespace: echoserver
   labels:
     app: echoserver-aws
 spec:

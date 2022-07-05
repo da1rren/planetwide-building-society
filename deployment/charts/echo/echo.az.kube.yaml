@@ -33,13 +33,13 @@ spec:
             - name: PORT
               value: "80"
             - name: "COMMANDS__HTTPBODY__QUERY"
-              value: "Hello from Azure"
+              value: "Hello from !!!!!AZURE!!!!!!"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: echoserver-az
-  namespace: echoserver-az
+  namespace: echoserver
   labels:
     app: echoserver-az
 spec:
