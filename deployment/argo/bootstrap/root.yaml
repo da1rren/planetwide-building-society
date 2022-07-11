@@ -21,7 +21,7 @@ spec:
   project: default
   source:
     path: projects
-    repoURL: https://github.com/richgo/planetwide-building-society.git
+    repoURL: https://github.com/da1rren/planetwide-building-society.git
   syncPolicy:
     automated:
       allowEmpty: true
