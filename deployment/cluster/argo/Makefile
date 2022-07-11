@@ -2,7 +2,8 @@ include ../Makefile
 
 CLUSTER_NAME=planetary-core-argo-01
 
-cluster: create-cluster install-argo
+cluster: create-cluster
+	argocd-autopilot repo bootstrap --recover --git-token $(GIT_TOKEN) --repo $(GIT_REPO)
 	$(info Cluster created)
 	$(info You should now be able to access Planetwide at http://localhost:31000/graphql/)
 
@@ -11,7 +12,3 @@ create-cluster:
 
 delete-cluster:
 	kind delete cluster --name $(CLUSTER_NAME)
-
-install-argo:
-	kubectl create namespace argocd
-	kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml

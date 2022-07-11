@@ -11,7 +11,7 @@ spec:
   - git:
       files:
       - path: bootstrap/cluster-resources/*.json
-      repoURL: https://github.com/richgo/planetwide-building-society.git
+      repoURL: https://github.com/da1rren/planetwide-building-society.git
       requeueAfterSeconds: 20
       revision: ""
       template:
@@ -41,7 +41,7 @@ spec:
       project: default
       source:
         path: bootstrap/cluster-resources/{{name}}
-        repoURL: https://github.com/richgo/planetwide-building-society.git
+        repoURL: https://github.com/da1rren/planetwide-building-society.git
       syncPolicy:
         automated:
           allowEmpty: true
