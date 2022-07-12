@@ -1,5 +1,5 @@
 name: "Plantwide Build"
-on: [push]
+on: [push, workflow_dispatch]
 
 env:
   DOCKER_BUILDKIT: 1
