@@ -1,0 +1,10 @@
+{
+  "appName": "planetwide-graph",
+  "userGivenName": "planetwide-graph",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "deployment/argo/apps/planetwide-graph/overlays/planetwide",
+  "srcRepoURL": "https://github.com/da1rren/planetwide-building-society.git",
+  "srcTargetRevision": "",
+  "labels": null
+}
