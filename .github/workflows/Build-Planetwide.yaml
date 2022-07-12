@@ -90,6 +90,14 @@ jobs:
         run: |
           kubectl get pods -n planetwide
 
+  Deploy-Charts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deployment/charts/planetwide
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Install Helm
         uses: azure/setup-helm@v1
 
@@ -99,6 +107,7 @@ jobs:
           charts_dir: deployment/charts/planetwide
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
 
   Deploy-Gloo-To-Kind-Cluster:
     runs-on: ubuntu-latest
