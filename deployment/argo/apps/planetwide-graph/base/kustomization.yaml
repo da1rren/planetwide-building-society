@@ -2,3 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - github.com/da1rren/planetwide-building-society/deployment/argo
+
+helmCharts:
+- name: planetwide
+  version: 1.6.1
+  repo: https://charts.jetstack.io
+  valuesFile: values.yaml
+  namespace: planetwide
+  releaseName: planetwide
