@@ -115,7 +115,7 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
-          charts_dir: charts
+          charts_dir: deployment/charts
 
   Deploy-Gloo-To-Kind-Cluster:
     runs-on: ubuntu-latest
