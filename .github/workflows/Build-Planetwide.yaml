@@ -103,8 +103,6 @@ jobs:
 
       - name: Publish Charts
         uses: helm/chart-releaser-action@v1.4.0
-        with:
-          charts_dir: deployment/charts/planetwide
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
