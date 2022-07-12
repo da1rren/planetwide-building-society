@@ -101,8 +101,6 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
 
-      - name: Helm Package
-
       - name: Publish Charts
         uses: helm/chart-releaser-action@v1.4.0
         with:
