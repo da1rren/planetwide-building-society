@@ -97,7 +97,9 @@ jobs:
         working-directory: deployment/charts/planetwide
     steps:
       - uses: actions/checkout@v2
-
+        with:
+          fetch-depth: 0
+          
       - name: Install Helm
         uses: azure/setup-helm@v1
 
