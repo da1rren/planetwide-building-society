@@ -110,6 +110,12 @@ jobs:
         with:
           version: v3.8.1
 
+      - name: Add Dependant Repositories
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+          helm repo update
+
       - name: Publish Charts
         uses: helm/chart-releaser-action@v1.4.0
         env:
