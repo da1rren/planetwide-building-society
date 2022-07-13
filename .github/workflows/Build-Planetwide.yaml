@@ -67,6 +67,7 @@ jobs:
 
   Deploy-To-Minikube:
     runs-on: ubuntu-latest
+    needs: Docker-Compose-Build
     defaults:
       run:
         working-directory: deployment/charts/planetwide
@@ -127,6 +128,7 @@ jobs:
 
   Deploy-Gloo-To-Kind-Cluster:
     runs-on: ubuntu-latest
+    needs: Docker-Compose-Build
     defaults:
       run:
         working-directory: deployment/cluster/gloo-edge
