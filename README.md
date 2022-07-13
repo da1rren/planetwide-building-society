@@ -1,5 +1,12 @@
 #  Planetwide Building Society 
 
+## Install
+```
+helm add planetwide https://da1rren.github.io/planetwide-building-society/
+//todo
+```
+
+## Design
 This project currently contains 4 microservices structured like:
 
 ```mermaid
