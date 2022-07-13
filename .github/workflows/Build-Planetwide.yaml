@@ -9,19 +9,16 @@ env:
 jobs:
   Dotnet-Build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dotnet-version: ["6.0.x"]
     defaults:
       run:
         working-directory: src/api
     steps:
       - uses: actions/checkout@v2
 
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      - name: Setup .NET Core SDK 6.0.x
         uses: actions/setup-dotnet@v1.7.2
         with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+          dotnet-version: 6.0.x
 
       - name: Install dependencies
         run: dotnet restore
