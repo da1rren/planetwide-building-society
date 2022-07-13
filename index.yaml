@@ -1,0 +1,24 @@
+apiVersion: v1
+entries:
+  planetwide:
+  - apiVersion: v2
+    appVersion: v0.5.0
+    created: "2022-07-13T08:08:56.407989439Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/mongodb
+      version: 12.x.x
+    - name: redis
+      repository: https://charts.bitnami.com/redis
+      version: 16.x.x
+    - name: jaeger
+      repository: https://jaegertracing.github.io/helm-charts
+      version: 0.x.x
+    description: The planetwide graph, with databases included
+    digest: 21f9c33ae2bd8b5df6a5b7e3a1ca22fec03423e568ef74f5b11c161d54d1c355
+    name: planetwide
+    type: application
+    urls:
+    - https://github.com/da1rren/planetwide-building-society/releases/download/planetwide-v0.5.0/planetwide-v0.5.0.tgz
+    version: v0.5.0
+generated: "2022-07-13T08:08:56.408000239Z"
