@@ -1,12 +1,9 @@
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.Xml;
 using HotChocolate.Language;
 using HotChocolate.Language.Visitors;
 using HotChocolate.Types;
 using HotChocolate.Types.Introspection;
-using HotChocolate.Utilities;
 using HotChocolate.Validation;
 using Planetwide.Challenge.Api.Infrastructure.Directives;
 
@@ -65,7 +62,7 @@ public class ChallengeVisitor : TypeDocumentValidatorVisitor
     {
         foreach (var directiveCollection in directiveCollections)
         {
-            if (directiveCollection.Any(x => x.Name == ChallengeDirectiveType.NAME))
+            if (directiveCollection.Any(x => x.Name == ChallengeDirectiveType.DirectiveName))
             {
                 ChallengeRequired = true;
                 return Break;

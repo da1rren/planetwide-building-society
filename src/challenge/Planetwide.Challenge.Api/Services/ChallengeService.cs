@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Planetwide.Challenge.Api.Services;

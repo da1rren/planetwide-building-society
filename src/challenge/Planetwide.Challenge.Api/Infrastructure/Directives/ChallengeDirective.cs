@@ -7,11 +7,11 @@ namespace Planetwide.Challenge.Api.Infrastructure.Directives;
 
 public class ChallengeDirectiveType : DirectiveType
 {
-    public const string NAME = "challenge";
+    public const string DirectiveName = "challenge";
     
     protected override void Configure(IDirectiveTypeDescriptor descriptor)
     {
-        descriptor.Name("challenge");
+        descriptor.Name(DirectiveName);
         descriptor.Description("If this field could cause a challenge to be issued");
         descriptor.Location(DirectiveLocation.InputObject | DirectiveLocation.Object | DirectiveLocation.FieldDefinition);
     }

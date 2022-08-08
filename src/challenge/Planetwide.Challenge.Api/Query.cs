@@ -1,5 +1,4 @@
 ﻿using HotChocolate.Resolvers;
-using HotChocolate.Types;
 using Planetwide.Challenge.Api.Infrastructure.Directives;
 
 namespace Planetwide.Challenge.Api;

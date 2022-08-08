@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Primitives;
-
 namespace Planetwide.Challenge.Tests;
 
 public class ChallengeTests
