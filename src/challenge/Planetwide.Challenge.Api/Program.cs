@@ -1,5 +1,4 @@
-﻿using HotChocolate.Configuration;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Planetwide.Challenge.Api;
 using Planetwide.Challenge.Api.Infrastructure;

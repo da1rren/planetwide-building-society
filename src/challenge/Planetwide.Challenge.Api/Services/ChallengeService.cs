@@ -6,12 +6,12 @@ namespace Planetwide.Challenge.Api.Services;
 
 public class ChallengeService
 {
-    public async Task<bool> IsRequired()
+    public Task<bool> IsRequired()
     {
-        return true;
+        return Task.FromResult(true);
     }
 
-    public async Task<IEnumerable<string>> GetChallengeMethods()
+    public Task<IEnumerable<string>> GetChallengeMethods()
     {
         var methods = new List<string>
         {
@@ -20,11 +20,11 @@ public class ChallengeService
             "biometric"
         };
 
-        return methods;
+        return Task.FromResult<IEnumerable<string>>(methods);
     }
 
-    public async Task<bool> ValidateChallenge(string challengeResponse)
+    public Task<bool> ValidateChallenge(string challengeResponse)
     {
-        return challengeResponse.Equals("Letmein123");
+        return Task.FromResult(challengeResponse.Equals("Letmein123"));
     }
 }

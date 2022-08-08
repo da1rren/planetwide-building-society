@@ -1,5 +1,4 @@
 using HotChocolate;
-using HotChocolate.Types;
 using HotChocolate.Language;
 using HotChocolate.Validation;
 using Planetwide.Challenge.Api.Infrastructure.Directives;
@@ -12,30 +11,30 @@ public class ChallengeVisitorTests
 {
     public class FooBar
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
         
         [Challenge]
-        public string Address { get; set; }
+        public string? Address { get; set; }
     }
     
     public class FooQuery
     {
         [Challenge]
-        public string ChallengeFoo { get; set; }
+        public string? ChallengeFoo { get; set; }
 
-        public string Bar { get; set; }
+        public string? Bar { get; set; }
 
-        public FooBar FooBar() => new FooBar();
+        public FooBar GetFooBar() => new FooBar();
     }
 
     public class BarMutation
     {
         [Challenge]
-        public string ChallengeBar { get; set; }
+        public string? ChallengeBar { get; set; }
 
-        public string OpenBar { get; set; }
+        public string? OpenBar { get; set; }
 
-        public FooBar FooBar() => new FooBar();
+        public FooBar GetFooBar() => new FooBar();
     }
     
 
