@@ -10,126 +10,165 @@ namespace Planetwide.Challenge.Api.Tests;
 
 public class ChallengeVisitorTests
 {
-    private readonly DocumentNode _query = Utf8GraphQLParser.Parse(@"
-                query {
-                    foo {
-                        bar
-                    }
-                }
-            ");
+    public class FooBar
+    {
+        public string Name { get; set; }
+        
+        [Challenge]
+        public string Address { get; set; }
+    }
+    
+    public class FooQuery
+    {
+        [Challenge]
+        public string ChallengeFoo { get; set; }
 
-    private readonly DocumentNode _mutation = Utf8GraphQLParser.Parse(@"
-                mutation {
-                    loo {
-                        doo
-                    }
-                }
-            ");
+        public string Bar { get; set; }
 
+        public FooBar FooBar() => new FooBar();
+    }
+
+    public class BarMutation
+    {
+        [Challenge]
+        public string ChallengeBar { get; set; }
+
+        public string OpenBar { get; set; }
+
+        public FooBar FooBar() => new FooBar();
+    }
+    
 
     private static ISchemaBuilder DefaultSchema => SchemaBuilder.New()
         .AddDirectiveType<ChallengeDirectiveType>();
     
+    public static bool Visit(DocumentNode documentNode, ISchema schema)
+    {
+        var challengeVisitor = new ChallengeVisitor();
+        challengeVisitor.Visit(documentNode, new DocumentValidatorContext {Schema = schema});
+        return challengeVisitor.ChallengeRequired;
+    }
+    
     [Fact]
     public void Query_Without_Challenge_Should_Be_False()
     {
+        var query = Utf8GraphQLParser.Parse(@"
+                query {
+                    bar
+                }
+            ");
+
         var schema = DefaultSchema
-            .AddQueryType(t => t.Name("foo").Field("bar").Resolve("Hello"))
+            .AddQueryType<FooQuery>()
             .Create();
 
-        var challengeVisitor = new ChallengeVisitor();
-        challengeVisitor.Visit(_query, new DocumentValidatorContext {Schema = schema});
-
-        challengeVisitor.ChallengeRequired.ShouldBeFalse(schema.ToString());
+        Visit(query, schema).ShouldBeFalse(schema.ToString());
     }
     
     [Fact]
     public void Query_With_Property_Challenge_Should_Be_True()
     {
+        var query = Utf8GraphQLParser.Parse(@"
+                query {
+                    challengeFoo
+                }
+            ");
+
         var schema = DefaultSchema
-            .AddQueryType(t => t.Name("foo")
-                .Directive<ChallengeDirectiveType>()
-                .Field("bar")
-                .Resolve("Hello"))
+            .AddQueryType<FooQuery>()
             .Create();
 
-        var challengeVisitor = new ChallengeVisitor();
-        challengeVisitor.Visit(_query, new DocumentValidatorContext {Schema = schema});
+        Visit(query, schema).ShouldBeTrue(schema.ToString());
+    }
+    
+    [Fact]
+    public void Query_With_Multiple_Properties_Challenge_Should_Be_True()
+    {
+        var query = Utf8GraphQLParser.Parse(@"
+                query {
+                    name
+                    challengeFoo
+                }
+            ");
 
-        challengeVisitor.ChallengeRequired.ShouldBeTrue(schema.ToString());
+        var schema = DefaultSchema
+            .AddQueryType<FooQuery>()
+            .Create();
+
+        Visit(query, schema).ShouldBeTrue(schema.ToString());
     }
 
     [Fact]
-    public void Query_With_Field_Challenge_Should_Be_True()
+    public void Query_With_Nested_Challenge_Should_Be_True()
     {
+        var query = Utf8GraphQLParser.Parse(@"
+                query {
+                    fooBar {
+                        address
+                    }
+                }
+            ");
+
         var schema = DefaultSchema
-            .AddQueryType(t => t.Name("foo")
-                .Field("bar")
-                .Directive<ChallengeDirectiveType>()
-                .Resolve("Hello"))
+            .AddQueryType<FooQuery>()
             .Create();
 
-        var challengeVisitor = new ChallengeVisitor();
-        challengeVisitor.Visit(_query, new DocumentValidatorContext {Schema = schema});
-
-        challengeVisitor.ChallengeRequired.ShouldBeTrue(schema.ToString());
+        Visit(query, schema).ShouldBeTrue(schema.ToString());
     }
-
+    
     [Fact]
     public void Mutation_Without_Challenge_Should_Be_False()
     {
+        var mutation = Utf8GraphQLParser.Parse(@"
+                mutation {
+                    openBar
+                }
+            ");
+
+        
         var schema = DefaultSchema
-            .AddQueryType(t => t.Name("foo")
-                .Field("bar")
-                .Resolve("Hello"))
-            .AddMutationType(t => t.Name("loo")
-                .Field("doo")
-                .Resolve("Hello"))
+            .AddQueryType<FooQuery>()
+            .AddMutationType<BarMutation>()
             .Create();
 
-        var challengeVisitor = new ChallengeVisitor();
-        challengeVisitor.Visit(_mutation, new DocumentValidatorContext {Schema = schema});
-        
-        challengeVisitor.ChallengeRequired.ShouldBeFalse(schema.ToString());
+        Visit(mutation, schema).ShouldBeFalse(schema.ToString());
     }
 
     
     [Fact]
     public void Mutation_With_Challenge_On_Field_Should_Be_True()
     {
-        var schema = DefaultSchema
-            .AddQueryType(t => t.Name("foo")
-                .Field("bar")
-                .Resolve("Hello"))
-            .AddMutationType(t => t.Name("loo")
-                .Field("doo")
-                .Directive<ChallengeDirectiveType>()
-                .Resolve("Hello"))
+        var mutation = Utf8GraphQLParser.Parse(@"
+                mutation {
+                    challengeBar
+                }
+            ");
+
+        var schema = DefaultSchema            
+            .AddQueryType<FooQuery>()
+            .AddMutationType<BarMutation>()
             .Create();
 
-        var challengeVisitor = new ChallengeVisitor();
-        challengeVisitor.Visit(_mutation, new DocumentValidatorContext {Schema = schema});
-        
-        challengeVisitor.ChallengeRequired.ShouldBeTrue(schema.ToString());
+        Visit(mutation, schema).ShouldBeTrue(schema.ToString());
     }
     
+    
     [Fact]
-    public void Mutation_With_Challenge_On_Property_Should_Be_True()
+    public void Mutation_With_Nested_Challenge_Should_Be_True()
     {
-        var schema = DefaultSchema
-            .AddQueryType(t => t.Name("foo")
-                .Field("bar")
-                .Resolve("Hello"))
-            .AddMutationType(t => t.Name("loo")
-                .Directive<ChallengeDirectiveType>()
-                .Field("doo")
-                .Resolve("Hello"))
+        var mutation = Utf8GraphQLParser.Parse(@"
+                mutation {
+                    fooBar {
+                        address
+                    }
+                }
+            ");
+
+        var schema = DefaultSchema            
+            .AddQueryType<FooQuery>()
+            .AddMutationType<BarMutation>()
             .Create();
 
-        var challengeVisitor = new ChallengeVisitor();
-        challengeVisitor.Visit(_mutation, new DocumentValidatorContext {Schema = schema});
-        
-        challengeVisitor.ChallengeRequired.ShouldBeTrue(schema.ToString());
+        Visit(mutation, schema).ShouldBeTrue(schema.ToString());
     }
-
 }

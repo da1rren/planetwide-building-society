@@ -26,6 +26,29 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
+  Challenge-Dotnet-Build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/challenge
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK 6.0.x
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet test
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+
   Docker-Compose-Build:
     runs-on: ubuntu-latest
     defaults:

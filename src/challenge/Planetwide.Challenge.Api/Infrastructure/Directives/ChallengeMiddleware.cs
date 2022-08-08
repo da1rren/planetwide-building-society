@@ -100,10 +100,14 @@ public class ChallengeMiddleware
         var queryId = context.DocumentId ?? context.DocumentHash ??
             throw new ArgumentException("The query has no id, we cannot issue the challenge");
 
+#if DEBUG
+        bool isChallengeRequired;
+#else
         if (ChallengeDocumentCache.TryGetValue(queryId, out var isChallengeRequired))
         {
             return (queryId, isChallengeRequired);
         }
+#endif
 
         var validatorContext = _contextPool.Get();
         PrepareContext(context, document, validatorContext);

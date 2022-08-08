@@ -13,7 +13,7 @@ builder.Services
     .AddHttpContextAccessor()
     .AddSingleton<ChallengeService>()
     .AddSingleton<ChallengeMiddleware>()
-    .AddHttpResultSerializer<NationwideHttpResultSerializer>();
+    .AddHttpResultSerializer<PlanetwideHttpResultSerializer>();
 
 builder.Services.AddAuthentication();
 

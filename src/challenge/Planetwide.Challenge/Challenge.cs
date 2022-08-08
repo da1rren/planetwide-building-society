@@ -18,29 +18,7 @@ public enum ChallengeOutcome
     Valid = 4
 }
 
-public abstract record AbstractSignedChallenge(string RequestHash, long RequestTimestamp, string ChallengeMethods,
-    string Signature)
-{
-    public void SignMessage(IDictionary<string, StringValues> headers)
-    {
-        headers.Add(WellKnown.Headers.RequestHash, RequestHash);
-        headers.Add(WellKnown.Headers.ChallengeMethods, ChallengeMethods);
-        headers.Add(WellKnown.Headers.RequestTimestamp, RequestTimestamp.ToString());
-        headers.Add(WellKnown.Headers.Signature, Signature);
-    }
-    
-    public void SignMessage(System.Net.Http.Headers.HttpHeaders headers)
-    {
-        headers.Add(WellKnown.Headers.RequestHash, RequestHash);
-        headers.Add(WellKnown.Headers.ChallengeMethods, ChallengeMethods);
-        headers.Add(WellKnown.Headers.RequestTimestamp, RequestTimestamp.ToString());
-        headers.Add(WellKnown.Headers.Signature, Signature);
-    }
-};
-
-
-public record ServerChallenge(string RequestHash, long RequestTimestamp, string ChallengeMethods, string Signature) : 
-    AbstractSignedChallenge(RequestHash, RequestTimestamp, ChallengeMethods, Signature)
+public record ServerChallenge(string RequestHash, long RequestTimestamp, string ChallengeMethods, string Signature)
 {
     private static string CreateHashMaterial(string requestHash, long requestTimestamp, 
         string challengeMethods, string secretKey) =>
@@ -124,6 +102,22 @@ public record ServerChallenge(string RequestHash, long RequestTimestamp, string 
             challengeMethodsResult.Value,
             signatureResult.Value
         );
+    }
+
+    public void SignMessage(IDictionary<string, StringValues> headers)
+    {
+        headers.Add(WellKnown.Headers.RequestHash, RequestHash);
+        headers.Add(WellKnown.Headers.ChallengeMethods, ChallengeMethods);
+        headers.Add(WellKnown.Headers.RequestTimestamp, RequestTimestamp.ToString());
+        headers.Add(WellKnown.Headers.Signature, Signature);
+    }
+    
+    public void SignMessage(System.Net.Http.Headers.HttpHeaders headers)
+    {
+        headers.Add(WellKnown.Headers.RequestHash, RequestHash);
+        headers.Add(WellKnown.Headers.ChallengeMethods, ChallengeMethods);
+        headers.Add(WellKnown.Headers.RequestTimestamp, RequestTimestamp.ToString());
+        headers.Add(WellKnown.Headers.Signature, Signature);
     }
 
     public ChallengeOutcome Validate(string secretKey)

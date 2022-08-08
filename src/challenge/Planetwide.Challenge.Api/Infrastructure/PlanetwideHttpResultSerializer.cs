@@ -5,7 +5,7 @@ using HotChocolate.Execution;
 
 namespace Planetwide.Challenge.Api.Infrastructure;
 
-public class NationwideHttpResultSerializer : DefaultHttpResultSerializer
+public class PlanetwideHttpResultSerializer : DefaultHttpResultSerializer
 {
     public override HttpStatusCode GetStatusCode(IExecutionResult result)
     {
