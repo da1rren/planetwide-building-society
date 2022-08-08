@@ -126,7 +126,7 @@ public class ChallengeTests
         var headers = message.Headers;
         
         serverChallenge.SignMessage(headers);
-        
+
         headers.Contains(WellKnown.Headers.Signature).ShouldBeTrue();
         headers.Contains(WellKnown.Headers.ChallengeMethods).ShouldBeTrue();
         headers.Contains(WellKnown.Headers.RequestHash).ShouldBeTrue();

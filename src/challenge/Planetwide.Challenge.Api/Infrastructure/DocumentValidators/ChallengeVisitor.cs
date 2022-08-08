@@ -13,6 +13,14 @@ public class ChallengeVisitor : TypeDocumentValidatorVisitor
 {
     public bool ChallengeRequired { get; private set; }
 
+    public ChallengeVisitor() : base(new SyntaxVisitorOptions
+    {
+        VisitDirectives = true
+    })
+    {
+        
+    }
+    
     #if DEBUG
     protected override ISyntaxVisitorAction Enter(
         ISyntaxNode node,
@@ -53,7 +61,7 @@ public class ChallengeVisitor : TypeDocumentValidatorVisitor
             return action;
         }
 
-        return Continue;
+        return Skip;
     }
     
     protected override ISyntaxVisitorAction Leave(

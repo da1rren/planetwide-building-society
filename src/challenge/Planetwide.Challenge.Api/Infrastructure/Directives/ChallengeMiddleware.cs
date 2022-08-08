@@ -45,6 +45,7 @@ public class ChallengeMiddleware
         {
             if (await ValidateChallengeResponse())
             {
+                context.ContextData.Add(WellKnown.Context.ChallengedKey, true);
                 await _next(context).ConfigureAwait(false);
                 return;
             }

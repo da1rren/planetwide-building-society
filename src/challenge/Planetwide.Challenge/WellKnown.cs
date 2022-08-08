@@ -2,6 +2,11 @@ namespace Planetwide.Challenge;
 
 public static class WellKnown
 {
+    public static class Context
+    {
+        public const string ChallengedKey = "challenge-passed";
+    }
+    
     public static class Headers
     {
         public const string RequestHash = "pbs-request-hash";

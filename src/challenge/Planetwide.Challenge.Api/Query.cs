@@ -1,4 +1,5 @@
-﻿using HotChocolate.Types;
+﻿using HotChocolate.Resolvers;
+using HotChocolate.Types;
 using Planetwide.Challenge.Api.Infrastructure.Directives;
 
 namespace Planetwide.Challenge.Api;
@@ -14,8 +15,14 @@ public static class PersonService
 
 public class Queries
 {
-    public Person GetPerson()
+    public Person GetPerson(IResolverContext context)
     {
+        if (context.ContextData.ContainsKey(WellKnown.Context.ChallengedKey))
+        {
+            PersonService.Data.Name = "CHALLENGED Luke Skywalker";
+            return PersonService.Data;
+        }
+        
         return PersonService.Data;
     }
 }
