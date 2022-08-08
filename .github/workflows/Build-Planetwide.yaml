@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore
 
-      - name: Build
+      - name: Test
         run: dotnet test
 
       - name: Build
