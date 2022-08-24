@@ -36,7 +36,7 @@ public static class ServiceCollectionExtensions
                 })
                 .AddOtlpExporter(configure =>
                 {
-                    configure.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
+                    configure.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
                     configure.Endpoint = new Uri("http://localhost:8200");
                 })
                 .AddSqlClientInstrumentation()
