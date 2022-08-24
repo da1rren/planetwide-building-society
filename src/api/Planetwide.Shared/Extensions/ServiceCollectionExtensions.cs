@@ -34,6 +34,11 @@ public static class ServiceCollectionExtensions
                 {
                     opt.Endpoint = new Uri(zipkinEndpoint);
                 })
+                .AddOtlpExporter(configure =>
+                {
+                    configure.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
+                    configure.Endpoint = new Uri("http://localhost:8200");
+                })
                 .AddSqlClientInstrumentation()
                 .AddSource(serviceName)
                 .SetResourceBuilder(

@@ -4,6 +4,26 @@
       <settings>
         <option name="imageTag" value="jaegertracing/all-in-one:1.35" />
         <option name="containerName" value="zipkin" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="14250" />
+              <option name="hostPort" value="14250" />
+            </DockerPortBindingImpl>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="14268" />
+              <option name="hostPort" value="14268" />
+            </DockerPortBindingImpl>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="16686" />
+              <option name="hostPort" value="16686" />
+            </DockerPortBindingImpl>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="5778" />
+              <option name="hostPort" value="5778" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
       </settings>
     </deployment>
     <method v="2" />

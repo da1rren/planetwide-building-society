@@ -30,8 +30,8 @@ builder.Services
         .PublishToRedis(WellKnown.Schemas.Prompts, sp => sp
             .GetRequiredService<ConnectionMultiplexer>()))
     .BindRuntimeType<ObjectId, IdType>()
-    .AddTypeConverter<ObjectId, string>(x => x.ToString())
-    .AddTypeConverter<string, ObjectId>(x => ObjectId.Parse(x))
+    .AddTypeConverter<ObjectId, string>(static x => x.ToString())
+    .AddTypeConverter<string, ObjectId>(static x => ObjectId.Parse(x))
     .AddQueryType<QueryRoot>()
     .AddMutationType<MutationRoot>()
     .RegisterObjectExtensions(typeof(Program).Assembly);
