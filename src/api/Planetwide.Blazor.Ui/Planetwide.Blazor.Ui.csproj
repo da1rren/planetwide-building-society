@@ -12,8 +12,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.5" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.9.0" />
-    <PackageReference Include="StrawberryShake.Transport.Http" Version="12.9.0" />
+    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.13.0" />
+    <PackageReference Include="StrawberryShake.Transport.Http" Version="12.13.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
 

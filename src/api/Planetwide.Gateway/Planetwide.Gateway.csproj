@@ -15,12 +15,12 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="6.0.4" />
     <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="6.0.3" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="12.9.0" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.9.0" />
-    <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.9.0" />
-    <PackageReference Include="HotChocolate.Stitching" Version="12.9.0" />
-    <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.9.0" />
-    <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.9.0" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.13.0" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.13.0" />
+    <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.13.0" />
+    <PackageReference Include="HotChocolate.Stitching" Version="12.13.0" />
+    <PackageReference Include="HotChocolate.Stitching.Redis" Version="12.13.0" />
+    <PackageReference Include="HotChocolate.Subscriptions.Redis" Version="12.13.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
