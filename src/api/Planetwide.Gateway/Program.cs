@@ -49,6 +49,7 @@ builder.Services
 
 var graphqlConfiguration = builder.Services
     .AddGraphQLServer()
+    .AddDefaultInstrumentation()
     .AddRemoteSchemasFromRedis(WellKnown.Schemas.SchemaKey, sp =>
         sp.GetRequiredService<ConnectionMultiplexer>())
     .AddTypeExtensionsFromFile("./Stitching.graphql");

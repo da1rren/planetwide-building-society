@@ -33,6 +33,7 @@ builder.Services
 
 builder.Services
     .AddGraphQLServer()
+    .AddDefaultInstrumentation()
     .AddPlanetwideDefaults()
     .PublishSchemaDefinition(opt => opt
         .SetName(WellKnown.Schemas.SchemaKey)

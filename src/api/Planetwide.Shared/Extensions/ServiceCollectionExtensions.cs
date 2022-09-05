@@ -1,15 +1,23 @@
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
+using HotChocolate.Execution.Configuration;
 
 namespace Planetwide.Shared.Extensions;
 
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Driver;
-using StackExchange.Redis;
-
 public static class ServiceCollectionExtensions
 {
+    public static IRequestExecutorBuilder AddDefaultInstrumentation(this IRequestExecutorBuilder builder)
+    {
+        return builder.AddInstrumentation(o =>
+        {
+            o.RenameRootActivity = true;
+            o.IncludeDocument = true;
+        });
+    }
+
+
     public static IServiceCollection RegisterRedis(this IServiceCollection services, string redisConnectionString)
     {
         return services.AddSingleton(sp =>

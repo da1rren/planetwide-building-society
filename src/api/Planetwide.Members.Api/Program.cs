@@ -38,6 +38,7 @@ builder.Services
 builder.Services
     .AddMemoryCache()
     .AddGraphQLServer()
+    .AddDefaultInstrumentation()
     .AddPlanetwideDefaults()
     .PublishSchemaDefinition(opt => opt
         .SetName(WellKnown.Schemas.SchemaKey)
