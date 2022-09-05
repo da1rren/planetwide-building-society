@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
             services.AddHttpClient(schema.Key, c =>
             {
                 ArgumentNullException.ThrowIfNull(schema.Value, "GraphqlEndpoint");
-                c.BaseAddress = schema.Value;
+                c.BaseAddress = new Uri(schema.Value, "/graphql");
             });
         }
 

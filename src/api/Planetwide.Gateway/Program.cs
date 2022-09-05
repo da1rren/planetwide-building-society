@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var redisConnectionString = builder.Configuration.GetConnectionString("redis")
     ?? throw new ArgumentNullException("A redis conneciton string must be provided.");
 
-var zipkinConnectionString = builder.Configuration.GetConnectionString("zipkin")
+var zipkinConnectionString = builder.Configuration.GetConnectionString("zipkin", "api")
     ?? throw new ArgumentNullException("A zipkin conneciton string must be provided.");
 
 var endpoints = WellKnown.Schemas.All.ToDictionary(

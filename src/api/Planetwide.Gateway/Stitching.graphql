@@ -1,16 +1,16 @@
 extend type Member {
-    accounts: [Account] @delegate(schema: "Accounts", path: "accounts(memberId: $fields:id)")
+    accounts: [Account] @delegate(schema: "accounts", path: "accounts(memberId: $fields:id)")
 }
 
 extend type Account {
-    member: Member! @delegate(schema: "Members", path: "member(memberId: $fields:memberId)")
-    transactions: [TransactionBase] @delegate(schema: "Transactions", path: "transactions(accountId: $fields:id)")
+    member: Member! @delegate(schema: "members", path: "member(memberId: $fields:memberId)")
+    transactions: [TransactionBase] @delegate(schema: "transactions", path: "transactions(accountId: $fields:id)")
 }
 
 extend type BasicTransaction {
-    account: Account! @delegate(schema: "Accounts", path: "account(accountId: $fields:accountId)")
+    account: Account! @delegate(schema: "accounts", path: "account(accountId: $fields:accountId)")
 }
 
 extend type DirectDebitTransaction {
-    account: Account! @delegate(schema: "Accounts", path: "account(accountId: $fields:accountId)")
+    account: Account! @delegate(schema: "accounts", path: "account(accountId: $fields:accountId)")
 }

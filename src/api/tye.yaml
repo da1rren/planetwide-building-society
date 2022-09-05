@@ -44,5 +44,9 @@ services:
   image: jaegertracing/all-in-one:1.35
   args: "--collector.zipkin.host-port=:9411"
   bindings:
-    - port: 16686
+    - name: api
+      port: 9411
       connectionString: "http://${host}:9411/api/v2/spans"
+    - name: dashboard
+      port: 16686
+
