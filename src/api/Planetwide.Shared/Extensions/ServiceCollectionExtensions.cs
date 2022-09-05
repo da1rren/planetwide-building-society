@@ -10,14 +10,12 @@ using StackExchange.Redis;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection RegisterRedis(this IServiceCollection services)
+    public static IServiceCollection RegisterRedis(this IServiceCollection services, string redisConnectionString)
     {
         return services.AddSingleton(sp =>
         {
-            var config = sp.GetRequiredService<IConfiguration>();
-            var connectionString = config["Database:Redis"];
-            ArgumentNullException.ThrowIfNull(connectionString);
-            return ConnectionMultiplexer.Connect(connectionString);
+            ArgumentNullException.ThrowIfNull(redisConnectionString);
+            return ConnectionMultiplexer.Connect(redisConnectionString);
         });
     }
 

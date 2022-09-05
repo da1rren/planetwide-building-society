@@ -3,12 +3,12 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Planetwide.Transactions.Api.Features.Transactions;
 
 [UnionType("Metadata")]
-public interface IMetadata{}
+public interface IMetadata { }
 
 [BsonDiscriminator(nameof(NetworkMetadata))]
 public class NetworkMetadata : IMetadata
 {
-    public string IpAddress { get; set; }
+    public string? IpAddress { get; set; }
 }
 
 [BsonDiscriminator(nameof(LatencyMetadata))]

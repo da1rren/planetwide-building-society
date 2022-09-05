@@ -17,7 +17,7 @@
             "label": "tye-run",
             "type": "tye-run",
             "watch": true,
-            "path": "src/api/Planetwide.sln",
+            "path": "src/api/tye.yaml",
         }
     ]
 }

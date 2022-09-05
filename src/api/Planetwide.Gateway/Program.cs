@@ -6,36 +6,38 @@ using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var redisConnectionString = builder.Configuration.GetConnectionString("redis")
+    ?? throw new ArgumentNullException("A redis conneciton string must be provided.");
+
+var zipkinConnectionString = builder.Configuration.GetConnectionString("zipkin")
+    ?? throw new ArgumentNullException("A zipkin conneciton string must be provided.");
+
 var endpoints = WellKnown.Schemas.All.ToDictionary(
     schema => schema,
-    schema => new Uri(builder.Configuration[$"Graphql:Endpoint:{schema}"]));
+    schema => builder.Configuration.GetServiceUri($"planetwide-{schema}-api") ??
+        throw new ArgumentException($"{schema} must provide a uri endpoint."));
 
 builder.Services
     .AddAuthorization()
-    .RegisterRedis()
-    .RegisterOpenTelemetry("Planetwide.Gateway", builder.Configuration["Database:Zipkin"])
+    .RegisterRedis(redisConnectionString)
+    .RegisterOpenTelemetry("Planetwide.Gateway", zipkinConnectionString)
     .RegisterSchemaHttpClients(endpoints);
 
-var gatewayUri = builder.Configuration["Graphql:Endpoint:GatewayHealth"] ?? "/health";
+var gatewayUri = builder.Configuration.GetServiceUri("planetwide-gateway") ??
+    throw new ArgumentException($"gateway must provide a uri endpoint.");
 
 var healthCheckBuilder = builder.Services.AddHealthChecks()
     .AddEndpointDnsChecks(endpoints)
-    .AddRedis(builder.Configuration["Database:Redis"]);
-
-var echoEndpoint = builder.Configuration["Graphql:Endpoint:Echo"];
+    .AddRedis(redisConnectionString);
 
 builder.Services
     .AddHealthChecksUI(opt =>
     {
-        opt.AddHealthCheckEndpoint("Gateway", gatewayUri);
-
-        if (!string.IsNullOrEmpty(echoEndpoint))
-        {
-            opt.AddHealthCheckEndpoint("EchoServerInRemoteCluster", echoEndpoint);
-        }
+        opt.AddHealthCheckEndpoint("gateway", new Uri(gatewayUri, "/health").ToString());
 
         foreach (var schemas in endpoints)
         {
+
             opt.AddHealthCheckEndpoint(schemas.Key, new Uri(schemas.Value, "/health").ToString());
         }
 
@@ -77,19 +79,6 @@ app.UseWebSockets();
 
 app.UseEndpoints(route =>
 {
-    route.MapGet("/echo", async () =>
-    {
-        var client = new HttpClient();
-        var response = await client.GetAsync(echoEndpoint);
-
-        if (response.IsSuccessStatusCode)
-        {
-            return await response.Content.ReadAsStringAsync();
-        }
-
-        return response.StatusCode.ToString();
-    });
-
     route.MapGraphQL();
     route.MapHealthChecksUI(opt => opt
         .AddCustomStylesheet("healthcheck-ui.css")

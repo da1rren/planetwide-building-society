@@ -17,17 +17,23 @@ ArgumentNullException.ThrowIfNull(connectionString);
 var keepAliveConnection = new SqliteConnection(connectionString);
 keepAliveConnection.Open();
 
+var redisConnectionString = builder.Configuration.GetConnectionString("redis")
+    ?? throw new ArgumentNullException("A redis conneciton string must be provided.");
+
+var zipkinConnectionString = builder.Configuration.GetConnectionString("zipkin")
+    ?? throw new ArgumentNullException("A zipkin conneciton string must be provided.");
+
 builder.Services.AddPooledDbContextFactory<MemberContext>(
     options => options.UseSqlite(keepAliveConnection));
 
 builder.Services.AddHealthChecks()
-    .AddRedis(builder.Configuration["Database:Redis"]);
+    .AddRedis(redisConnectionString);
 
 builder.Services
     .AddAuthorization()
     .AddHostedService<MigrationBackgroundJob>()
-    .RegisterRedis()
-    .RegisterOpenTelemetry("members.api", builder.Configuration["Database:Zipkin"]);
+    .RegisterRedis(redisConnectionString)
+    .RegisterOpenTelemetry("members.api", zipkinConnectionString);
 
 builder.Services
     .AddMemoryCache()

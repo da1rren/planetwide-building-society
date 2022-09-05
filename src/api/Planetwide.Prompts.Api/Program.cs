@@ -9,18 +9,27 @@ using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var redisConnectionString = builder.Configuration.GetConnectionString("redis")
+    ?? throw new ArgumentNullException("A redis conneciton string must be provided.");
+
+var mongoConnectionString = builder.Configuration.GetConnectionString("mongo")
+    ?? throw new ArgumentNullException("A mongo conneciton string must be provided.");
+
+var zipkinConnectionString = builder.Configuration.GetConnectionString("zipkin")
+    ?? throw new ArgumentNullException("A zipkin conneciton string must be provided.");
+
 builder.Services
-    .RegisterMongoDb(builder.Configuration["Database:Mongo"])
+    .RegisterMongoDb(mongoConnectionString)
     .AddHostedService<SeedJob>()
     .AddAuthorization()
-    .RegisterRedis()
-    .RegisterOpenTelemetry("prompts.api", builder.Configuration["Database:Zipkin"])
+    .RegisterRedis(redisConnectionString)
+    .RegisterOpenTelemetry("prompts.api", zipkinConnectionString)
     .AddMemoryCache();
 
 builder.Services
     .AddHealthChecks()
-    .AddRedis(builder.Configuration["Database:Redis"])
-    .AddMongoDb(builder.Configuration["Database:Mongo"]);
+    .AddRedis(redisConnectionString)
+    .AddMongoDb(mongoConnectionString);
 
 builder.Services
     .AddGraphQLServer()
