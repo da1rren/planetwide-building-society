@@ -1,0 +1,41 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: planetwide
+services:
+- name: planetwide-gateway
+  project: Planetwide.Gateway/Planetwide.Gateway.csproj
+  bindings:
+      - port: 5001
+
+- name: planetwide-accounts-api
+  project: Planetwide.Accounts.Api/Planetwide.Accounts.Api.csproj
+
+- name: planetwide-members-api
+  project: Planetwide.Members.Api/Planetwide.Members.Api.csproj
+
+- name: planetwide-transactions-api
+  project: Planetwide.Transactions.Api/Planetwide.Transactions.Api.csproj
+
+- name: planetwide-prompts-api
+  project: Planetwide.Prompts.Api/Planetwide.Prompts.Api.csproj
+
+- name: redis
+  image: redis
+  bindings:
+  - port: 6379
+    connectionString: "${host}:${port},abortConnect=false" 
+
+- name: mongo
+  image: mongo
+  env:
+    - name: "MONGO_INITDB_ROOT_USERNAME"
+      value: "root"
+    - name: "MONGO_INITDB_ROOT_PASSWORD"
+      value: "example"
+  bindings:
+  - port: 27017
+    connectionString: "mongodb://root:example@${host}" 
